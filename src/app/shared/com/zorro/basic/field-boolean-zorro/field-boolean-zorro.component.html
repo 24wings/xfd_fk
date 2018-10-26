@@ -1,0 +1,17 @@
+<ng-container *ngIf="mode==ModeEnum.Show">
+    <nz-switch [ngModel]="value" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate"></nz-switch>
+    <ng-template #checkedTemplate><i class="anticon anticon-check"></i></ng-template>
+    <ng-template #unCheckedTemplate><i class="anticon anticon-cross"></i></ng-template>
+
+</ng-container>
+
+
+<ng-container *ngIf="mode==ModeEnum.Create|| mode==ModeEnum.Update">
+    <nz-form-item>
+        <nz-form-label [nzRequired]="field.valid.required" style="margin-right: 49px" [nzXs]="24 " [nzSm]="4">{{field.alias || field.fieldName}}</nz-form-label>
+        <nz-form-control [nzXs]="24 " [nzSm]="16">
+            <nz-switch [(ngModel)]="value"></nz-switch>
+            <nz-form-explain>{{errMsg}}</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+</ng-container> 

@@ -1,0 +1,21 @@
+<ng-container *ngIf="mode==ModeEnum.Query">
+    <nz-form-item style="text-align:center">
+        <nz-form-label [nzRequired]="field.valid.required" [nzXs]="24" [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
+        <nz-form-control [nzXs]="23 " [nzSm]="20 " [nzValidateStatus]="validStatus" nzHasFeedback>
+            <input [type]="field.type==Types.Password?'password':'text'" [disabled]="field.readonly" style="width: 80%; " type="text" nz-input [placeholder]="field.alias || field.fieldName" [(ngModel)]="value">
+            <nz-form-explain>{{errMsg}}</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+</ng-container>
+<ng-container *ngIf="mode==ModeEnum.Show">
+    {{read(value)}}
+</ng-container>
+<ng-container *ngIf="mode==ModeEnum.Create||mode==ModeEnum.Update">
+    <nz-form-item style="text-align:center">
+        <nz-form-label [nzRequired]="field.valid.required" [nzXs]="24" [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
+        <nz-form-control [nzXs]="23 " [nzSm]="20 " [nzValidateStatus]="validStatus" nzHasFeedback>
+            <input [type]="field.type==Types.Password?'password':'text'" [disabled]="field.readonly" style="width: 80%; " type="text" nz-input [placeholder]="field.alias || field.fieldName" [(ngModel)]="value">
+            <nz-form-explain>{{errMsg}}</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+</ng-container>

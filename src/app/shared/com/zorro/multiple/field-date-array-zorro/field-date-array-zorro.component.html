@@ -1,0 +1,25 @@
+<ng-container *ngIf="mode==ModeEnum.Show">
+
+    <i nz-popover [nzContent]="contentTemplate" class="anticon anticon-info-circle"></i>
+    <!-- <ng-template #titleTemplate><i class="anticon anticon-cross"></i> Title</ng-tem·plate> -->
+    <ng-template #contentTemplate>
+        <nz-tag (nzOnClose)="clearSelectedDt(i)" [nzColor]="'green'" *ngFor="let dt of  read(value);let i=index">{{ dt}}</nz-tag>
+    </ng-template>
+
+
+</ng-container>
+<ng-container *ngIf="mode==ModeEnum.Create">
+    <nz-form-item>
+        <nz-form-label style="margin-right: 49px;" [nzXs]="24 " [nzSm]="4">{{field.alias || field.fieldName}}</nz-form-label>
+        <nz-form-control [nzXs]="24 " [nzSm]="16">
+            <div>
+                <nz-tag nzMode="checkable" [nzChecked]="true" (nzCheckedChange)="showCalander=!showCalander">{{!showCalander?"选择":"关闭"}}</nz-tag>
+
+                <nz-tag nzMode="closeable" (nzOnClose)="clearSelectedDt(i)" [nzColor]="'green'" *ngFor="let dt of read(value);let i=index">{{ dt}}</nz-tag>
+            </div>
+            <div *ngIf="showCalander" [ngStyle]="{ width: '300px', border: '1px solid #d9d9d9', borderRadius: '4px' }">
+                <nz-calendar [(ngModel)]="selectedDate" #calander nzCard (nzValueChange)="onValueChange($event)"></nz-calendar>
+            </div>
+        </nz-form-control>
+    </nz-form-item>
+</ng-container>

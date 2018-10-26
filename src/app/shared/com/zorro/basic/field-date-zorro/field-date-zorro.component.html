@@ -1,0 +1,13 @@
+<ng-container *ngIf="mode==ModeEnum.Create||mode==ModeEnum.Update">
+    <nz-form-item>
+        <nz-form-label [nzXs]="24 " [nzSm]="4" style="margin-right: 49px;">{{field.alias || field.fieldName}}</nz-form-label>
+        <nz-form-control [nzXs]="24 " [nzSm]="16 ">
+            <ng-container *ngIf="field.type==Types.Date">
+                <nz-date-picker [nzDisabled]="field.readonly" [(ngModel)]="value" [nzFormat]="dateFormat" [nzMode]="field.config.dateMode?field.config.dateMode:''" (nzOnOk)="submitChange() " nzShowTime></nz-date-picker>
+            </ng-container>
+        </nz-form-control>
+    </nz-form-item>
+</ng-container>
+<ng-container *ngIf="mode==ModeEnum.Show">
+    {{read(value)}}
+</ng-container>

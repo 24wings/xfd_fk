@@ -1,0 +1,30 @@
+<!--树 创建模板 -->
+<ng-container *ngIf="ModeEnum.Create==mode">
+    <nz-form-item>
+        <nz-form-label style="margin-right: 49px" [nzRequired]="field.valid.required" [nzXs]="24" [nzSm]="4">{{field.alias || field.fieldName}}</nz-form-label>
+        <nz-form-control [nzXs]="24" [nzSm]="16" [nzValidateStatus]="validStatus">
+            <nz-tree-select (nzTreeClick)="select($event)" [nzSize]="'large'" [(ngModel)]="value" nzShowSearch [nzNodes]="nodes" [nzShowLine]="true"></nz-tree-select>
+            <nz-form-explain>{{errMsg}}</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+</ng-container>
+<ng-container *ngIf="mode==ModeEnum.Update">
+    <nz-form-item>
+        <nz-form-label [nzXs]="24 " [nzSm]="4 " style="margin-right: 49px">{{field.alias || field.fieldName}}</nz-form-label>
+        <nz-form-control [nzXs]="24 " [nzSm]="16 ">
+            <nz-tree-select (nzTreeClick)="select($event)" [(ngModel)]="value" nzShowSearch [nzNodes]="nodes" [nzShowLine]="true"></nz-tree-select>
+        </nz-form-control>
+    </nz-form-item>
+</ng-container>
+
+<ng-container *ngIf="mode==ModeEnum.Show">
+    <!-- <nz-tree-select (nzTreeClick)="select($event)" [(ngModel)]="value" nzShowSearch [nzNodes]="nodes" [nzShowLine]="true"></nz-tree-select> -->
+    {{alias}}
+</ng-container>
+<ng-container *ngIf="mode==ModeEnum.Query">
+    <nz-tree-select (nzTreeClick)="select($event)" [(ngModel)]="value" nzShowSearch [nzNodes]="nodes" [nzShowLine]="true"></nz-tree-select>
+</ng-container>
+
+<ng-container *ngIf="mode==ModeEnum.MainShow">
+    <nz-tree [nzDefaultExpandAll]="true" (nzClick)="check($event)" [(ngModel)]="nodes" [nzShowLine]="true"></nz-tree>
+</ng-container>

@@ -1,0 +1,83 @@
+<ng-container *ngIf="metaObject.view.dynamicQueryToolbar">
+    <ng-template dynamic-host></ng-template>
+</ng-container>
+
+<ng-container *ngIf="metaObject&&state!=ModeEnum.Info&&metaObject.defaultMode!=ModeEnum.Create">
+    <div nz-row style="padding:15px 25px;">
+        <ng-container *ngIf="config.queryAttributes.length>0">
+            <!-- <app-query-attr-toolbar [showSearchButton]="false" [queryAttributes]="config.queryAttributes" #attrToolbar></app-query-attr-toolbar> -->
+        </ng-container>
+        <ng-container *ngIf="!metaObject.view.dynamicQueryToolbar">
+
+            <app-field-dynamic nz-col nzSpan="8" *ngFor="let field of queryFields" [field]="field" [mode]="ModeEnum.Query" [dataSet]="rows" [metaCom]="metaObject" (valueChange)="queryObject[field.fieldName]=$event;"></app-field-dynamic>
+        </ng-container>
+
+        <div nz-col nzSpan="8" style="text-align: center;">
+            <button nz-button (click)="query()" nzType="primary" *ngIf="queryFields.length>0">搜索</button>
+        </div>
+    </div>
+    <div>
+        <button nz-button (click)="query()" nzType="primary" *ngIf="queryFields.length<1&&!metaObject.view.dynamicQueryToolbar">刷新</button>
+        <button nz-button (click)="state=ModeEnum.Create" *ngIf="isAdd">添加</button>
+        <button nz-button [nzType]="isCheckOne?'primary':'default'" [disabled]="!isCheckOne" (click)="edit()" *ngIf="isUpdate">编辑</button>
+        <!-- <button nz-button [disabled]="isNoneCheck" nzType="danger" nz-popconfirm [nzTitle]="warningDiv" *ngIf="isDel" (nzOnConfirm)="del()">删除</button> -->
+        <button nz-button [disabled]="isNoneCheck" nzType="danger" *ngIf="isDel" (click)="showDeleteConfirm()">删除</button>
+        <ng-container *ngFor="let action of metaObject.view.toolbar">
+            <button nz-button *ngIf="checkActionPower(action.checkPower)" (click)="doCustomAction(action)" [disabled]="checkActionDisabled(action)">{{action.label}}</button>
+        </ng-container>
+    </div>
+    <ng-template #warningDiv>
+        <div style="margin:20px 40px">
+            <i class="anticon anticon-delete"></i> <span> 确认删除信息吗?</span>
+        </div>
+    </ng-template>
+    <!-- 主显 -->
+    <ng-container>
+        <!-- table表示 -->
+        <ng-container *ngIf="metaObject.view.viewType=='table' ||!metaObject.view.viewType">
+            <nz-table [nzScroll]="{x: showMetaFields.length*120+'px'}" [nzShowPagination]="false" #basicTable [nzShowPagination]="true" [nzData]="rows" [nzShowSizeChanger]="true" [nzTotal]="total" [(nzPageSize)]="pageSize" [nzPageSizeOptions]="getPage()">
+                <thead>
+                    <tr>
+                        <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+                        <th *ngFor="let field of showMetaFields" [nzWidth]="field.displayWidth?field.displayWidth+'px':100">{{field.alias || field.fieldName}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of rows">
+                        <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus($event)"></td>
+                        <td *ngFor="let field of showMetaFields">
+                            <ng-container [ngSwitch]="field.type">
+                                <app-field-dynamic *ngSwitchDefault [metaCom]="metaObject" [mode]="ModeEnum.Show" [field]="field" [value]="data[field.fieldName]"></app-field-dynamic>
+                            </ng-container>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+            <nz-pagination [nzPageIndex]="page" [nzPageSize]="pageSize" (nzPageIndexChange)="queryPage($event)" [nzTotal]="total"></nz-pagination>
+        </ng-container>
+
+        <!-- 树形显示 -->
+        <ng-container *ngIf="metaObject.view.viewType=='tree'">
+            <ng-container>
+                <!-- <app-field-dynamic  [metaCom]="metaObject" [mode]="ModeEnum.Show" [field]="field" [value]="data[field.fieldName]" (valueChange)="changeProp($event,field.fieldName)"></app-field-dynamic> -->
+                <!-- <field-ref-tree-many-zorro [metaCom]="metaObject" [field]="getTreeField(metaObject)" [mode]="ModeEnum.MainShow" [value]="rows" [dataSet]="dataSet"></field-ref-tree-many-zorro> -->
+                <!-- <field-ref-tree-zorro></field-ref-tree-zorro> -->
+                <app-field-dynamic [field]="getTreeField(metaObject)" [mode]="ModeEnum.MainShow" [dataSet]="rows" [metaCom]="metaObject" (onAction)="doAction($event)"></app-field-dynamic>
+            </ng-container>
+            <!-- <app-field-ref-tree [dataSet]="dataSet" (checked)="treeChecked($event)" [value]="dataSet" [mode]="ModeEnum.MainShow" [metaObject]="metaObject" [metaField]="getTreeField(metaObject)"></app-field-ref-tree> -->
+        </ng-container>
+    </ng-container>
+</ng-container>
+
+<nz-drawer *ngIf="appConfig.createMode=='Drawer'" style="margin-right:400px;" [nzBodyStyle]="{height: 'calc(100vh - 53px)', overflow: 'auto', 'padding-bottom':'53px' }" [nzPlacement]="'right'" [nzWidth]="730" [nzVisible]="state==ModeEnum.Create||state==ModeEnum.Update"
+    [nzTitle]="state==ModeEnum.Create? '添加':'更新'" (nzOnClose)="state=ModeEnum.Show;createCancel()">
+    <ng-container *ngIf="!metaObject.dynamicEditor">
+        <meta-editor (onAction)="doAction($event)" [metaCom]="metaObject" (onAction)="doAction($event)" [selectedData]="selectedData" [mode]="state" *ngIf="state==ModeEnum.Create||state==ModeEnum.Update"></meta-editor>
+    </ng-container>
+    <ng-container *ngIf="metaObject.dynamicEditor">
+        <ng-template dynamic-editor-host></ng-template>
+    </ng-container>
+</nz-drawer>
+<nz-modal *ngIf="appConfig.createMode=='Modal'" [nzVisible]="state==ModeEnum.Create||state==ModeEnum.Update" [nzTitle]="state==ModeEnum.Create? '添加':'更新'" (nzOnCancel)="state=ModeEnum.Show;createCancel()" (nzOnOk)="state=ModeEnum.Show;createCancel()">
+    <meta-editor [metaCom]="metaObject" (onAction)="doAction($event)" [selectedData]="selectedData" [mode]="state" *ngIf="state==ModeEnum.Create||state==ModeEnum.Update"></meta-editor>
+</nz-modal>

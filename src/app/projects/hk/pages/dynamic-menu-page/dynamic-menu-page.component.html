@@ -1,0 +1,13 @@
+<ng-container *ngIf="metaObject">
+    <app-meta-object (onAction)="doAction($event)" [metaObject]="metaObject" [power]="power"></app-meta-object>
+</ng-container>
+<!-- 自定义的创建 -->
+<ng-container *ngIf="orderCreateMetaCom">
+    <app-meta-object (onAction)="orderCreateAction($event)" [metaObject]="orderCreateMetaCom" [power]="power"></app-meta-object>
+</ng-container>
+<nz-modal nzTitle="选择通知种类" [nzVisible]="selectReasonVisible" (nzOnCancel)="selectReasonVisible=false" (nzOnOk)="selectReasonVisible=false;createNotify()">
+    <nz-radio-group [(ngModel)]="radioValue">
+        <label nz-radio [ngStyle]="style" [nzValue]="reason" *ngFor="let reason of reasons">{{reason}}</label>
+    </nz-radio-group>
+    <textarea rows="4" nz-input [(ngModel)]="radioValue"></textarea>
+</nz-modal>

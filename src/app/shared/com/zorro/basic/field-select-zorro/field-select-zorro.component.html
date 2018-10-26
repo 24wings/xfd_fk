@@ -1,0 +1,36 @@
+<!-- 显示模式 -->
+<ng-container *ngIf="mode==ModeEnum.Show">
+    {{getAlias(value)}}
+</ng-container>
+
+<!-- 查询模式 -->
+<ng-container *ngIf="mode==ModeEnum.Query">
+    <nz-select [(ngModel)]="value">
+        <nz-option [nzLabel]="option.alias" [nzValue]="option.value" *ngFor="let option of options"></nz-option>
+    </nz-select>
+</ng-container>
+
+<!-- 新增模式 -->
+<ng-container *ngIf="mode==ModeEnum.Create">
+    <nz-form-item>
+        <nz-form-label style="margin-right: 50px !important" [nzXs]="24 " [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
+        <nz-form-control [nzXs]="24 " [nzSm]="16">
+            <nz-select [(ngModel)]="value" [nzDisabled]="field.readonly">
+                <nz-option [nzLabel]="option.alias" [nzValue]="option.value" *ngFor="let option of options"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+
+</ng-container>
+
+<!-- 更新 -->
+<ng-container *ngIf="mode==ModeEnum.Update">
+    <nz-form-item>
+        <nz-form-label [nzXs]="24 " [nzSm]="4" style="margin-right: 49px">{{field.alias || field.fieldName}}</nz-form-label>
+        <nz-form-control [nzXs]="24 " [nzSm]="16">
+            <nz-select [(ngModel)]="value" [nzDisabled]="field.readonly">
+                <nz-option [nzLabel]="option.alias" [nzValue]="option.value" *ngFor="let option of options"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+</ng-container>

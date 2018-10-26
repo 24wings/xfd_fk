@@ -1,0 +1,35 @@
+<ng-container *ngIf="mode==ModeEnum.Create">
+    <div nz-row nzGutter="8">
+        <ng-container *ngFor="let field of requiredFields;let i= index">
+            <ng-container [ngSwitch]="field.type">
+                <app-field-dynamic [dataSet]="dataSet" *ngSwitchDefault [metaCom]="metaCom" [mode]="ModeEnum.Create" [field]="field" [value]="newDataItem[field.fieldName]" (valueChange)="changeProp($event,field.fieldName)" (doAction)="doAction($event)"></app-field-dynamic>
+            </ng-container>
+        </ng-container>
+    </div>
+    <div style="display: flex;text-align: center;margin-top:40px;">
+        <div style="flex:1" *ngFor="let action of currentCreateState.actions">
+            <button nz-button [nzType]="action.nzType" (click)="createFlowTo(action)">{{action.label}}</button>
+        </div>
+    </div>
+</ng-container>
+
+<!-- 更新模态框 -->
+<ng-container *ngIf="mode==ModeEnum.Update">
+    <!-- <nz-drawer style="margin-right:400px;" [nzBodyStyle]="{height: 'calc(100vh - 53px)', overflow: 'auto', 'padding-bottom':'53px' }" [nzPlacement]="'right'" [nzWidth]="600" [nzVisible]="mode==ModeEnum.Update" [nzTitle]="'更新'" (nzOnClose)="state=ModeEnum.Show;createCancel()"> -->
+    <!-- <nz-modal [nzVisible]="ModeEnum.Update==state" [nzOkLoading]="isLoading" [nzWidth]="'880px'" [nzTitle]="'添加'" (nzOnCancel)="state=ModeEnum.Query" (nzOnOk)="add()"> -->
+    <ng-container *ngFor="let field of updateFields;let i= index">
+        <ng-container [ngSwitch]="field.type">
+            <app-field-dynamic [dataSet]="dataSet" *ngSwitchDefault [metaCom]="metaCom" [mode]="ModeEnum.Update" [field]="field" [value]="selectedData[field.fieldName]" (valueChange)="changeSelectProp($event,field.fieldName)"></app-field-dynamic>
+        </ng-container>
+    </ng-container>
+    <!-- </nz-modal> -->
+    <div style="display: flex;text-align: center;margin-top:40px;">
+        <div style="flex:1">
+            <button nz-button [nzType]="'default'" (click)="updateCancel()">取消</button>
+        </div>
+        <div style="flex:1">
+            <button nz-button [nzType]="'primary'" (click)="update()">更新</button>
+        </div>
+    </div>
+    <!-- </nz-drawer> -->
+</ng-container>

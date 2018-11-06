@@ -9,9 +9,13 @@ import { IMetaNotify } from "./IMetaNotify";
 import { IAction } from "./Action";
 import { Flow } from "./Flow";
 import { EntityEnum } from "app/entity.enum";
+import { ISummary } from "./Summary";
 
 
 export class MetaCom {
+    hideCheckbox?: boolean;
+    firstLoad?: boolean;
+    summarys?: ISummary[]
     database?: string;
     defaultNewDataItem?: any;
     flow?: { create?: Flow, update?: Flow };

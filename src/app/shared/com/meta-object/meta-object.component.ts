@@ -31,6 +31,8 @@ import { ICustomAction } from '@core/util/meta/IToolbar';
 import { EditorDirective } from 'app/editor.direcive';
 import { MetaEditorComponent } from './meta-editor/meta-editor.component';
 import { FieldDynamicComponent } from './field-dynamic/field-dynamic.component';
+import { GroupOptions, IGroup } from '@core/util/meta/Group';
+import { ISummary } from '@core/util/meta/Summary';
 
 @Component({
   selector: 'app-meta-object',
@@ -42,6 +44,7 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
   private __metaCom__: MetaCom;
   Types = Types;
   isLoading: boolean = false;
+  showCheckbox: boolean = false;
   @ViewChild(DynamicDirective) dynamic: DynamicDirective;
   @ViewChild(EditorDirective) dynamicEditor: EditorDirective;
   @ViewChildren(FieldDynamicComponent) queryDynamicFieldComponentList: QueryList<FieldDynamicComponent>;
@@ -50,6 +53,8 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
   selectedData: any = {};
   updateFlow: MetaCom;
   rows: any[] = [];
+  totalSummary = {};
+  summarys: ISummary[] = [];
   @Output() onAction = new EventEmitter();
   @Input() power: number;
   getTreeField(metaObject: MetaCom): Field {
@@ -74,11 +79,12 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
   isAdd: boolean = false;
   isQuery: boolean = true;
   loadDynamicToolbarComponent() {
+
     let componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.metaObject.view.dynamicQueryToolbar as any);
     let viewContainerRef = this.dynamic.viewContainerRef;
     viewContainerRef.clear();
     this.componentRef = viewContainerRef.createComponent(componentFactory) as any;
-    this.componentRef.instance.queryResult.subscribe(rtn => { this.rows = rtn.rows, this.total = rtn.count });
+    this.componentRef.instance.queryResult.subscribe(rtn => { this.rows = rtn.rows; this.total = rtn.count; this.totalSummary = rtn.summary });
 
     // if (this.componentRef.instance['onAction']) this.componentRef.instance['onAction'].subscribe(rtn => this.doAction(rtn));
     this.componentRef.instance.metaCom = this.metaObject;
@@ -110,7 +116,9 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
   displayData = [];
   allChecked: boolean = false;
   indeterminate: boolean = false;
-
+  groupFields: { alias: string, fieldName: string }[] = [];
+  groupOptions: GroupOptions
+  groupDatas: IGroup[] = [];
   ngAfterViewInit() {
     if (this.metaObject.view.dynamicQueryToolbar) {
       this.loadDynamicToolbarComponent()
@@ -119,14 +127,34 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
       this.loadDynamicEditorComponent()
     }
   }
+  groupBy(array, f) {
+    const groups = {};
+    array.forEach(function (o) {
+      const group = JSON.stringify(f(o));
+      groups[group] = groups[group] || [];
+      groups[group].push(o);
+    });
+    return Object.keys(groups).map(function (group) {
+      return groups[group];
+    });
+  }
   @Input() set metaObject(meta: MetaCom) {
     meta.isEntity = true;
     meta.metaFields.forEach(field => field.state ? field.state : field.state = {})
     if (meta.defaultMode) this.state = meta.defaultMode;
     this.__metaCom__ = meta;
+    let groupField = this.metaObject.metaFields.find(field => !!field.groupOptions);
+    if (groupField) this.groupOptions = groupField.groupOptions;
+
+    this.summarys = [];
+    console.log(this.__metaCom__)
+    this.__metaCom__.metaFields.forEach(field => field.summarys ? this.summarys.push(...field.summarys) : '');
+    console.log(this.summarys)
+
     if (this.state == ModeEnum.Info) {
       this.query()
     }
+
     this.isAdd = checkPower(C, this.power);
     this.isDel = checkPower(D, this.power);
     this.isUpdate = checkPower(U, this.power);
@@ -176,7 +204,7 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
     }
     debugger;
   }
-
+  expand
   constructor(
     public appConfig: AppConfig,
     public dev: DevService,
@@ -200,14 +228,21 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
   }
 
   async ngOnInit() {
+    this.showCheckbox = !this.__metaCom__.hideCheckbox
 
-    this.query();
+    if (this.__metaCom__.firstLoad) {
+      console.warn(this.__metaCom__);
+      this.query();
+    }
   }
   currentPageDataChange($event: Array<{ name: string; age: number; address: string; checked: boolean; disabled: boolean; }>): void {
     this.displayData = $event;
     this.refreshStatus();
   }
-
+  getSummaryAlias(field: Field) {
+    let summary = this.summarys.find(summary => summary.fieldName == field.fieldName);
+    if (summary) return summary.alias
+  }
   refreshStatus(): void {
     const allChecked = this.displayData.filter(value => !value.disabled).every(value => value.checked === true);
     const allUnChecked = this.displayData.filter(value => !value.disabled).every(value => !value.checked);
@@ -257,6 +292,11 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
       let checkedData = this.rows.find(row => (Object.assign(new this.metaObject.originClass(), row) as AbstractTree<any>).getId() == tree.getId());
       this.rows.forEach(row => row.checked = false);
       if (checkedData) checkedData.checked = $event.checked;
+      if (this.groupOptions) {
+        let groups = this.groupBy(this.rows, (item) => item[this.groupOptions.fields[0].fieldName]);
+        console.log(groups);
+        debugger;
+      }
 
     }
     if ($event instanceof CreateSuccessActionEvent) {
@@ -265,6 +305,7 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
     }
     if ($event instanceof UpdateCancelActionEvent) {
       this.state = ModeEnum.Show;
+      this.query()
     }
     if ($event instanceof UpdateSuccessActionEvent) {
       this.state = ModeEnum.Show;
@@ -284,8 +325,17 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
     this.onAction.emit(Object.assign(new CustomActionEvent(), { metaCom: this.metaObject, data: checkedData, eventName: action.eventName } as CustomActionEvent<any>))
   }
   async queryPage(num) {
-    this.page = num;
-    this.query()
+    if (this.__metaCom__.firstLoad) {
+      this.page = num;
+      if (this.componentRef) {
+        this.componentRef.instance.query(num - 1);
+      } else {
+        this.query();
+
+      }
+    } else {
+      this.__metaCom__.firstLoad = true;
+    }
   }
   async  query(q?) {
 
@@ -297,13 +347,8 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
       queryObject = Object.assign(JSON.parse(JSON.stringify(queryObject)), q);
     }
     let preset = QueryObject.toQueryContions(queryObject);
+
     conditions.push(...preset);
-    // if (this.metaObject.isEntity) {
-    // let result = await this.commonService.singleTableQueryPageParameter(this.metaObject.objectCode as any, {
-    // queryAttributes: attrs,
-    // queryConditions: conditions,
-    // pageParameter: { pageIndex: this.page - 1, pageSize: 1000, }
-    // })
     let queryParam = new QueryParam();
     let orderList = this.metaObject.metaFields.filter(field => field.sort).map(field => { return { fieldName: field.fieldName, sort: field.sort } });
     if (orderList.length > 0) {
@@ -315,7 +360,16 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
 
     this.rows = result.paging.rows;
     this.total = result.paging.count;
-    // }
+    if (this.groupOptions) {
+      let groups: any[][] = this.groupBy(this.rows, (item) => item[this.groupOptions.fields[0].fieldName]);
+      this.groupDatas = groups.map(group => {
+        let item: IGroup = { data: {} } as any;
+        item.data[this.groupOptions.fields[0].fieldName] = group[0][this.groupOptions.fields[0].fieldName];
+        item.children = group;
+        return item;
+      });
+      console.log(groups);
+    }
   }
 
   getPage() {

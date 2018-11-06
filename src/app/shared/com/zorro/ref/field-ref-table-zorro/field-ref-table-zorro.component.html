@@ -1,11 +1,16 @@
 <ng-container *ngIf="mode==ModeEnum.Show">
     {{read(value)}}
 </ng-container>
-<ng-container *ngIf="mode==ModeEnum.Create">
+<ng-container *ngIf="mode==ModeEnum.Create||mode==ModeEnum.Update">
     <nz-form-item *ngIf="!value">
         <nz-form-label style="margin-right: 49px;" [nzRequired]="field.valid.required" [nzXs]="24 " [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
         <nz-form-control [nzXs]="24 " [nzSm]="16" [nzValidateStatus]="validStatus" nzHasFeedback>
-            <input type="text" [(ngModel)]="keyword" nz-input (keyup.enter)="selecting = true;query()" *ngIf="!value">
+            <nz-input-group nzSearch [nzSuffix]="suffixIconButton">
+                <input type="text" *ngIf="!value" nz-input [placeholder]="field.alias" [(ngModel)]="keyword" (keyup.enter)="selecting = true;query()">
+            </nz-input-group>
+            <ng-template #suffixIconButton>
+                <button nz-button nzType="primary" nzSearch (click)="selecting = true;query()"><i nz-icon type="search"></i> 搜索</button>
+            </ng-template>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item *ngIf="value">
@@ -50,4 +55,5 @@
             </tr>
         </tbody>
     </nz-table>
+
 </nz-drawer>

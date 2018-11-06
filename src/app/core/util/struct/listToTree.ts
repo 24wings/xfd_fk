@@ -41,6 +41,7 @@ export function listToNzTreeNode<T>(list: AbstractTree<T>[]): NzTreeNode[] {
                 isLeaf: child.children.length < 1,
                 disabled: !!child['disabled'],
                 disableCheckbox: !!child['disabled'],
+                isSelected: !!child.selected,
             }
         }) as any;
     }
@@ -55,8 +56,9 @@ export function listToNzTreeNode<T>(list: AbstractTree<T>[]): NzTreeNode[] {
             children: tree.children as any,
             origin: tree,
             checked: !!tree.checked,
+            isSelected: !!tree.selected,
+            isMatched: !!tree.selected,
             disableCheckbox: !!tree['disabled'],
-
             disabled: !!tree['disabled']
         })
 

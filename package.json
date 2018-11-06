@@ -32,7 +32,9 @@
         "test": "ng test --watch",
         "test-coverage": "ng test --code-coverage --watch=false",
         "color-less": "node scripts/color-less.js",
-        "github-build": "ng build --prod --base-href \"https://24wings.github.io/xfd_fk/\""
+        "github-build": "ng build --prod --base-href \"https://24wings.github.io/xfd_fk/\"",
+        "deploy": "scp -P 28489 -r /Users/yangjie/Documents/workspace/fxd/fxd/ root@104.224.150.203:/var/www/html",
+        "dp": "scp -P 28489 -r /Users/yangjie/Documents/workspace/fxd/fxd.zip root@104.224.150.203:/var/www/html"
     },
     "dependencies": {
         "@angular/animations": "^6.1.0",

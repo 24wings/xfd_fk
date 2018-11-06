@@ -32,52 +32,99 @@
         </div>
     </ng-template>
     <!-- 主显 -->
-    <ng-container>
-        <!-- table表示 -->
-        <ng-container *ngIf="metaObject.view.viewType=='table' ||!metaObject.view.viewType">
+    <!-- table表示 -->
+    <ng-container *ngIf="metaObject.view.viewType=='table' ||!metaObject.view.viewType">
+        <!-- 分组表示 -->
+        <ng-container *ngIf="groupOptions">
+            <nz-table #nestedTable [nzData]="rows" [nzShowPagination]="false" [nzShowPagination]="true" [nzPageSize]="10">
+                <thead>
+                    <tr>
+                        <th nzShowExpand *ngIf="showCheckbox"></th>
+                        <th *ngFor="let field of groupOptions.fields ">{{field.alias}}</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let groupData of groupDatas">
+                        <tr>
+                            <td nzShowExpand [(nzExpand)]="groupData.expand" *ngIf="showCheckbox"></td>
+                            <td *ngFor="let field of groupOptions.fields">{{groupData.data[field.fieldName]}}</td>
+                        </tr>
+                        <tr [nzExpand]="groupData.expand">
+                            <td></td>
+                            <td>
+                                <nz-table [nzScroll]="{x: showMetaFields.length*120+'px'}" [nzShowPagination]="false" #basicTable [nzShowPagination]="true" [nzData]="rows" [nzShowSizeChanger]="true" [nzTotal]="total" [(nzPageSize)]="pageSize" [nzPageSizeOptions]="getPage()">
+                                    <thead>
+                                        <tr>
+                                            <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+                                            <th *ngFor="let field of showMetaFields" [nzWidth]="field.displayWidth?field.displayWidth+'px':100">{{field.alias || field.fieldName}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of groupData.children">
+                                            <td [nzIndentSize]="data.indentSize" nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus($event)"></td>
+                                            <td *ngFor="let field of showMetaFields">
+                                                <ng-container [ngSwitch]="field.type">
+                                                    <app-field-dynamic *ngSwitchDefault [metaCom]="metaObject" [mode]="ModeEnum.Show" [field]="field" [value]="data[field.fieldName]"></app-field-dynamic>
+                                                </ng-container>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </nz-table>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </nz-table>
+
+        </ng-container>
+        <!-- 不分组表示 -->
+        <ng-container *ngIf="!groupOptions">
             <nz-table [nzScroll]="{x: showMetaFields.length*120+'px'}" [nzShowPagination]="false" #basicTable [nzShowPagination]="true" [nzData]="rows" [nzShowSizeChanger]="true" [nzTotal]="total" [(nzPageSize)]="pageSize" [nzPageSizeOptions]="getPage()">
                 <thead>
                     <tr>
-                        <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+                        <th *ngIf="showCheckbox" nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
                         <th *ngFor="let field of showMetaFields" [nzWidth]="field.displayWidth?field.displayWidth+'px':100">{{field.alias || field.fieldName}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let data of rows">
-                        <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus($event)"></td>
+                        <td *ngIf="showCheckbox" nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus($event)"></td>
                         <td *ngFor="let field of showMetaFields">
                             <ng-container [ngSwitch]="field.type">
                                 <app-field-dynamic *ngSwitchDefault [metaCom]="metaObject" [mode]="ModeEnum.Show" [field]="field" [value]="data[field.fieldName]"></app-field-dynamic>
                             </ng-container>
                         </td>
                     </tr>
+                    <tr *ngIf="summarys.length>0">
+                        <td style="text-align: center;font-weight: 600;color:red" *ngIf="showCheckbox">合计</td>
+                        <td *ngFor="let field of showMetaFields" style="color:red;font-weight: 600;">{{getSummaryAlias(field)}}{{totalSummary[field.fieldName]}}</td>
+                    </tr>
                 </tbody>
+
+
             </nz-table>
+
+
             <nz-pagination [nzPageIndex]="page" [nzPageSize]="pageSize" (nzPageIndexChange)="queryPage($event)" [nzTotal]="total"></nz-pagination>
         </ng-container>
-
-        <!-- 树形显示 -->
-        <ng-container *ngIf="metaObject.view.viewType=='tree'">
-            <ng-container>
-                <!-- <app-field-dynamic  [metaCom]="metaObject" [mode]="ModeEnum.Show" [field]="field" [value]="data[field.fieldName]" (valueChange)="changeProp($event,field.fieldName)"></app-field-dynamic> -->
-                <!-- <field-ref-tree-many-zorro [metaCom]="metaObject" [field]="getTreeField(metaObject)" [mode]="ModeEnum.MainShow" [value]="rows" [dataSet]="dataSet"></field-ref-tree-many-zorro> -->
-                <!-- <field-ref-tree-zorro></field-ref-tree-zorro> -->
-                <app-field-dynamic [field]="getTreeField(metaObject)" [mode]="ModeEnum.MainShow" [dataSet]="rows" [metaCom]="metaObject" (onAction)="doAction($event)"></app-field-dynamic>
-            </ng-container>
-            <!-- <app-field-ref-tree [dataSet]="dataSet" (checked)="treeChecked($event)" [value]="dataSet" [mode]="ModeEnum.MainShow" [metaObject]="metaObject" [metaField]="getTreeField(metaObject)"></app-field-ref-tree> -->
+    </ng-container>
+    <!-- 树形显示 -->
+    <ng-container *ngIf="metaObject.view.viewType=='tree'">
+        <ng-container>
+            <app-field-dynamic [field]="getTreeField(metaObject)" [mode]="ModeEnum.MainShow" [dataSet]="rows" [metaCom]="metaObject" (onAction)="doAction($event)"></app-field-dynamic>
         </ng-container>
     </ng-container>
-</ng-container>
 
-<nz-drawer *ngIf="appConfig.createMode=='Drawer'" style="margin-right:400px;" [nzBodyStyle]="{height: 'calc(100vh - 53px)', overflow: 'auto', 'padding-bottom':'53px' }" [nzPlacement]="'right'" [nzWidth]="730" [nzVisible]="state==ModeEnum.Create||state==ModeEnum.Update"
-    [nzTitle]="state==ModeEnum.Create? '添加':'更新'" (nzOnClose)="state=ModeEnum.Show;createCancel()">
-    <ng-container *ngIf="!metaObject.dynamicEditor">
-        <meta-editor (onAction)="doAction($event)" [metaCom]="metaObject" (onAction)="doAction($event)" [selectedData]="selectedData" [mode]="state" *ngIf="state==ModeEnum.Create||state==ModeEnum.Update"></meta-editor>
-    </ng-container>
-    <ng-container *ngIf="metaObject.dynamicEditor">
-        <ng-template dynamic-editor-host></ng-template>
-    </ng-container>
-</nz-drawer>
-<nz-modal *ngIf="appConfig.createMode=='Modal'" [nzVisible]="state==ModeEnum.Create||state==ModeEnum.Update" [nzTitle]="state==ModeEnum.Create? '添加':'更新'" (nzOnCancel)="state=ModeEnum.Show;createCancel()" (nzOnOk)="state=ModeEnum.Show;createCancel()">
-    <meta-editor [metaCom]="metaObject" (onAction)="doAction($event)" [selectedData]="selectedData" [mode]="state" *ngIf="state==ModeEnum.Create||state==ModeEnum.Update"></meta-editor>
-</nz-modal>
+    <nz-drawer *ngIf="appConfig.createMode=='Drawer'" style="margin-right:400px;" [nzBodyStyle]="{height: 'calc(100vh - 53px)', overflow: 'auto', 'padding-bottom':'53px' }" [nzPlacement]="'right'" [nzWidth]="730" [nzVisible]="state==ModeEnum.Create||state==ModeEnum.Update"
+        [nzTitle]="state==ModeEnum.Create? '添加':'更新'" (nzOnClose)="state=ModeEnum.Show;createCancel()">
+        <ng-container *ngIf="!metaObject.dynamicEditor">
+            <meta-editor (onAction)="doAction($event)" [metaCom]="metaObject" (onAction)="doAction($event)" [selectedData]="selectedData" [mode]="state" *ngIf="state==ModeEnum.Create||state==ModeEnum.Update"></meta-editor>
+        </ng-container>
+        <ng-container *ngIf="metaObject.dynamicEditor">
+            <ng-template dynamic-editor-host></ng-template>
+        </ng-container>
+    </nz-drawer>
+    <nz-modal *ngIf="appConfig.createMode=='Modal'" [nzVisible]="state==ModeEnum.Create||state==ModeEnum.Update" [nzTitle]="state==ModeEnum.Create? '添加':'更新'" (nzOnCancel)="state=ModeEnum.Show;createCancel()" (nzOnOk)="state=ModeEnum.Show;createCancel()">
+        <meta-editor [metaCom]="metaObject" (onAction)="doAction($event)" [selectedData]="selectedData" [mode]="state" *ngIf="state==ModeEnum.Create||state==ModeEnum.Update"></meta-editor>
+    </nz-modal>

@@ -29,6 +29,7 @@ export class OrderQueryComponent extends CustomQueryToolbarComSpec implements On
     if (this.cardNo) {
       queryParam.queryConditions.push({ field: "cardNo", value: this.cardNo, andOr: "and", compare: "like" });
     }
+    queryParam.pageParam = { pageIndex: 0, pageSize: 10 };
     if (this.dateRange.length > 1) {
       queryParam.queryConditions.push({ field: "createTime", value: this.dateRange[0].format('yyyy-MM-dd hh:mm'), compare: ">", andOr: "and" })
       queryParam.queryConditions.push({ field: "createTime", value: this.dateRange[1].format('yyyy-MM-dd hh:mm'), compare: "<", andOr: "and" })

@@ -33,4 +33,11 @@ export class Member {
     password?: string | any;
     /** 前端字段 */
     orgId?: number | any;
+
+
+    // 前端冗余字段 充值
+    recharge?: number;
+    // 前端,消费
+    money?: number
+
 }

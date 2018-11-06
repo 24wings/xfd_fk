@@ -10,15 +10,12 @@ import { OrderBy } from "@core/util/meta/OrderBy";
 export class ResetRecord {
     @ID()
     @Prop("ID", { power: 0 })
-    id: number;
+    id?: number;
     @OrderBy("DESC")
     @Adapter({ read: (dt: Date) => dt && dt instanceof Date ? dt.format('yyyy年MM月dd日') : new Date(dt).format('yyyy-MM-dd hh:mm') })
     @Prop("操作时间", { power: S })
     createTime: Date;
     // @Prop("关联人员", { power: S })
-    relationMemberNames: string;
-    @Prop("金额")
-    amount: number;
     @Prop("操作员", { power: S })
     operatorName: string;
     // @Prop("操作员编号", { power: S })

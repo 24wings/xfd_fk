@@ -9,7 +9,10 @@ export const metaKey = Symbol("metaId");
  * @param value 
  */
 export function MetaEntity(value?: MetaCom) {
-    let defaultMetaObject: MetaCom = { power: 0, data: { customUrl: {}, presetObject: {} }, view: {} } as MetaCom;
+    let defaultMetaObject: MetaCom = { power: 0, data: { customUrl: {}, presetObject: {} }, view: {}, firstLoad: true } as MetaCom;
+    if (value.firstLoad == false) {
+        defaultMetaObject.firstLoad = false;
+    }
     if (value) {
         if (value.data) {
             if (value.data.customUrl) {
@@ -18,8 +21,6 @@ export function MetaEntity(value?: MetaCom) {
             if (value.data.presetObject) {
                 defaultMetaObject.data.presetObject = value.data.presetObject;
             }
-
-
         }
         if (value.power != null) {
             defaultMetaObject.power = value.power;
@@ -27,6 +28,7 @@ export function MetaEntity(value?: MetaCom) {
         if (value) {
             value = Object.assign(value, defaultMetaObject);
         }
+
     }
     else value = <MetaCom>defaultMetaObject;
     return (target: any) => {
@@ -40,7 +42,6 @@ export function MetaEntity(value?: MetaCom) {
             }
             value.view.treeClass = target;
         }
-
         if (!value.objectName) value.objectName = target.name;
         value.originClass = target;
         Reflect.defineMetadata(metaKey, value, target)

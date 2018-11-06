@@ -1,21 +1,27 @@
 <ng-container *ngIf="mode==ModeEnum.Show">
     {{read(value)}}
+
 </ng-container>
-<ng-container *ngIf="mode==ModeEnum.Create">
+<ng-container *ngIf="mode==ModeEnum.Create||mode==ModeEnum.Update">
     <nz-form-item *ngIf="!value">
         <nz-form-label style="margin-right: 49px;" [nzRequired]="field.valid.required" [nzXs]="24 " [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
-        <nz-form-control [nzXs]="24 " [nzSm]="16" [nzValidateStatus]="validStatus" nzHasFeedback>
-            <input type="text" [(ngModel)]="keyword" nz-input (keyup.enter)="selecting = true;query()" *ngIf="!value">
+        <nz-form-control [nzXs]="24 " [nzSm]="16" [nzValidateStatus]="validStatus">
+            <!-- <input type="text" [(ngModel)]="keyword" nz-input (keyup.enter)="selecting = true;query()" *ngIf="!value"> -->
+            <nz-input-group nzSearch [nzSuffix]="suffixIconButton">
+                <input type="text" nz-input [placeholder]="field.alias" [(ngModel)]="keyword" (keyup.enter)="selecting = true;query()">
+            </nz-input-group>
+            <ng-template #suffixIconButton>
+                <button nz-button nzType="primary" nzSearch (click)="selecting = true;query()"><i nz-icon type="search"></i>搜索</button>
+            </ng-template>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item *ngIf="value">
         <nz-form-label style="margin-right: 49px;" [nzRequired]="field.valid.required" [nzXs]="24 " [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
         <nz-form-control [nzXs]="24 " [nzSm]="16">
-            <span *ngIf="value">
-                <nz-tag nzMode="closeable" [nzColor]="'green'" (nzOnClose)="value=null" [nzChecked]="true"  *ngFor="let obj of read(value)">{{obj}}</nz-tag>
-                        </span>
+            <nz-tag nzMode="closeable" *ngFor="let tag of read(value);let i= index" [nzColor]="'green'" (nzOnClose)="clearSelected(i)" [nzChecked]="true">{{ tag}}</nz-tag>
         </nz-form-control>
     </nz-form-item>
+
 </ng-container>
 
 <ng-container *ngIf="selecting">
@@ -45,13 +51,13 @@
             <thead>
                 <tr>
                     <th nzShowCheckbox [nzDisabled]="true"></th>
-                    <th *ngFor="let field of metaCom.metaFields">{{field.alias || field.fieldName}}</th>
+                    <th *ngFor="let field of filterTable(metaCom.metaFields)">{{field.alias || field.fieldName}}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let data of dataSet;let i=index;" (click)="checked(data)">
                     <td nzShowCheckbox [nzChecked]="data.checked"></td>
-                    <td *ngFor="let field of metaCom.metaFields">{{ read(data[field.fieldName],field) }}</td>
+                    <td *ngFor="let field of filterTable(metaCom.metaFields)">{{ read(data[field.fieldName],field) }}</td>
                 </tr>
             </tbody>
         </nz-table>

@@ -4,13 +4,18 @@ import { FieldType } from "./types/indext";
 import { Valid } from "./Valid";
 import { Transform } from "./Transform";
 import { Flow } from "./Flow";
+import { GroupOptions } from "./Group";
+import { ISummary } from "./Summary";
 
 /**
  * queryTemplate
  * 元数据
  */
 export class Field {
+    /**分组选项 */
+    groupOptions?: GroupOptions;
     isPk?: boolean;
+    summarys?: ISummary[];
     flow?: { create?: Flow, update?: Flow };
     state?: { create?: string, update?: string };
     id?: number;

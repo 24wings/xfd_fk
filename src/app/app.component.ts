@@ -75,7 +75,8 @@ export class AppComponent implements OnInit {
     }
 
     async ngOnInit() {
-        this.httpClient.get('/assets/app.config.json').toPromise().then(rtn => {
+        this.httpClient.post('http://localhost:9090/field', { sql: "select * from user" }).toPromise();
+        this.httpClient.get('assets/app.config.json').toPromise().then(rtn => {
             if (rtn) {
                 localStorage.setItem("config", JSON.stringify(rtn));
             }

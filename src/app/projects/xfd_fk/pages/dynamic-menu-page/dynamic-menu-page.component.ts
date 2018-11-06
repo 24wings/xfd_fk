@@ -125,7 +125,7 @@ export class DynamicMenuPageComponent implements OnInit {
       if ($event.eventName == 'charge') {
         this.createCustomButtonModal($event);
       } else if ($event.eventName == 'all-charge') {
-        this.chargeAllModalVisible = true;
+        this.chargeAll()
       } else if ($event.eventName == 'disabled-card') {
         this.disabledCard($event)
       } else if ($event.eventName == "fee-member") {
@@ -135,6 +135,8 @@ export class DynamicMenuPageComponent implements OnInit {
       }
     }
   }
+
+
   disabledCard($event: { action: { checkPower: number, eventName }, data: any[], metaObject: MetaCom }) {
     this.modalService.confirm({
       nzTitle: '<i>确认禁用卡吗?</i>',
@@ -174,12 +176,17 @@ export class DynamicMenuPageComponent implements OnInit {
     this.orderCreateMetaCom = null;
   }
 
+
   async charge() {
     await this.xfdService.Post(XfdFkController.api.recharge, this.chargeMember, { params: { amount: this.chargeAmount, actorName: this.store.trueUser.userName } });
     this.metaObjectComponent.query();
   }
   async chargeAll() {
-    await this.xfdService.Post(XfdFkController.api.rechargeAll, {}, { params: { amount: this.chargeAllAmount, actorName: this.store.trueUser.userName } });
+    this.modalService.confirm({
+      nzTitle: '确认全员充值?',
+      nzContent: '全员充值将会将所有人的金额重置到会员分组的金额',
+      nzOnOk: async () => await this.xfdService.Post(XfdFkController.api.rechargeAll, {}, { params: { amount: this.chargeAllAmount, actorName: this.store.trueUser.userName } })
+    });
     this.metaObjectComponent.query();
   }
 }

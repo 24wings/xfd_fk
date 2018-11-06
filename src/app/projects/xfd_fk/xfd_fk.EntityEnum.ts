@@ -1,6 +1,7 @@
 export enum XfdFxEntityEnum {
     Menu = "com.fastsun.xfd_fk.entity.Menu",
-    Member = "com.fastsun.xfd_fk.entity.Member",
+    Member = "com.fastsun.xfd.entity.Member",
+    MemberGroup = "com.fastsun.xfd.entity.MemberGroup",
     User = "com.fastsun.xfd_fk.entity.User",
     Role = "com.fastsun.xfd_fk.entity.Role",
     Org = "com.fastsun.xfd_fk.entity.Org",

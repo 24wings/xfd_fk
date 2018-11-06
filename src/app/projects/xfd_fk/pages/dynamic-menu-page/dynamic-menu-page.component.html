@@ -24,3 +24,4 @@
         <nz-input-number [(ngModel)]="chargeAllAmount" [nzFormatter]="rmbFormmatter" [nzParser]="rmbParser"></nz-input-number>
     </nz-modal>
 </ng-container>
+<button nz-button [disabled]="isNoneCheck" nzType="danger" *ngIf="isDel" (click)="showDeleteConfirm()">删除</button>

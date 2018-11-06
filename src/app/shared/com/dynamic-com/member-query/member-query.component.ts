@@ -3,6 +3,9 @@ import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
 import { CustomQueryToolbarComSpec } from '@core/util/spec/custom/custom-query-toolbar';
 import { QueryParam } from '@core/util/stq/QueryParameter';
 import { Member } from 'app/projects/xfd_fk/entity/Member';
+import { XfdFxEntityEnum } from 'app/projects/xfd_fk/xfd_fk.EntityEnum';
+import { MetaCom } from '@core/util/meta/MetaCom';
+import { MemberGroup } from 'app/projects/xfd_fk/entity/MemberGroup';
 
 @Component({
   selector: 'member-query',
@@ -12,6 +15,8 @@ import { Member } from 'app/projects/xfd_fk/entity/Member';
 export class MemberQueryComponent extends CustomQueryToolbarComSpec implements OnInit {
   mealCardNo: string = '';
   name: string = '';
+  singleValue = '';
+  groupsOptions: { label: string, value: number }[] = []
   async query() {
     let queryparam = new QueryParam();
     queryparam.queryConditions = [];
@@ -21,14 +26,23 @@ export class MemberQueryComponent extends CustomQueryToolbarComSpec implements O
     if (this.name) {
       queryparam.queryConditions.push({ field: 'name', compare: "like", andOr: "and", value: this.name })
     }
+    if (this.singleValue) {
+      queryparam.queryConditions.push({ field: 'groupId', compare: "=", andOr: "and", value: this.singleValue })
+
+    }
 
     let result = await this.dataStrategy.entityQuery(this.metaCom, queryparam);
     this.queryResult.emit(result.paging);
-
   }
   constructor(public dataStrategy: IDataStrategy) { super() }
 
-  ngOnInit() {
+  async  ngOnInit() {
+    this.loadGroupOptions();
+  }
+  async loadGroupOptions() {
+    let groupsResult = await this.dataStrategy.entityQuery({ objectCode: XfdFxEntityEnum.MemberGroup as any } as MetaCom, new QueryParam())
+    this.groupsOptions = groupsResult.paging.rows.map((item: MemberGroup) => { return { label: item.name, value: item.id } });
+
   }
 
 }

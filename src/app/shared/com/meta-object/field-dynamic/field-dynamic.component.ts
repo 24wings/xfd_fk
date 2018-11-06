@@ -69,6 +69,9 @@ export class FieldDynamicComponent implements OnInit, AfterViewInit {
       this.componentRef.instance.value = this.value;
       this.componentRef.instance.valueChange.subscribe(rt => {
         this.value = rt;
+        if (rt) {
+          // console.error(rt);
+        }
         this.componentRef.instance.__value__ = rt;
       });
       if (type.type == RefTable || type.type == RefTablees || type.type == RefTree || type.type == RefTreees) {
@@ -77,8 +80,8 @@ export class FieldDynamicComponent implements OnInit, AfterViewInit {
         if (this.componentRef.instance['onAction']) this.componentRef.instance['onAction'].subscribe(rtn => this.onAction.emit(rtn))
       } else {
       }
-      // this.componentRef.changeDetectorRef.detectChanges()
-      // this.componentRef.changeDetectorRef.markForCheck()
+      this.componentRef.changeDetectorRef.detectChanges()
+      this.componentRef.changeDetectorRef.markForCheck()
     } else {
       console.error(`there is no error`)
     }

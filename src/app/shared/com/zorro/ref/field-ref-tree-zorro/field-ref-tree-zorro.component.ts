@@ -19,6 +19,7 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
   @Output() onAction = new EventEmitter();
   @Input() set dataSet(dataSet: any[]) {
     this.__dataSet__ = dataSet;
+
     if (this.mode == ModeEnum.Show) {
       this.dataSet.find(dataItem => dataItem[this.field.fieldName] == this.value);
       console.log(this.value, this.dataSet)
@@ -27,6 +28,9 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
         this.alias = (Object.assign(new this.field.config.databaseType(), selectedValue) as AbstractTree<any>).getText();
       }
     } else {
+      if (this.mode == ModeEnum.Create) {
+        dataSet[0].checked = true;
+      }
       this.parseTree();
 
     }
@@ -49,7 +53,7 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
       this.validStatus = ValidStatusEnum.error;
       this.errMsg = result.msg;
     }
-    this.__value__ = val;
+    this.__value__ = val + '';
 
     if (this.mode == ModeEnum.Show) {
       let selectedValue = this.dataSet.find(item => Object.assign((new this.field.config.databaseType() as AbstractTree<any>), item).getId() == this.value);
@@ -68,16 +72,37 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
   total: number = 10;
   constructor(public validService: ValidService) { super(validService) }
   parseTree() {
-    this.nodes = listToNzTreeNode(this.__dataSet__.map(item => {
+    let items: AbstractTree<any>[] = this.__dataSet__.map(item => {
       let data = Object.assign(new this.metaCom.view.treeClass(), item);
       return data;
     }
-    ));
-    if (this.mode != ModeEnum.Show) {
-      if (this.nodes[0])
-        this.value = this.nodes[0].key;
-      console.log(this.nodes, this.__value__)
+    );
+    if (this.mode == ModeEnum.Create) {
+      if (items.length > 0)
+        this.valueChange.emit(items[0].getId());
+
+
     }
+    items.forEach(item => item.selected = true);
+
+    // if (this.mode == ModeEnum.Show) {
+    // if (items.length > 0)
+    // items[0].checked = true;
+    // }
+    let nodes = listToNzTreeNode(items);
+    // this.value = "0"
+
+    // if (this.mode == ModeEnum.Create) {
+    //   if (nodes[0]) {
+    //     nodes[0].setChecked(true);
+    //     nodes[0].setSelected(true);
+    //     nodes[0].isSelected = true;
+    //     this.value = nodes[0].key;
+    //     alert(this.value)
+    //   }
+    //   console.log(this.nodes, this.__value__)
+    // }
+    this.nodes = nodes;
   }
 
   async ngOnInit() {
@@ -88,9 +113,30 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
       if (this.mode == ModeEnum.Show)
         await this.query();
     }
+    // 创建模式 默认选中第一条数据
+    if (this.mode == ModeEnum.Create) {
+      this.valueChange.emit();
+
+    }
+    // alert('mode:' + this.mode + "-->" + ModeEnum.Create)
+
+
+    // this.select(this.nodes[0].key as any)
+
   }
-  select($event: { node: NzTreeNode }) {
-    this.valueChange.emit(parseInt($event.node.key));
+  async select($event: { node: NzTreeNode }) {
+    if (!$event.node.isSelected) {
+      $event.node.setSelected(true);
+      $event.node.isSelected = true;
+      this.value = $event.node.key;
+      console.log($event.node);
+      await new Promise(resolve => setTimeout(() => resolve(true), 100))
+      this.select($event);
+
+    } else {
+      this.valueChange.emit($event.node.key);
+    }
+
   }
   check($event: { node: NzTreeNode }) {
     return this.onAction.emit(Object.assign(new CheckOneDataAction(), { metaCom: this.metaCom, data: $event.node.origin.origin, checked: $event.node.isSelected } as CheckOneDataAction<any>))

@@ -40,6 +40,7 @@ import { EditorDirective } from 'app/editor.direcive';
 import { IcCardReaderComponent } from './com/zorro/basic/ic-card-reader/ic-card-reader.component';
 import { OrderQueryComponent } from './com/dynamic-com/order-query/order-query.component';
 import { MemberQueryComponent } from './com/dynamic-com/member-query/member-query.component';
+import { AnalyzeQueryToolbarComponent } from './com/dynamic-com/analyze-query-toolbar/analyze-query-toolbar.component';
 const THIRDMODULES = [
   NgZorroAntdModule,
   CountdownModule
@@ -70,7 +71,8 @@ const COMPONENTS = [
   MyOrderQueryToolbarComponent,
   IcCardReaderComponent,
   OrderQueryComponent,
-  MemberQueryComponent
+  MemberQueryComponent,
+  AnalyzeQueryToolbarComponent
 ];
 const DIRECTIVES = [EnumPipe, DynamicDirective, EditorDirective];
 // endregion
@@ -101,6 +103,7 @@ const DIRECTIVES = [EnumPipe, DynamicDirective, EditorDirective];
     MetaEditorComponent,
     IcCardReaderComponent,
     OrderQueryComponent,
+    AnalyzeQueryToolbarComponent,
 
 
   ],

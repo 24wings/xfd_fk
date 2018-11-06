@@ -1,7 +1,7 @@
 import { MetaEntity } from "@core/util/meta/MetaEntity";
 import { Prop } from "@core/util/meta/Prop";
 
-@MetaEntity()
+@MetaEntity({})
 export abstract class BaseAduitEntity {
     @Prop("创建者", { power: 0 })
     createdBy: string = "系统管理员";

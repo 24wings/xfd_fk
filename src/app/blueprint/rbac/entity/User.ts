@@ -9,7 +9,7 @@ export class User {
     id?: number;
     name?: string;
     userName?: string;
-    password?: string;
+    password?: string | any;
     pwdEncrypted?: boolean;
     createTime?: Date;
     updateTime?: Date;

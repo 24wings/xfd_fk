@@ -94,6 +94,10 @@ const CommonComponents: any[] = [DynamicMenuPageComponent, LoginPageComponent]
                     { path: 'dynamic-menu/order-verify', component: DynamicMenuPageComponent },
                     { path: 'dynamic-menu/reset-record', component: DynamicMenuPageComponent },
                     { path: 'dynamic-menu/employee', component: DynamicMenuPageComponent },
+                    { path: 'dynamic-menu/analyze', component: DynamicMenuPageComponent },
+                    { path: 'dynamic-menu/member-group', component: DynamicMenuPageComponent },
+
+
 
 
                 ],

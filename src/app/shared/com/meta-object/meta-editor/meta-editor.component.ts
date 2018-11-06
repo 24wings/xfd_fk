@@ -86,6 +86,19 @@ export class MetaEditorComponent implements OnInit {
                 data[timestampField] = new Date(this.selectedData[timestampField]).getTime();
             }
         }
+        // 自定义保存方法
+        Object.keys(data).forEach(key => {
+            let field = this.metaCom.metaFields.find(field => field.fieldName == key);
+            if (field) {
+                if (field.transform) {
+                    if (field.transform.write) {
+                        let toCloneData = field.transform.write(this.selectedData[field.fieldName]);
+                        data[field.fieldName] = typeof toCloneData == 'object' ? JSON.parse(JSON.stringify(toCloneData)) : toCloneData;
+                    }
+                }
+            }
+        });
+        console.warn(data);
         if (this.metaCom.data.customUrl.update) {
             await this.http.Post(this.metaCom.data.customUrl.update, data);
         }

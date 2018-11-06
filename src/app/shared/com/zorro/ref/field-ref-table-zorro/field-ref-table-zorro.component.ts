@@ -4,6 +4,9 @@ import { ValidService } from '@core/service/validate.service';
 import { AppConfig } from '../../../../../app.config';
 import { RefTableComSpec } from '@core/util/spec/field/ref-table.comspec';
 import { Field } from '@core/util/meta/Field';
+import { ModeEnum } from '@core/util/meta/Mode.enum';
+import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
+import { QueryParam } from '@core/util/stq/QueryParameter';
 @Component({
   selector: 'app-field-ref-table-zorro',
   templateUrl: './field-ref-table-zorro.component.html',
@@ -57,8 +60,22 @@ export class FieldRefTableZorroComponent extends RefTableComSpec implements OnIn
   constructor(
     public appConfig: AppConfig,
     public validService: ValidService,
-    public message: NzMessageService) { super(validService) }
-  ngOnInit() { }
+    public message: NzMessageService, public dataStrategy: IDataStrategy) { super(validService) }
+  async ngOnInit() {
+    if ((this.mode == ModeEnum.Show || this.mode == ModeEnum.Update) && this.value) {
+      let pk = this.field.metaObject.metaFields.find(field => field.isPk);
+      let queryParam = new QueryParam();
+
+      queryParam.queryConditions = [{
+        field: pk.fieldName,
+        compare: "=",
+        andOr: "and",
+        value: (typeof this.value == 'object') ? this.value[pk.fieldName] : this.value
+      }]
+      let data = await this.dataStrategy.entityQuery(this.field.metaObject, queryParam);
+      this.value = data.paging.rows[0];
+    }
+  }
   alias(value, field: Field) {
     if (field.options) {
       let option = field.options.find(op => op.value == value);

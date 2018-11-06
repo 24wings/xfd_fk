@@ -7,6 +7,8 @@ import { ModeEnum } from '@core/util/meta/Mode.enum';
 import { Field } from '@core/util/meta/Field';
 import { ValidStatusEnum } from '@core/util/meta/ValidStatus.enum';
 import { listToNzTreeNode } from '@core/util/struct/listToTree';
+import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
+import { QueryParam } from '@core/util/stq/QueryParameter';
 
 @Component({
   selector: 'field-ref-tree-many-zorro',
@@ -44,8 +46,19 @@ export class FieldRefTreeManyZorroComponent extends RefTableComSpec implements O
       this.validStatus = ValidStatusEnum.error;
       this.errMsg = result.msg;
     }
-    this.parseCheckedTree()
+    this.parseCheckedTree();
+    if (this.mode == ModeEnum.Update) {
+      console.log(rows, '========================')
+      if (Array.isArray(rows)) {
 
+      } else {
+        // let param = new QueryParam();
+        // let pk = this.field.metaObject.metaFields.find(filed => filed.isPk);
+        // param.queryConditions = [{ field: pk.fieldName, compare: "=", andOr: "and", value: `(${rows})` }]
+        // this.dataStrategy.entityQuery(this.field.metaObject, param);
+      }
+      this.valueChange.emit(rows);
+    }
   }
   get value() {
     return this.__value__;
@@ -53,18 +66,26 @@ export class FieldRefTreeManyZorroComponent extends RefTableComSpec implements O
   nodes: NzTreeNode[] = [];
   page: number = 1;
   total: number = 10;
-  constructor(public validService: ValidService) { super(validService) }
+  constructor(public validService: ValidService, public dataStrategy: IDataStrategy) { super(validService) }
 
   parseCheckedTree() {
     if (!this.value) this.value = []
-    this.nodes = listToNzTreeNode(this.__dataSet__.map(item => {
-      let data = Object.assign(new this.metaCom.view.treeClass(), item);
-      data.checked = !!this.value.find(id => id == data.getId());
-      data.disabled = this.mode == ModeEnum.Show;
-      return data;
-    }).filter(item => item.checked)
-    );
-
+    if (this.mode == ModeEnum.Show) {
+      this.nodes = listToNzTreeNode(this.__dataSet__.map(item => {
+        let data = Object.assign(new this.metaCom.view.treeClass(), item);
+        data.checked = !!this.value.find(id => id == data.getId());
+        data.disabled = this.mode == ModeEnum.Show;
+        return data;
+      })
+        .filter(item => item.checked));
+    } else {
+      this.nodes = listToNzTreeNode(this.__dataSet__.map(item => {
+        let data = Object.assign(new this.metaCom.view.treeClass(), item);
+        data.checked = !!this.value.find(id => id == data.getId());
+        data.disabled = this.mode == ModeEnum.Show;
+        return data;
+      }));
+    }
 
   }
   ngOnInit() {
@@ -73,13 +94,10 @@ export class FieldRefTreeManyZorroComponent extends RefTableComSpec implements O
   }
 
   select($event: { node: NzTreeNode }) {
-    console.log($event);
     this.valueChange.emit(parseInt($event.node.key));
 
   }
-  check($event: { node: NzTreeNode }) {
-    // this.checked.emit($event.node.key);
-  }
+  check($event: { node: NzTreeNode }) { }
   async  query() {
     this.onQuery.emit({ metaCom: this.metaCom, keyword: '', page: 0, pageSize: 1000 })
   }

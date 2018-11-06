@@ -21,7 +21,7 @@ export class Order {
     orderNo: string;
     // @Prop("会员编号")
     buyMerchCode: string;
-    @Prop("卡号")
+    @Prop("会员卡号")
     cardNo: string;
     @Prop("会员姓名")
     buyMerchName: string;
@@ -31,7 +31,7 @@ export class Order {
     amount: number;
     @Prop("交易后金额")
     afterAmount: number;
-    @SelectOne([{ alias: "充值", value: "RECHARGE" }, { alias: "交易", value: "TRANS" }])
+    @SelectOne([{ alias: "充值", value: "RECHARGE" }, { alias: "交易", value: "TRANS" }, { alias: "清零", value: "CLEAR" }])
     @Prop("订单类型")
     orderType: string;
 

@@ -11,7 +11,7 @@ export class Card {
     @ID()
     @Prop("卡id", { power: 0 })
     id: number;            // id
-    @Prop("卡号")
+    @Prop("会员卡号")
     cardNo: string;        // 卡号
     @SelectOne(getAlias(CardStatusEnum))
     @Prop("卡状态")

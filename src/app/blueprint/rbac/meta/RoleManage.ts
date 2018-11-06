@@ -22,7 +22,13 @@ export class RoleManage implements Table<Role>{
     // @DynamicFieldComponent(DemoStringComponent)
     @Prop("角色名")
     roleName: string;
-    @Adapter({ write: (ids: string[]) => ids.join(',') })
+    @Adapter({
+        write: (ids: string[]) => {
+            if (typeof ids == 'string') return ids;
+            if (Array.isArray(ids))
+                return ids.join(',');
+        }
+    })
     @OneToMany(MenuManage)
     @Prop("角色菜单")
     menuIds: MenuManage[];

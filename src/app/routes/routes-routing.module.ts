@@ -22,6 +22,10 @@ const routes: Routes = [
     loadChildren: 'app/projects/hk/hk.module#HkModule'
   },
   {
+    path: 'dev',
+    loadChildren: 'app/projects/dev/dev.module#DevModule'
+  },
+  {
     path: 'xfd_fk',
     loadChildren: 'app/projects/xfd_fk/xfd_fk.module#XFDFKModule'
   },

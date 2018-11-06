@@ -10,6 +10,7 @@ import { OneToOne } from "@core/util/meta/ref/OneToOne";
 import { OneToMany } from "@core/util/meta/ref/OneToMany";
 import { User } from "../entity/User";
 import { Adapter } from "@core/util/meta/Adapter";
+import { Password } from "@core/util/meta/types/Password";
 
 @MetaEntity({ objectName: "用户管理", objectCode: EntityEnum.User })
 export class UserManage implements Table<User>{
@@ -22,12 +23,25 @@ export class UserManage implements Table<User>{
     userName: string;
     @Adapter({ read: (password: string) => password.replace(/./g, '*') })
     @Prop("密码")
-    password: string;
+    password: Password;
     @OneToOne()
     @Prop("组织")
     orgId: OrgManage;
     @OneToMany(RoleManage)
-    @Prop("角色列表", { transform: { read: (roles: RoleManage[]) => Array.isArray(roles) ? roles.map(role => role.roleName) : roles, write: (roles: RoleManage[]) => roles.map(role => role.roleId).join(',') } })
+    @Prop("角色列表", {
+        transform: {
+            read: (roles: RoleManage[]) => Array.isArray(roles) ? roles.map(role => role.roleName) :
+                (roles as string).split(','), write: (roles: RoleManage[]) => {
+                    if (Array.isArray(roles)) {
+                        return roles.map(role => role.roleId).join(',')
+                    }
+                    else {
+                        console.log(roles);
+                        return roles;
+                    }
+                }
+        }
+    })
     roleIds: RoleManage[];
     @Prop("创建时间", { power: 0 })
     createTime: Date = new Date();

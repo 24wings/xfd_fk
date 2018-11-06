@@ -8,6 +8,8 @@ import { Member } from '../entity/Member';
 import { Order } from '../entity/Order';
 import { ResetRecord } from '../entity/ResetRecord';
 import { Employee } from '../meta/Employee';
+import { AnalyzeManage } from '../meta/AnalyzeManage';
+import { MemberGroup } from '../entity/MemberGroup';
 
 
 export interface MenuMetaCom {
@@ -54,8 +56,12 @@ export const DevMenu: MenuMetaCom[] = [
 export const AdminMenu: MenuMetaCom[] = [
     ///基本设置
     { menuId: 120, text: "会员操作", parentId: 0, },
-
-    // 会员
+    { menuId: 161, text: "会员分组", parentId: 120, link: MenuLink + '/member-group', metaCom: MemberGroup },
+    { menuId: 162, text: "分组添加", parentId: 161, menuCode: C },
+    { menuId: 163, text: "分组更新", parentId: 161, menuCode: U },
+    { menuId: 164, text: "分组删除", parentId: 161, menuCode: D },
+    { menuId: 165, text: "分组查询", parentId: 161, menuCode: Q },
+    // 会6
     { menuId: 121, text: "会员开户", parentId: 120, link: MenuLink + '/member', metaCom: Member },
     { menuId: 122, text: "会员添加", parentId: 121, menuCode: C },
     { menuId: 123, text: "会员更新", parentId: 121, menuCode: U },
@@ -74,6 +80,9 @@ export const AdminMenu: MenuMetaCom[] = [
     { menuId: 142, text: "更新", parentId: 140, menuCode: U },
     { menuId: 143, text: "删除", parentId: 140, menuCode: D },
     { menuId: 144, text: "查询", parentId: 140, menuCode: Q },
+
+    // 重置记录
+    { menuId: 140, text: "统计分析", parentId: 120, link: MenuLink + '/analyze', metaCom: AnalyzeManage },
 
 ];
 

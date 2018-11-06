@@ -1,4 +1,4 @@
-import { Time } from "./time";
+import { Time } from "./Time";
 import { Timestamp } from "./Timestamp";
 import { Year } from "./Year";
 // import { Prop } from "../Prop";

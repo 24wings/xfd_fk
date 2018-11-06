@@ -7,7 +7,7 @@ import { OneToOne } from "@core/util/meta/ref/OneToOne";
 import { MemberStatusEnum } from "../enums/MemberStatus.enum";
 import { SelectOne } from "@core/util/meta/ref/SelectOne";
 import { getAlias } from "@core/util/meta/alias";
-import { S, U } from "@core/util/meta/Power";
+import { S, U, C } from "@core/util/meta/Power";
 import { Toolbar } from "@core/util/meta/Toolbar";
 import { CustomUrl } from "@core/util/meta/CustomUrl";
 import { DemoStringComponent } from "@shared/com/dynamic-com/demo-string/demo-string.component";
@@ -18,6 +18,10 @@ import { MemberQueryComponent } from "@shared/com/dynamic-com/member-query/membe
 import { DynamicToolbar } from "@core/util/meta/custom/DynamicToolbar";
 import { Check } from "@core/util/meta/Check";
 import { Rules } from "@core/util/regexp";
+import { Group } from "@core/util/meta/Group";
+import { MemberGroup } from "./MemberGroup";
+import { RefOne } from "@core/util/meta/ref/RefOne";
+import { Adapter } from "@core/util/meta/Adapter";
 
 
 
@@ -45,6 +49,7 @@ export class Member {
     mobile: string;
     @Prop("会员名称")
     name: string;
+    // @Group({ fields: [{ alias: "会员金额", fieldName: "monthMoney" }] })
     @Prop("剩余金额", { power: S })
     amount: number = 0;
     createTime: Date = new Date();
@@ -53,12 +58,18 @@ export class Member {
     remark: string;
     /**饭卡 */
     @DynamicFieldComponent(IcCardReaderComponent)
-    @Prop("会员卡号")
+    @Prop("会员卡号", { power: C })
     mealCardNo: string;
     @SelectOne(getAlias(MemberStatusEnum))
     @Prop("会员状态", { power: S | U })
     memberStatus: MemberStatusEnum = MemberStatusEnum.Enable
     @OneToOne()
     @Prop("组织id", { power: 0 })
-    orgId: OrgManage = 2 as any;;
+    orgId: OrgManage = 2 as any;
+    // @Prop("每月金额")
+    // monthMoney: number = 0;
+    @Adapter({ read: (memberGroup: MemberGroup) => (typeof memberGroup == 'object') ? memberGroup.name : memberGroup, write: (memberGroup: MemberGroup) => memberGroup.id })
+    @OneToOne()
+    @Prop("会员分组")
+    groupId: MemberGroup;
 }

@@ -6,4 +6,5 @@ export abstract class AbstractTree<T>  {
     children: AbstractTree<T>[];
     checked?: boolean;
     disabled?: boolean;
+    selected?: boolean;
 }

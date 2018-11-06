@@ -3,6 +3,13 @@ import { ValidService } from '@core/service/validate.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { RefTableComSpec } from '@core/util/spec/field/ref-table.comspec';
 import { Field } from '@core/util/meta/Field';
+import { ModeEnum } from '@core/util/meta/Mode.enum';
+import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
+import { getMetaEntity } from '@core/util/meta/MetaEntity';
+import { QueryParam } from '@core/util/stq/QueryParameter';
+import { RefTree } from '@core/util/meta/types/RefTree';
+import { RefTreees } from '@core/util/meta/types/RefTreees';
+import { RefTable } from '@core/util/meta/types/RefTable';
 @Component({
   selector: 'field-ref-table-many-zorro',
   templateUrl: './field-ref-table-many-zorro.component.html',
@@ -53,9 +60,30 @@ export class FieldRefTableManyZorroComponent extends RefTableComSpec implements 
     }
   }
 
-  constructor(public validService: ValidService, public message: NzMessageService) { super(validService) }
-  ngOnInit() {
-    console.log(this.value)
+  constructor(public validService: ValidService, public message: NzMessageService, private dataStrategy: IDataStrategy) { super(validService) }
+  async ngOnInit() {
+    console.log(this.value);
+    if (this.mode == ModeEnum.Update || this.mode == ModeEnum.Show) {
+      let metaCom = getMetaEntity(this.field.config.databaseType);
+      let param = new QueryParam();
+      if (this.value) {
+        if (Array.isArray(this.value)) {
+          return;
+        }
+        console.warn(this.value);
+        param.queryConditions = [{ field: "roleId", "compare": "in", value: "(" + this.value + ")", andOr: "and" }];
+        let result = await this.dataStrategy.entityQuery(metaCom, param);
+        this.value = result.paging.rows;
+        debugger;
+        if (this.value.length == 0) {
+          this.value = null;
+        }
+
+      } else {
+        param.queryConditions = [];
+      }
+
+    }
   }
   alias(value, field: Field) {
     if (field.options) {
@@ -86,18 +114,26 @@ export class FieldRefTableManyZorroComponent extends RefTableComSpec implements 
     this.onQuery.emit({ metaCom: this.metaCom, keyword: this.keyword });
 
   }
+  getUpdateCheckedRoles() {
+
+  }
   checked(data) {
     data.checked = !data.checked
   }
   clearSelected(i) {
     this.value.splice(i, 1);
+    if (this.value.length == 0) this.value = null;
   }
   close() {
     this.selecting = false;
   }
   comfirm() {
     this.valueChange.emit(this.dataSet.filter(data => data.checked))
+    console.log(`confirm:`, this.value, this.dataSet.filter(data => data.checked))
     this.selecting = false;
   }
 
+  filterTable(fields: Field[]) {
+    return fields.filter(field => ([RefTree, RefTreees, RefTable].indexOf(field.type as any) == -1))
+  }
 }

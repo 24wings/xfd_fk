@@ -8,11 +8,15 @@ import { StringComSpec } from '@core/util/spec/field/string.comspec';
   styles: []
 })
 export class FieldPasswordZorroComponent extends StringComSpec implements OnInit {
+  passwordVisible: boolean = false;
   constructor(public validService: ValidService) {
     super(validService)
   }
   ngOnInit() {
   }
 
+  security(val: string) {
+    return val.replace(/./g, "*")
+  }
 
 }

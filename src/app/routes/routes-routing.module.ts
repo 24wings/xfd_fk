@@ -17,7 +17,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 // import { LoginPageComponent } from 'app/projects/hk/pages/login-page/login-page.component';
 
 const routes: Routes = [
-  { path: '', component: LoginPageComponent },
+  { path: '', component: LoginPageComponent, data: { title: "系统登陆" } },
   {
     path: 'hk',
     loadChildren: 'app/projects/hk/hk.module#HkModule'

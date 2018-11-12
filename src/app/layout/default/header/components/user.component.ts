@@ -29,6 +29,6 @@ export class HeaderUserComponent {
 
   logout() {
     this.tokenService.clear();
-    this.router.navigateByUrl('/xfd_fk');
+    this.router.navigateByUrl('/');
   }
 }

@@ -10,10 +10,10 @@
         </nz-select>
     </div>
     <div style="flex:1">
-        <nz-date-picker [(ngModel)]="fromDate" [nzFormat]="dateFormat" [nzPlaceHolder]="'出发日期'" (nzOnOk)="submitChange($event) " nzShowTime></nz-date-picker>
+        <nz-date-picker [(ngModel)]="fromDate" [nzFormat]="dateFormat" [nzPlaceHolder]="'出发日期'" (nzOnOk)="submitChange($event)" nzShowTime></nz-date-picker>
     </div>
     <div style="flex:1">
-        <nz-date-picker [(ngModel)]="toDate" [nzFormat]="dateFormat" [nzPlaceHolder]="'返程日期'" (nzOnOk)="submitToDate($event) " nzShowTime></nz-date-picker>
+        <nz-date-picker [(ngModel)]="toDate" [nzFormat]="dateFormat" [nzPlaceHolder]="'返程日期'" (nzOnOk)="submitToDate($event)" nzShowTime></nz-date-picker>
     </div>
     <div style="flex:1">
         <button nz-button nzType="primary" (click)="query()">查询</button>

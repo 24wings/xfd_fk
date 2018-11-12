@@ -18,12 +18,20 @@ enum OrderType {
 export class OrderQueryComponent extends CustomQueryToolbarComSpec implements OnInit {
   cardNo: string;
   dateRange: Date[] = [];
-  OrderTypeOptions: { label: string, value }[] = [{ label: "全部", value: false }, { label: "交易", value: 0 }, { label: "充值", value: 1 }]
+  page: number = 0;
+  pageSize: number = 10;
+  OrderTypeOptions: { label: string, value }[] = [{ label: "全部", value: false },
+  { label: "交易", value: 0 },
+  { label: "充值", value: 1 }, {
+    label: "清零", value: 2
+  }]
   selectedOrderType;
   ngOnInit() {
   }
 
-  async search() {
+  async query(n) {
+    if (n != null) this.page = n;
+    else this.page = 0;
     let queryParam = new QueryParam();
     queryParam.queryConditions = []
     if (this.cardNo) {
@@ -38,6 +46,7 @@ export class OrderQueryComponent extends CustomQueryToolbarComSpec implements On
       queryParam.queryConditions.push({ field: "orderType", value: this.selectedOrderType, compare: "=", andOr: "and" })
     }
     queryParam.orderList = [{ fieldName: "createTime", sort: "DESC" }];
+    queryParam.pageParam = { pageIndex: this.page, pageSize: this.pageSize };
     let data = await this.dataStrategy.entityQuery(this.metaCom, queryParam);
     this.queryResult.emit(data.paging);
   }

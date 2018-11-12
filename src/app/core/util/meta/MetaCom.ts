@@ -10,9 +10,14 @@ import { IAction } from "./Action";
 import { Flow } from "./Flow";
 import { EntityEnum } from "app/entity.enum";
 import { ISummary } from "./Summary";
+import { QueryCondition } from "../stq/QueryCondition";
+
+export type QueryConditionExpress = () => QueryCondition[];
+
 
 
 export class MetaCom {
+    isLazy?: boolean;
     hideCheckbox?: boolean;
     firstLoad?: boolean;
     summarys?: ISummary[]
@@ -31,7 +36,7 @@ export class MetaCom {
     querySql?: string;
     objectCode?: EntityEnum;
     data?: {
-        presetObject?: QueryObject;
+        presetConditions?: QueryCondition[] | QueryConditionExpress;
         presetValue?: any;
         customUrl?: ICustomUrl;
     }

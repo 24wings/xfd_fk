@@ -226,9 +226,8 @@ export class CommonService {
   async entityQueryPage(metaObject: MetaCom, pageParameter: PageParam): Promise<{ rows: any, count: number }> {
     let attrs: QueryAttribute[] = [];
     let conditions: QueryCondition[] = []
-    if (metaObject.data.presetObject) {
-      let preset = QueryObject.toQueryContions(metaObject.data.presetObject);
-      conditions.push(...preset);
+    if (metaObject.data.presetConditions) {
+      conditions.push(...metaObject.data.presetConditions as QueryCondition[]);
     }
     if (metaObject.isEntity) {
       let result = await this.singleTableQueryPageParameter(metaObject.objectCode as any, {

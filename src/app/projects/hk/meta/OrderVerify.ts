@@ -10,7 +10,7 @@ import { Adapter } from "@core/util/meta/Adapter";
 import { U } from "@core/util/meta/Power";
 
 
-@MetaEntity({ objectCode: EntityEnum.Order, objectName: "订单审批", data: { presetObject: {} } })
+@MetaEntity({ objectCode: EntityEnum.Order, objectName: "订单审批", data: {} })
 export class OrderVerify implements Table<Order>{
     // @Prop("产品名字", { readonly: true })
     // productName: string;

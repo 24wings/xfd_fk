@@ -12,6 +12,9 @@ import { ISummary } from "./Summary";
  * 元数据
  */
 export class Field {
+    /** 是否懒加载 */
+    isLazy?: boolean;
+
     /**分组选项 */
     groupOptions?: GroupOptions;
     isPk?: boolean;

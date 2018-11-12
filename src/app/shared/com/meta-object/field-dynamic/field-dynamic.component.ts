@@ -14,6 +14,7 @@ import { RefTable } from '@core/util/meta/types/RefTable';
 import { RefTree } from '@core/util/meta/types/RefTree';
 import { RefTreees } from '@core/util/meta/types/RefTreees';
 import { QueryCondition } from '@core/util/stq/QueryCondition';
+import { QueryParam } from '@core/util/stq/QueryParameter';
 @Component({
   selector: 'app-field-dynamic',
   templateUrl: './field-dynamic.component.html',
@@ -100,10 +101,9 @@ export class FieldDynamicComponent implements OnInit, AfterViewInit {
     this.loadComponent();
 
   }
-  async  search($event: { metaCom: MetaCom, field: Field, keyword: string, page: number, pageSize }) {
-
-    let result = await this.dataStragety.entityQuery($event.metaCom,
-      { pageParam: { pageIndex: $event.page, pageSize: $event.pageSize }, queryAttributes: [], queryConditions: [] });
+  async  search($event: { metaCom: MetaCom, field: Field, keyword: string, page: number, pageSize, queryParam: QueryParam }) {
+    if (!$event.queryParam) $event.queryParam = { pageParam: { pageIndex: $event.page, pageSize: $event.pageSize }, queryAttributes: [], queryConditions: [] }
+    let result = await this.dataStragety.entityQuery($event.metaCom, $event.queryParam);
     this.dataSet = result.paging.rows;
     this.count = result.paging.count;
     this.refershData()

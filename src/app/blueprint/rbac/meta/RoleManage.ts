@@ -10,9 +10,15 @@ import { MetaEntity } from "@core/util/meta/MetaEntity";
 import { ID } from "@core/util/meta/ID";
 import { Role } from "../entity/Role";
 import { C, U, D, S } from "@core/util/meta/Power";
+import { CustomUrl } from "@core/util/meta/CustomUrl";
 
-
-@MetaEntity({ objectName: "角色管理", objectCode: EntityEnum.Role, power: S | C | U | D, view: { pageSize: 200 } })
+@MetaEntity({
+    objectName: "角色管理", data: {
+        presetConditions:
+            () => [{ field: "orgId", compare: "=", value: localStorage.getItem('employee') ? JSON.parse(localStorage.getItem('employee')).orgId : null, andOr: "and" }]
+    }
+    , objectCode: EntityEnum.Role, power: S | C | U | D, view: { pageSize: 200 }
+})
 export class RoleManage implements Table<Role>{
     // @Prop("角色代码")
     // roleCode: string;

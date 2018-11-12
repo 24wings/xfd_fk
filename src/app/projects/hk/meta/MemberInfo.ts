@@ -10,10 +10,16 @@ import { SelectOne } from "@core/util/meta/ref/SelectOne";
 import { getAlias } from "@core/util/meta/alias";
 import { MemberTypeEnum } from "../enum/MemberType.enum";
 import { AuditStatusEnum } from "../enum/AuditStatus.enum";
+import { QueryObject } from "@core/util/stq/QueryObject";
 function getUserId() {
     return localStorage.getItem("employee") ? JSON.parse(localStorage.getItem("employee")).id : 0;
 }
-@MetaEntity({ defaultMode: ModeEnum.Info, objectName: "个人信息", objectCode: EntityEnum.Member, data: { presetObject: { id: getUserId() }, customUrl: { create: '/api/member/create' } } })
+@MetaEntity({
+    defaultMode: ModeEnum.Info, objectName: "个人信息", objectCode: EntityEnum.Member, data: {
+        presetConditions: QueryObject.toQueryContions({ id: getUserId() }),
+        customUrl: { create: '/api/member/create' }
+    }
+})
 export class MemberInfo implements Table<Member> {
     /**代码（前缀+会员流水号,前缀:供应商S，采购商B，个人C，流水号8位)*/
     @Prop("会员编号")

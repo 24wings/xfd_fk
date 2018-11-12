@@ -1,58 +1,40 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd';
-import { ValidService } from '@core/service/validate.service';
-import { RefTableComSpec } from '@core/util/spec/field/ref-table.comspec';
-import { ValidStatusEnum } from '@core/util/meta/ValidStatus.enum';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { ModeEnum } from '@core/util/meta/Mode.enum';
-import { listToNzTreeNode } from '@core/util/struct/listToTree';
-import { CheckOneDataAction } from '@core/util/event/check/check-one-data-action.event';
+import { RefTableComSpec } from '@core/util/spec/field/ref-table.comspec';
 import { AbstractTree } from '@core/util/struct/AbstractTree';
-import { QueryObject } from '@core/util/stq/QueryObject';
+import { ValidStatusEnum } from '@core/util/meta/ValidStatus.enum';
+import { listToNzTreeNode } from '@core/util/struct/listToTree';
+import { NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd';
+import { CheckOneDataAction } from '@core/util/event/check/check-one-data-action.event';
 import { QueryParam } from '@core/util/stq/QueryParameter';
+import { ValidService } from '@core/service/validate.service';
 
 @Component({
-  selector: 'field-ref-tree-zorro',
-  templateUrl: './field-ref-tree-zorro.component.html',
-  styleUrls: ['./field-ref-tree-zorro.component.css']
+  selector: 'field-lazy-ref-tree-zorro',
+  templateUrl: './field-lazy-ref-tree-zorro.component.html',
+  styleUrls: ['./field-lazy-ref-tree-zorro.component.css']
 })
-export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnInit {
+export class FieldLazyRefTreeZorroComponent extends RefTableComSpec implements OnInit {
   __dataSet__: any[] = [];
   alias: string;
   @Output() onAction = new EventEmitter();
   @Input() set dataSet(dataSet: any[]) {
-    if (this.mode == ModeEnum.MainShow || this.mode == ModeEnum.Create || this.mode == ModeEnum.Update) {
-      // console.warn(dataSet);
-      if (this.metaCom.isLazy) {
-        // 去掉集合中重复的id
-        let notExist = dataSet.filter(item => !this.dataSet.some(exist => this.getTreeId(exist) == this.getTreeId(item)));
-        this.__dataSet__ = this.__dataSet__.concat(...notExist);
-        // console.error('erro', notExist, this.dataSet);
-      } else {
-        this.__dataSet__ = dataSet;
+    this.__dataSet__ = dataSet;
+
+    if (this.mode == ModeEnum.Show) {
+      this.dataSet.find(dataItem => dataItem[this.field.fieldName] == this.value);
+      console.log(this.value, this.dataSet)
+      let selectedValue = this.dataSet.find(item => Object.assign((new this.field.config.databaseType() as AbstractTree<any>), item).getId() == this.value);
+      if (selectedValue) {
+        this.alias = (Object.assign(new this.field.config.databaseType(), selectedValue) as AbstractTree<any>).getText();
+      }
+    } else {
+      if (this.mode == ModeEnum.Create) {
+        dataSet[0].checked = true;
       }
       this.parseTree();
-    } else {
-      this.__dataSet__ = dataSet;
-
-
-
-      if (this.mode == ModeEnum.Show) {
-        this.dataSet.find(dataItem => dataItem[this.field.fieldName] == this.value);
-        console.log(this.value, this.dataSet)
-        let selectedValue = this.dataSet.find(item => Object.assign((new this.field.config.databaseType() as AbstractTree<any>), item).getId() == this.value);
-        if (selectedValue) {
-          this.alias = (Object.assign(new this.field.config.databaseType(), selectedValue) as AbstractTree<any>).getText();
-        }
-      }
-      // else {
-      // if (this.mode == ModeEnum.Create) {
-      // dataSet[0].checked = true;
-      // }
-      // this.parseTree();
-      // }
 
     }
-
   }
   get dataSet() {
     return this.__dataSet__;
@@ -74,7 +56,14 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
     }
     this.__value__ = val + '';
 
-
+    if (this.mode == ModeEnum.Show) {
+      let selectedValue = this.dataSet.find(item => Object.assign((new this.field.config.databaseType() as AbstractTree<any>), item).getId() == this.value);
+      if (selectedValue) {
+        this.alias = (Object.assign(new this.field.config.databaseType(), selectedValue) as AbstractTree<any>).getText();
+      }
+      console.log(this.value, selectedValue)
+      this.parseTree()
+    }
   }
   get value() {
     return this.__value__ + '';
@@ -97,7 +86,10 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
     }
     items.forEach(item => item.selected = true);
 
-
+    // if (this.mode == ModeEnum.Show) {
+    // if (items.length > 0)
+    // items[0].checked = true;
+    // }
     let nodes = listToNzTreeNode(items);
     this.nodes = nodes;
   }
@@ -115,18 +107,6 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
       this.valueChange.emit();
 
     }
-    if (this.mode == ModeEnum.Show) {
-      let selectedValue = this.dataSet.find(item => Object.assign((new this.field.config.databaseType() as AbstractTree<any>), item).getId() == this.value);
-      if (selectedValue) {
-        this.alias = (Object.assign(new this.field.config.databaseType(), selectedValue) as AbstractTree<any>).getText();
-      }
-      console.log(this.value, selectedValue)
-      if (!this.field.metaObject.isLazy) {
-        this.parseTree();
-      } else {
-        this.queryOne(this.value);
-      }
-    }
 
   }
   async select($event: { node: NzTreeNode }) {
@@ -137,7 +117,7 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
       console.log($event.node);
       await new Promise(resolve => setTimeout(() => resolve(true), 100))
       this.select($event);
-      this.valueChange.emit($event.node.key);
+
     } else {
       this.valueChange.emit($event.node.key);
     }
@@ -157,13 +137,6 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
     }
     return this.onQuery.emit({ metaCom: this.metaCom, queryParam: param, field: this.field, keyword: '', page: 0, pageSize: 1000 })
   }
-  async queryOne(val) {
-    let param = new QueryParam();
-    let pk = this.field.metaObject.metaFields.find(field => field.isPk);
-    param.queryConditions = [{ field: pk.fieldName, value: val, compare: "=", andOr: "and" }];
-    return this.onQuery.emit({ metaCom: this.metaCom, queryParam: param, field: this.field, keyword: '', page: 0, pageSize: 1000 })
-
-  }
   getCheckedMenuIds(menu: NzTreeNode | NzTreeNodeOptions): string[] {
     let checkedMenuIds: string[] = [];
     if ((menu as NzTreeNode).isChecked || (menu as NzTreeNode).isHalfChecked || (menu as NzTreeNodeOptions).checked) checkedMenuIds.push(menu.key);
@@ -173,25 +146,6 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
       }
     }
     return checkedMenuIds;
-  }
-
-  lazy($event: { eventName: string, node: { origin: { origin: any } } }) {
-    console.log($event)
-    if (this.metaCom.isLazy) {
-      // load child async
-      if ($event.eventName === 'expand') {
-        let data = <AbstractTree<any>>Object.assign(new this.metaCom.originClass(), $event.node.origin.origin);
-        let param = new QueryParam();
-        if (this.metaCom.data.presetConditions) {
-          param.queryConditions = [{ field: 'parentId', value: data.getId(), compare: "=", andOr: "and" }]
-        }
-        return this.onQuery.emit({ metaCom: this.metaCom, queryParam: param, field: this.field, page: 0, pageSize: 1000 })
-      }
-    }
-  }
-
-  private getTreeId(item: any) {
-    return (Object.assign(new this.metaCom.originClass(), item) as AbstractTree<any>).getId();
   }
 
 

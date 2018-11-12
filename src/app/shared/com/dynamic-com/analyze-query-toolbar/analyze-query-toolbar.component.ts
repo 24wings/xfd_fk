@@ -9,7 +9,7 @@ import { MyHttpService } from '@core/service/http.service';
 import { ISummary } from '@core/util/meta/Summary';
 import { XFD_FKDbName } from 'app/projects/xfd_fk';
 import { Order } from 'app/projects/xfd_fk/entity/Order';
-
+import { ModeEnum } from '@core/util/meta/Mode.enum';
 @Component({
   selector: 'analyze-query-toolbar',
   templateUrl: './analyze-query-toolbar.component.html',
@@ -18,9 +18,12 @@ import { Order } from 'app/projects/xfd_fk/entity/Order';
 export class AnalyzeQueryToolbarComponent extends CustomQueryToolbarComSpec implements OnInit {
   dateFormat = 'yyyy/MM/dd';
   dateRange: [Date, Date] = [new Date(2018, 10, 10, 0, 0, 0), new Date(2018, 10, 11, 23, 59, 59)] as any;
+  ModeEnum = ModeEnum;
+  state: ModeEnum = ModeEnum.Query;
   constructor(public valid: ValidService, private dataStrategy: IDataStrategy, public http: MyHttpService) { super() }
 
   ngOnInit() {
+
   }
 
   async query(pageIndex = 0) {

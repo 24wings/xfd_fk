@@ -12,11 +12,12 @@ import { UserRegisterComponent } from './passport/register/register.component';
 // import { UserRegisterResultComponent } from './passport/register-result/register-result.component';
 // single pages
 import { UserLockComponent } from './passport/lock/lock.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 // import { DynamicMenuPageComponent } from 'app/projects/hk/pages/dynamic-menu-page/dynamic-menu-page.component';
 // import { LoginPageComponent } from 'app/projects/hk/pages/login-page/login-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/xfd_fk', pathMatch: 'full' },
+  { path: '', component: LoginPageComponent },
   {
     path: 'hk',
     loadChildren: 'app/projects/hk/hk.module#HkModule'

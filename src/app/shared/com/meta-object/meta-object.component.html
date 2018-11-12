@@ -3,7 +3,7 @@
 </ng-container>
 
 <ng-container *ngIf="metaObject&&state!=ModeEnum.Info&&metaObject.defaultMode!=ModeEnum.Create">
-    <div nz-row style="padding:15px 25px;">
+    <div nz-row style="padding:5px 20px;">
         <ng-container *ngIf="config.queryAttributes.length>0">
             <!-- <app-query-attr-toolbar [showSearchButton]="false" [queryAttributes]="config.queryAttributes" #attrToolbar></app-query-attr-toolbar> -->
         </ng-container>
@@ -16,7 +16,7 @@
             <button nz-button (click)="query()" nzType="primary" *ngIf="queryFields.length>0">搜索</button>
         </div>
     </div>
-    <div>
+    <div style="margin-bottom:20px">
         <button nz-button (click)="query()" nzType="primary" *ngIf="queryFields.length<1&&!metaObject.view.dynamicQueryToolbar">刷新</button>
         <button nz-button (click)="state=ModeEnum.Create" *ngIf="isAdd">添加</button>
         <button nz-button [nzType]="isCheckOne?'primary':'default'" [disabled]="!isCheckOne" (click)="edit()" *ngIf="isUpdate">编辑</button>
@@ -105,8 +105,8 @@
 
             </nz-table>
 
-
-            <nz-pagination [nzPageIndex]="page" [nzPageSize]="pageSize" (nzPageIndexChange)="queryPage($event)" [nzTotal]="total"></nz-pagination>
+            <hr style="position: fixed;bottom: 0;margin: 25px;">
+            <nz-pagination nzShowQuickJumper style="position: fixed;bottom: 0;margin: 20px;" [nzPageIndex]="page" [nzPageSize]="pageSize" (nzPageIndexChange)="queryPage($event)" [nzTotal]="total"></nz-pagination>
         </ng-container>
     </ng-container>
     <!-- 树形显示 -->

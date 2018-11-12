@@ -1,18 +1,17 @@
 <!--树 创建模板 -->
 <ng-container *ngIf="ModeEnum.Create==mode">
-    {{value }}
-    <nz-form-item *ngIf="!value">
-        <nz-form-label style="margin-right: 49px" [nzRequired]="field.valid.required" [nzXs]="24" [nzSm]="4">{{field.alias || field.fieldName}}</nz-form-label>
+    <!-- many {{value }} -->
+    <nz-form-item>
+        <nz-form-label style="margin-right: 51px" [nzRequired]="field.valid.required" [nzXs]="24" [nzSm]="4">{{field.alias || field.fieldName}}</nz-form-label>
         <nz-form-control [nzXs]="24" [nzSm]="16" [nzValidateStatus]="validStatus">
-            <nz-tree nzCheckable="true" nzMultiple="true" (nzClick)="check($event)" [(ngModel)]="nodes" [nzShowLine]="false" (nzCheckBoxChange)="checkMany($event)"></nz-tree>
+            <nz-tree #createTreeMany [nzExpandAll]="true" [(nzCheckedKeys)]="checkedKeys" nzCheckable="true" nzMultiple="true" (nzClick)="check($event)" [(ngModel)]="nodes" [nzShowLine]="false" (nzCheckBoxChange)="checkMany($event)"></nz-tree>
             <nz-form-explain>{{errMsg}}</nz-form-explain>
         </nz-form-control>
     </nz-form-item>
-
 </ng-container>
 <ng-container *ngIf="mode==ModeEnum.Update">
     <nz-form-item>
-        <nz-form-label style="margin-right: 49px" [nzXs]="24 " [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
+        <nz-form-label style="margin-right: 51px" [nzXs]="24 " [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
         <nz-form-control [nzXs]="24 " [nzSm]="16 ">
             <nz-tree nzCheckable="true" nzMultiple="true" (nzClick)="check($event)" [(ngModel)]="nodes" [nzShowLine]="false" (nzCheckBoxChange)="checkMany($event)"></nz-tree>
         </nz-form-control>

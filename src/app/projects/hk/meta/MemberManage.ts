@@ -19,11 +19,12 @@ import { Adapter } from "@core/util/meta/Adapter";
 import { OneToOne } from "@core/util/meta/ref/OneToOne";
 import { OrgManage } from "app/blueprint/rbac/meta/OrgManage";
 import { C, S } from "@core/util/meta/Power";
+import { FieldJsonComponent } from "@shared/com/dynamic-com/field-json/field-json.component";
 
 
 @Lifecycle({ afterCreateSuccess: (member: MemberManage) => { createNotify(MemberRegisterNotify, member); createNotify(MemberRegisterTask, member) } })
 @CustomUrl({ create: '/api/member/create' })
-@MetaEntity({ objectName: "会员管理", objectCode: EntityEnum.Member, })
+@MetaEntity({ objectName: "会员管理", objectCode: EntityEnum.Member, dynamicEditor: FieldJsonComponent })
 export class MemberManage implements Table<Member> {
     @ID()
     @Prop("id", { power: 0 })

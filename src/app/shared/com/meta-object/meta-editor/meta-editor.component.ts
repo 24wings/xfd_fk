@@ -18,12 +18,13 @@ import { QueryAttribute } from '@core/util/stq/QueryAttribute';
 import { QueryCondition } from '@core/util/stq/QueryCondition';
 import { QueryObject } from '@core/util/stq/QueryObject';
 import { CustomUrlService } from '@core/service/CustomUrl.service';
+import { BasicComspce } from '@core/util/spec/field/basic.comspec';
 @Component({
     selector: 'meta-editor',
     templateUrl: './meta-editor.component.html',
     styleUrls: ['./meta-editor.component.css']
 })
-export class MetaEditorComponent implements OnInit {
+export class MetaEditorComponent extends BasicComspce<any> implements OnInit {
     @Input() mode: ModeEnum;
 
     @Input() set metaCom(metaCom: MetaCom) {
@@ -72,7 +73,7 @@ export class MetaEditorComponent implements OnInit {
         public ref: ChangeDetectorRef,
         public dataStrategy: IDataStrategy,
         public customUrl: CustomUrlService
-    ) { }
+    ) { super(validService) }
 
     changeSelectProp(value, prop) {
         this.selectedData[prop] = value;
@@ -225,9 +226,8 @@ export class MetaEditorComponent implements OnInit {
         let conditions: QueryCondition[] = [];
         // if (new this.metaObject.originClass())
         // 预设条件
-        if (this.metaCom.data.presetObject) {
-            let preset = QueryObject.toQueryContions(this.metaCom.data.presetObject as any);
-            conditions.push(...preset);
+        if (this.metaCom.data.presetConditions) {
+            conditions.push(...this.getPresetCondition());
         }
         if (this.metaCom.isEntity) {
             let result = await this.dataStrategy.entityQuery(this.metaCom, {

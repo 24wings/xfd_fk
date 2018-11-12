@@ -22,6 +22,8 @@ import { Group } from "@core/util/meta/Group";
 import { MemberGroup } from "./MemberGroup";
 import { RefOne } from "@core/util/meta/ref/RefOne";
 import { Adapter } from "@core/util/meta/Adapter";
+import { FieldJsonComponent } from "@shared/com/dynamic-com/field-json/field-json.component";
+import { DemoEditorComponent } from "@shared/com/dynamic-com/demo-editor/demo-editor.component";
 
 
 
@@ -36,7 +38,7 @@ import { Adapter } from "@core/util/meta/Adapter";
     { label: "透支会员", multi: true, eventName: "fee-member", alawysDisplay: true },
     { label: "全部会员", multi: true, eventName: "all-member", alawysDisplay: true },
 ])
-@MetaEntity({ objectCode: EntityEnum.XfdFkMember, objectName: "新发地会员", })
+@MetaEntity({ objectCode: EntityEnum.XfdFkMember, objectName: "新发地会员" })
 export class Member {
     @ID()
     @Prop("id", { power: 0, readonly: true })

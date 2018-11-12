@@ -13,10 +13,7 @@ import { StorageService } from "@core/service/storage.service";
 import { MyHttpService } from "@core/service/http.service";
 import { DevService } from "@core/service/dev.service";
 import { UserService } from "@core/service/user.service";
-import { IDataStrategy } from "@core/service/data-strategy/IDataStrategy";
 import { User } from "app/blueprint/rbac/entity/User";
-import { Member } from "../../entity/Member";
-import { XfdFkController } from "../../xfd_fk.controller";
 @Component({
   selector: "app-login-page",
   templateUrl: "./login-page.component.html",
@@ -39,9 +36,7 @@ export class LoginPageComponent implements OnInit {
     public user: UserService,
     public reuseTab: ReuseTabService,
     public setting: SettingsService,
-    private dataStrategy: IDataStrategy,
     private myHttp: MyHttpService,
-    private xfdFkController: XfdFkController
   ) { }
 
 
@@ -53,7 +48,7 @@ export class LoginPageComponent implements OnInit {
     if (!this.loading) {
       this.loading = true;
       this.loading = false;
-      let result: any = await this.xfdFkController.Post(XfdFkController.api.login, { userName: this.username, password: this.password });
+      let result: any = await this.myHttp.Post('/xfd/user/login', { userName: this.username, password: this.password });
 
       console.log(result)
       if (result) {

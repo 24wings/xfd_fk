@@ -99,19 +99,31 @@ export class FieldRefTableManyZorroComponent extends RefTableComSpec implements 
   }
   async query() {
     let query = {};
+    let param = new QueryParam();
+    param.queryConditions = [];
     if (this.field.config)
       if (this.field.config.searchKey) {
+        if (Array.isArray(this.field.config.searchKey)) {
+          param.queryConditions.push(...this.field.config.searchKey
+            .map(key => { return { field: key, compare: "like", value: this.keyword, andOr: "or" as any } }));
+        } else {
+          param.queryConditions.push({ field: this.field.fieldName, compare: "like", value: this.keyword, andOr: "and" as any })
+        }
         query[this.field.config.searchKey] = { $like: this.keyword };
 
       }
     if (this.field) {
       if (this.field.metaObject)
         if (this.field.metaObject.data)
-          if (this.field.metaObject.data.presetObject) {
-            query = Object.assign(query, this.field.metaObject.data.presetObject)
+          if (this.field.metaObject.data.presetConditions) {
+            if (typeof this.field.metaObject.data.presetConditions == 'function') {
+              param.queryConditions = this.field.metaObject.data.presetConditions()
+            } else {
+              param.queryConditions = this.field.metaObject.data.presetConditions;
+            }
           }
     }
-    this.onQuery.emit({ metaCom: this.metaCom, keyword: this.keyword });
+    this.onQuery.emit({ metaCom: this.metaCom, queryParam: param, keyword: this.keyword });
 
   }
   getUpdateCheckedRoles() {

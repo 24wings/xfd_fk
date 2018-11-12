@@ -68,7 +68,7 @@ export class DesignPageComponent implements OnInit {
     this.fields = result.fields.map(field => this.sqlFieldToField(field))
     this.metaCom = {
       objectCode: EntityEnum.User,
-      data: { presetObject: {} },
+      data: {},
       metaFields: this.fields, view: { pageSize: 10 }, originClass: Object
     };
   }

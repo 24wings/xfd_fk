@@ -33,13 +33,14 @@ import { MetaEditorComponent } from './meta-editor/meta-editor.component';
 import { FieldDynamicComponent } from './field-dynamic/field-dynamic.component';
 import { GroupOptions, IGroup } from '@core/util/meta/Group';
 import { ISummary } from '@core/util/meta/Summary';
+import { BasicComspce } from '@core/util/spec/field/basic.comspec';
 
 @Component({
   selector: 'app-meta-object',
   templateUrl: './meta-object.component.html',
   styles: [``]
 })
-export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterViewInit {
+export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IMetaObjectComSpec, AfterViewInit {
   queryObject: QueryObject = {};
   private __metaCom__: MetaCom;
   Types = Types;
@@ -55,6 +56,7 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
   rows: any[] = [];
   totalSummary = {};
   summarys: ISummary[] = [];
+
   @Output() onAction = new EventEmitter();
   @Input() power: number;
   getTreeField(metaObject: MetaCom): Field {
@@ -84,7 +86,9 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
     let viewContainerRef = this.dynamic.viewContainerRef;
     viewContainerRef.clear();
     this.componentRef = viewContainerRef.createComponent(componentFactory) as any;
-    this.componentRef.instance.queryResult.subscribe(rtn => { this.rows = rtn.rows; this.total = rtn.count; this.totalSummary = rtn.summary });
+    this.componentRef.instance.queryResult.subscribe(rtn => {
+      this.rows = rtn.rows; this.total = rtn.count; this.totalSummary = rtn.summary
+    });
 
     // if (this.componentRef.instance['onAction']) this.componentRef.instance['onAction'].subscribe(rtn => this.doAction(rtn));
     this.componentRef.instance.metaCom = this.metaObject;
@@ -124,6 +128,7 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
       this.loadDynamicToolbarComponent()
     }
     if (this.metaObject.dynamicEditor) {
+      // alert('dynamic editor')
       this.loadDynamicEditorComponent()
     }
   }
@@ -140,6 +145,7 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
   }
   @Input() set metaObject(meta: MetaCom) {
     meta.isEntity = true;
+    this.metaCom = meta;
     meta.metaFields.forEach(field => field.state ? field.state : field.state = {})
     if (meta.defaultMode) this.state = meta.defaultMode;
     this.__metaCom__ = meta;
@@ -217,7 +223,7 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
     private componentFactoryResolver: ComponentFactoryResolver,
     private modalService: NzModalService,
     private dataStrage: IDataStrategy
-  ) { }
+  ) { super(validService) }
 
   afterCreateSuccess(data: any) {
     if (this.metaObject.lifeCycle) {
@@ -232,7 +238,11 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
 
     if (this.__metaCom__.firstLoad) {
       console.warn(this.__metaCom__);
+
       this.query();
+    }
+    if (this.__metaCom__.dynamicEditor) {
+      // alert('custom editor')
     }
   }
   currentPageDataChange($event: Array<{ name: string; age: number; address: string; checked: boolean; disabled: boolean; }>): void {
@@ -270,6 +280,7 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
     let checkedDatas = this.rows.filter(item => item.checked);
     for (let item of checkedDatas) {
       if (this.metaObject.isEntity) {
+        delete item.children;
         await this.dataStrage.entityDelete(this.metaObject, item);
       }
     }
@@ -287,11 +298,17 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
     });
   }
   doAction($event) {
+    this.onAction.emit($event);
+    debugger;
     if ($event instanceof CheckOneDataAction) {
       let tree: AbstractTree<any> = Object.assign(new this.metaObject.originClass(), $event.data);
-      let checkedData = this.rows.find(row => (Object.assign(new this.metaObject.originClass(), row) as AbstractTree<any>).getId() == tree.getId());
+      tree.checked = true;
       this.rows.forEach(row => row.checked = false);
-      if (checkedData) checkedData.checked = $event.checked;
+
+      this.rows.push(tree);
+      // let checkedData = this.rows[0](row => (Object.assign(new this.metaObject.originClass(), row) as AbstractTree<any>).getId() == tree.getId());
+      // this.rows.forEach(row => row.checked = false);
+      // if (checkedData) checkedData.checked = $event.checked;
       if (this.groupOptions) {
         let groups = this.groupBy(this.rows, (item) => item[this.groupOptions.fields[0].fieldName]);
         console.log(groups);
@@ -330,7 +347,7 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
       if (this.componentRef) {
         this.componentRef.instance.query(num - 1);
       } else {
-        this.query();
+        this.query(num);
 
       }
     } else {
@@ -338,17 +355,17 @@ export class MetaObjectComponent implements OnInit, IMetaObjectComSpec, AfterVie
     }
   }
   async  query(q?) {
-
     let attrs: QueryAttribute[] = [];
     let conditions: QueryCondition[] = [];
     // 预设条件
-    let queryObject = Object.assign(this.queryObject, this.metaObject.data.presetObject ? this.metaObject.data.presetObject : {});
-    if (q) {
-      queryObject = Object.assign(JSON.parse(JSON.stringify(queryObject)), q);
-    }
-    let preset = QueryObject.toQueryContions(queryObject);
+    if (typeof q == 'object') conditions.push(...QueryObject.toQueryContions(q));
+    // let preset = QueryObject.toQueryContions(queryObject);
+    if (this.metaObject.data && !q)
+      if (this.metaObject.data.presetConditions) {
 
-    conditions.push(...preset);
+        let funcCinditions = this.getPresetCondition();
+        conditions.push(...funcCinditions);
+      }
     let queryParam = new QueryParam();
     let orderList = this.metaObject.metaFields.filter(field => field.sort).map(field => { return { fieldName: field.fieldName, sort: field.sort } });
     if (orderList.length > 0) {

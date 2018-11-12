@@ -7,7 +7,8 @@ import { IValidateAblity } from "../basic/ablity/IValidate.ablity";
 import { ValidService } from "@core/service/validate.service";
 import { Types } from "../../meta/types/indext";
 import { EventEmitter } from "@angular/core";
-import { MetaCom } from "../../meta/MetaCom";
+import { MetaCom, QueryConditionExpress } from "../../meta/MetaCom";
+import { QueryCondition } from "@core/util/stq/QueryCondition";
 export abstract class BasicComspce<T> implements IFieldIO, IValueIO<T>, IValidateAblity, ITransformAblity<T> {
     field: Field;
     __value__;
@@ -84,4 +85,22 @@ export abstract class BasicComspce<T> implements IFieldIO, IValueIO<T>, IValidat
 
     }
     constructor(public validService: ValidService) { }
+
+    getPresetCondition(): QueryCondition[] {
+        if (this.metaCom) {
+            if (this.metaCom.data) {
+                if (this.metaCom.data.presetConditions) {
+                    debugger;
+                    if (typeof this.metaCom.data.presetConditions == 'function') {
+                        return (this.metaCom.data.presetConditions as QueryConditionExpress)()
+                    } else {
+                        return this.metaCom.data.presetConditions;
+                    }
+                }
+                return [];
+            }
+            return []
+        }
+        return [];
+    }
 }

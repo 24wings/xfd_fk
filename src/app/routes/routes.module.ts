@@ -9,9 +9,11 @@ import { UserRegisterComponent } from './passport/register/register.component';
 import { UserRegisterResultComponent } from './passport/register-result/register-result.component';
 // single pages
 import { UserLockComponent } from './passport/lock/lock.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 const COMPONENTS = [
   // passport pages
+  LoginPageComponent,
   UserLoginComponent,
   UserRegisterComponent,
   UserRegisterResultComponent,

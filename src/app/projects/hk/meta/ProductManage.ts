@@ -29,6 +29,7 @@ import { DateArray } from "@core/util/meta/types/DateArray";
 import { SelectOne } from "@core/util/meta/ref/SelectOne";
 import { ProductTargetEnum } from "../enum/ProductTarget";
 import { OneToMany } from "@core/util/meta/ref/OneToMany";
+import { QueryObject } from "@core/util/stq/QueryObject";
 
 export function canEdit() {
     if (checkDev() || checkAdmin()) {
@@ -42,7 +43,7 @@ export let SellerAdapter = {
     write: (members: MemberSallerrManage[]) => members ? (Array.isArray(members) ? members.map(member => member.id).join(',') : members) : ''
 }
 @CustomUrl({ create: '/api/member/create' })
-@MetaEntity({ objectName: "会员管理", objectCode: EntityEnum.Member, data: { presetObject: { memberType: MemberTypeEnum.AGENT } } })
+@MetaEntity({ objectName: "会员管理", objectCode: EntityEnum.Member, data: { presetConditions: QueryObject.toQueryContions({ memberType: MemberTypeEnum.AGENT }) } })
 export class MemberSallerrManage implements Table<Member> {
     id: number;
     /**代码（前缀+会员流水号,前缀:供应商S，采购商B，个人C，流水号8位)*/

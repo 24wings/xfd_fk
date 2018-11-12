@@ -9,7 +9,11 @@ export const metaKey = Symbol("metaId");
  * @param value 
  */
 export function MetaEntity(value?: MetaCom) {
-    let defaultMetaObject: MetaCom = { power: 0, data: { customUrl: {}, presetObject: {} }, view: {}, firstLoad: true } as MetaCom;
+    let defaultMetaObject: MetaCom = {
+        power: 0,
+        data: { customUrl: {}, presetObject: {}, presetConditions: null },
+        view: {}, firstLoad: true,
+    } as MetaCom;
     if (value.firstLoad == false) {
         defaultMetaObject.firstLoad = false;
     }
@@ -18,16 +22,17 @@ export function MetaEntity(value?: MetaCom) {
             if (value.data.customUrl) {
                 defaultMetaObject.data.customUrl = value.data.customUrl;
             }
-            if (value.data.presetObject) {
-                defaultMetaObject.data.presetObject = value.data.presetObject;
-            }
+            if (value.data.presetConditions) defaultMetaObject.data.presetConditions = value.data.presetConditions;
         }
+
+        if (value.dynamicEditor) defaultMetaObject.dynamicEditor = value.dynamicEditor;
         if (value.power != null) {
             defaultMetaObject.power = value.power;
         }
         if (value) {
             value = Object.assign(value, defaultMetaObject);
         }
+
 
     }
     else value = <MetaCom>defaultMetaObject;

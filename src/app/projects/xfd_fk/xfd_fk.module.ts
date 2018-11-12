@@ -4,7 +4,6 @@ import { SharedModule } from '@shared/shared.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { RouterModule } from '@angular/router';
 import { DynamicMenuPageComponent } from './pages/dynamic-menu-page/dynamic-menu-page.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { LayoutDefaultComponent } from 'app/layout/default/default.component';
 import { SyncDataRegisterFactory } from 'app/SyncDataRegisterFactory';
@@ -15,6 +14,8 @@ import { MenuMetaCom } from './bulit-in/app.menu';
 import { XfdFkController } from './xfd_fk.controller';
 import { Provider } from '@angular/compiler/src/core';
 import { CustomUrlService } from '@core/service/CustomUrl.service';
+import { RoleManagePageComponent } from './pages/role-manage-page/role-manage-page.component';
+import { UserManagePageComponent } from './pages/user-manage-page/user-manage-page.component';
 let data = SyncDataRegisterFactory.exportSyncDatas();
 // 先拿出菜单,建立本地数据库;   
 let menus = SyncDataRegisterFactory.exportSyncMenu();
@@ -56,7 +57,7 @@ database.tables.forEach(table => {
 
 
 const CommonProverders: Provider[] = [XfdFkController, { provide: CustomUrlService, useClass: XfdFkController }];
-const CommonComponents: any[] = [DynamicMenuPageComponent, LoginPageComponent]
+const CommonComponents: any[] = [UserManagePageComponent, DynamicMenuPageComponent, RoleManagePageComponent]
 /**
  * 航空公司项目
  */
@@ -68,7 +69,7 @@ const CommonComponents: any[] = [DynamicMenuPageComponent, LoginPageComponent]
         SharedModule,
         RouterModule.forChild([
             // { path: '', redirectTo: 'xfd_fk', pathMatch: 'full' },
-            { path: '', component: LoginPageComponent, data: { title: '登录', titleI18n: 'pro-login' } },
+            // { path: '', component: LoginPageComponent, data: { title: '登录', titleI18n: 'pro-login' } },
             {
                 path: 'admin/user',
                 component: LayoutDefaultComponent,
@@ -77,8 +78,8 @@ const CommonComponents: any[] = [DynamicMenuPageComponent, LoginPageComponent]
                     { path: 'dynamic-menu/', component: DynamicMenuPageComponent },
                     { path: 'dynamic-menu/menu', component: DynamicMenuPageComponent },
                     { path: 'dynamic-menu/org', component: DynamicMenuPageComponent },
-                    { path: 'dynamic-menu/role', component: DynamicMenuPageComponent },
-                    { path: 'dynamic-menu/user', component: DynamicMenuPageComponent },
+                    { path: 'dynamic-menu/role', component: RoleManagePageComponent },
+                    { path: 'dynamic-menu/user', component: UserManagePageComponent },
                     { path: 'dynamic-menu/member', component: DynamicMenuPageComponent },
                     { path: 'dynamic-menu/order', component: DynamicMenuPageComponent },
                     { path: 'dynamic-menu/air-company', component: DynamicMenuPageComponent },
@@ -96,10 +97,6 @@ const CommonComponents: any[] = [DynamicMenuPageComponent, LoginPageComponent]
                     { path: 'dynamic-menu/employee', component: DynamicMenuPageComponent },
                     { path: 'dynamic-menu/analyze', component: DynamicMenuPageComponent },
                     { path: 'dynamic-menu/member-group', component: DynamicMenuPageComponent },
-
-
-
-
                 ],
             },
         ])

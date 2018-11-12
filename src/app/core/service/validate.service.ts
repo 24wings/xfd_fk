@@ -35,7 +35,7 @@ export class ValidService {
 
     valid(val: any, valid: Valid): { ok: boolean, msg?: string } {
         if (valid.required) {
-            if (!this.required(val)) {
+            if (!this.required(val || val === 0)) {
                 console.warn(val, valid, '必填')
 
                 return { ok: false, msg: valid.key + "必填" }

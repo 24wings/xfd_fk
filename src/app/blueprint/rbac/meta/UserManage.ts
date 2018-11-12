@@ -12,7 +12,10 @@ import { User } from "../entity/User";
 import { Adapter } from "@core/util/meta/Adapter";
 import { Password } from "@core/util/meta/types/Password";
 
-@MetaEntity({ objectName: "用户管理", objectCode: EntityEnum.User })
+@MetaEntity({
+    objectName: "用户管理", objectCode: EntityEnum.User, firstLoad: false,
+    data: { presetConditions: () => [{ value: JSON.parse(localStorage.getItem('employee')).orgId, compare: "=", andOr: "and", field: "orgId" }] }
+})
 export class UserManage implements Table<User>{
     @ID()
     @Prop("id", { power: 0 })
@@ -31,7 +34,7 @@ export class UserManage implements Table<User>{
     @Prop("角色列表", {
         transform: {
             read: (roles: RoleManage[]) => Array.isArray(roles) ? roles.map(role => role.roleName) :
-                (roles as string).split(','), write: (roles: RoleManage[]) => {
+                (roles ? roles : '' as string).split(','), write: (roles: RoleManage[]) => {
                     if (Array.isArray(roles)) {
                         return roles.map(role => role.roleId).join(',')
                     }

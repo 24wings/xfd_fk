@@ -4,7 +4,7 @@
 </ng-container>
 <ng-container *ngIf="mode==ModeEnum.Create||mode==ModeEnum.Update">
     <nz-form-item *ngIf="!value">
-        <nz-form-label style="margin-right: 49px;" [nzRequired]="field.valid.required" [nzXs]="24 " [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
+        <nz-form-label style="margin-right: 55px;" [nzRequired]="field.valid.required" [nzXs]="24 " [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
         <nz-form-control [nzXs]="24 " [nzSm]="16" [nzValidateStatus]="validStatus">
             <!-- <input type="text" [(ngModel)]="keyword" nz-input (keyup.enter)="selecting = true;query()" *ngIf="!value"> -->
             <nz-input-group nzSearch [nzSuffix]="suffixIconButton">
@@ -16,7 +16,7 @@
         </nz-form-control>
     </nz-form-item>
     <nz-form-item *ngIf="value">
-        <nz-form-label style="margin-right: 49px;" [nzRequired]="field.valid.required" [nzXs]="24 " [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
+        <nz-form-label style="margin-right: 55px;" [nzRequired]="field.valid.required" [nzXs]="24 " [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
         <nz-form-control [nzXs]="24 " [nzSm]="16">
             <nz-tag nzMode="closeable" *ngFor="let tag of read(value);let i= index" [nzColor]="'green'" (nzOnClose)="clearSelected(i)" [nzChecked]="true">{{ tag}}</nz-tag>
         </nz-form-control>

@@ -41,6 +41,8 @@ import { IcCardReaderComponent } from './com/zorro/basic/ic-card-reader/ic-card-
 import { OrderQueryComponent } from './com/dynamic-com/order-query/order-query.component';
 import { MemberQueryComponent } from './com/dynamic-com/member-query/member-query.component';
 import { AnalyzeQueryToolbarComponent } from './com/dynamic-com/analyze-query-toolbar/analyze-query-toolbar.component';
+import { DemoEditorComponent } from './com/dynamic-com/demo-editor/demo-editor.component';
+import { FieldLazyRefTreeZorroComponent } from './com/zorro/ref/field-lazy-ref-tree-zorro/field-lazy-ref-tree-zorro.component';
 const THIRDMODULES = [
   NgZorroAntdModule,
   CountdownModule
@@ -72,7 +74,9 @@ const COMPONENTS = [
   IcCardReaderComponent,
   OrderQueryComponent,
   MemberQueryComponent,
-  AnalyzeQueryToolbarComponent
+  AnalyzeQueryToolbarComponent,
+  DemoEditorComponent,
+
 ];
 const DIRECTIVES = [EnumPipe, DynamicDirective, EditorDirective];
 // endregion
@@ -104,7 +108,7 @@ const DIRECTIVES = [EnumPipe, DynamicDirective, EditorDirective];
     IcCardReaderComponent,
     OrderQueryComponent,
     AnalyzeQueryToolbarComponent,
-
+    FieldLazyRefTreeZorroComponent
 
   ],
   exports: [

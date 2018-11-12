@@ -9,9 +9,16 @@ import { Menu } from "../entity/Menu";
 import { SelectOne } from "@core/util/meta/ref/SelectOne";
 import { C, U, D, Q, AC1, AC2, AC3 } from "@core/util/meta/Power";
 import { Check } from "@core/util/meta/Check";
+import { CustomUrl } from "@core/util/meta/CustomUrl";
 
 
-@MetaEntity({ objectName: "菜单管理", objectCode: EntityEnum.Menu, view: { pageSize: 200 } })
+@MetaEntity({
+    objectName: "菜单管理", objectCode: EntityEnum.Menu, data: {
+        presetConditions: [
+            { field: "menuId", compare: "in", andOr: "and", value: "(" + (JSON.parse(localStorage.getItem("menu-list") ? localStorage.getItem("menu-list") : '[]') as Menu[]).map(item => item.menuId).join(',') + ")" }
+        ]
+    }, view: { pageSize: 200 }
+})
 export class MenuManage extends AbstractTree<Menu> implements Table<Menu>{
     getId() { return this.menuId };
     getParentId() { return this.parentId as any }

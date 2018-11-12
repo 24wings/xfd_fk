@@ -6,13 +6,13 @@
         <nz-range-picker [(ngModel)]="dateRange" placeholder="日期区间" nzShowTime style="padding-left:20px;"></nz-range-picker>
     </div>
     <div style="flex:1">
-        <nz-select style="width: 120px;padding-left:20px;" [(ngModel)]="selectedOrderType" nzAllowClear nzPlaceHolder="订单状态">
+        <nz-select style="width: 120px;padding-left:20px;" [(ngModel)]="selectedOrderType" nzAllowClear nzPlaceHolder="订单类型">
             <nz-option [nzValue]="orderType.value" [nzLabel]="orderType.label" *ngFor="let orderType of OrderTypeOptions"></nz-option>
         </nz-select>
     </div>
     <div style="flex:1">
     </div>
-    <div style="flex:1">
-        <button nz-button nzType="primary" (click)="search()"> 查询</button>
+    <div style="flex:1;text-align: right">
+        <button nz-button nzType="primary" (click)="query()"> 查询</button>
     </div>
 </div>

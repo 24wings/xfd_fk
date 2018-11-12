@@ -78,7 +78,7 @@ export class DynamicMenuPageComponent implements OnInit {
           console.log(this.appConfig.registerMsgNotifyFactorys)
           let metas = this.appConfig.registerMsgNotifyFactorys.filter(notitfyclass => getMetaNotify(notitfyclass).viewName == params.viewName).map(notifyClass => getMetaEntity(notifyClass));
           let metaObject = metas[0];
-          metaObject.data.presetObject = { id: params.dataId };
+          // metaObject.data.prs = { id: params.dataId };
           this.metaObject = metaObject;
           this.metaObject.database = XFD_FKDbName;
           this.metaObject.defaultMode = ModeEnum.Update;
@@ -97,7 +97,7 @@ export class DynamicMenuPageComponent implements OnInit {
       let queryParam = this.route.snapshot.queryParams;
       if (this.route.snapshot.fragment) {
         this.metaObject.defaultMode = this.route.snapshot.fragment as ModeEnum;
-        this.metaObject.data.presetObject = queryParam;
+        // this.metaObject.data.presetObject = queryParam;
       }
       let powers = this.store.menuList.filter(menu => menu.parentId == activeMetaCom.menuId).map(menu => menu.menuCode);
 
@@ -178,6 +178,13 @@ export class DynamicMenuPageComponent implements OnInit {
 
 
   async charge() {
+    if (this.chargeAmount < 0) {
+      return this.modalService.confirm({
+        nzTitle: '充值金额不小于0',
+        // nzContent: '全员充值将会将所有人的金额重置到会员分组的金额',
+        nzOnOk: () => null
+      });
+    }
     await this.xfdService.Post(XfdFkController.api.recharge, this.chargeMember, { params: { amount: this.chargeAmount, actorName: this.store.trueUser.userName } });
     this.metaObjectComponent.query();
   }

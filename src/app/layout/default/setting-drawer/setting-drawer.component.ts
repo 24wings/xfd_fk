@@ -202,7 +202,8 @@ const DEFAULT_VARS = {
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'setting-drawer',
-  templateUrl: './setting-drawer.component.html',
+  // templateUrl: './setting-drawer.component.html',
+  template: '',
   preserveWhitespaces: false,
   host: {
     '[class.setting-drawer]': 'true',

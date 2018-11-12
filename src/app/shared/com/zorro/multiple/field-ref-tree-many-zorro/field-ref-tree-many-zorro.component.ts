@@ -1,14 +1,15 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd';
+import { Component, OnInit, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { NzTreeNode, NzTreeNodeOptions, NzTreeComponent } from 'ng-zorro-antd';
 import { ValidService } from '@core/service/validate.service';
 import { RefTableComSpec } from '@core/util/spec/field/ref-table.comspec';
 import { MetaCom } from '@core/util/meta/MetaCom';
 import { ModeEnum } from '@core/util/meta/Mode.enum';
 import { Field } from '@core/util/meta/Field';
 import { ValidStatusEnum } from '@core/util/meta/ValidStatus.enum';
-import { listToNzTreeNode } from '@core/util/struct/listToTree';
+import { listToNzTreeNode, listToNzTreeNodeMany } from '@core/util/struct/listToTree';
 import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
 import { QueryParam } from '@core/util/stq/QueryParameter';
+import { AbstractTree } from '@core/util/struct/AbstractTree';
 
 @Component({
   selector: 'field-ref-tree-many-zorro',
@@ -16,9 +17,11 @@ import { QueryParam } from '@core/util/stq/QueryParameter';
   styleUrls: ['./field-ref-tree-many-zorro.component.css']
 })
 export class FieldRefTreeManyZorroComponent extends RefTableComSpec implements OnInit {
+  @ViewChild('createTreeMany') createTreeMany: NzTreeComponent
   @Input() metaCom: MetaCom;
   @Input() mode: ModeEnum;
   @Input() field: Field;
+  checkedKeys: string[] = [];
 
   __dataSet__ = []
   @Input() set dataSet(dataSet: any[]) {
@@ -79,7 +82,7 @@ export class FieldRefTreeManyZorroComponent extends RefTableComSpec implements O
       })
         .filter(item => item.checked));
     } else {
-      this.nodes = listToNzTreeNode(this.__dataSet__.map(item => {
+      this.nodes = listToNzTreeNodeMany(this.__dataSet__.map(item => {
         let data = Object.assign(new this.metaCom.view.treeClass(), item);
         data.checked = !!this.value.find(id => id == data.getId());
         data.disabled = this.mode == ModeEnum.Show;
@@ -99,13 +102,47 @@ export class FieldRefTreeManyZorroComponent extends RefTableComSpec implements O
   }
   check($event: { node: NzTreeNode }) { }
   async  query() {
-    this.onQuery.emit({ metaCom: this.metaCom, keyword: '', page: 0, pageSize: 1000 })
+    let param = new QueryParam();
+    param.queryConditions = [];
+    if (this.field.config)
+      // if (this.field.config.searchKey) {
+      //   if (Array.isArray(this.field.config.searchKey)) {
+      //     param.queryConditions.push(...this.field.config.searchKey
+      //       .map(key => { return { field: key, compare: "like", value: this.keyword, andOr: "or" as any } }));
+      //   } else {
+      //     param.queryConditions.push({ field: this.field.fieldName, compare: "like", value: this.keyword, andOr: "and" as any })
+      //   }
+      //   query[this.field.config.searchKey] = { $like: this.keyword };
+
+      // }
+      if (this.field) {
+        if (this.field.metaObject)
+          if (this.field.metaObject.data)
+            if (this.field.metaObject.data.presetConditions) {
+              if (typeof this.field.metaObject.data.presetConditions == 'function') {
+                param.queryConditions = this.field.metaObject.data.presetConditions();
+              } else {
+                param.queryConditions = this.field.metaObject.data.presetConditions;
+              }
+            }
+      }
+    this.onQuery.emit({ metaCom: this.metaCom, queryParam: param, keyword: '', page: 0, pageSize: 1000 })
   }
 
-  checkMany() {
+  checkMany($event) {
+    if (this.mode == ModeEnum.Create) {
+      console.log(this.createTreeMany.getCheckedNodeList(),
+        this.createTreeMany.getHalfCheckedNodeList()
+        //, this.nodes, $event, this.dataSet
+      );
+
+    }
     let ids: string[] = [];
-    this.nodes.forEach(node => ids.push(...this.getCheckedMenuIds(node)));
-    this.value = ids;
+    let nodesChecked = this.dataSet.filter(node => this.dataSet.find(item => this.getTree(item).getId() == node.key as any));
+    console.log(nodesChecked);
+    this.nodes.map(node => ids.push(...this.getCheckedMenuIds(node)));
+    console.log(ids);
+    this.value = ids.join(',');
     this.valueChange.emit(ids);
   }
   getCheckedMenuIds(menu: NzTreeNode | NzTreeNodeOptions): string[] {
@@ -118,7 +155,9 @@ export class FieldRefTreeManyZorroComponent extends RefTableComSpec implements O
     }
     return checkedMenuIds;
   }
-
+  getTree(item) {
+    return Object.assign(new this.field.metaObject.originClass(), item) as AbstractTree<any>
+  }
 
 
 }

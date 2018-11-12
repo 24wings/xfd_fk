@@ -8,8 +8,19 @@ import { Check } from "@core/util/meta/Check";
 import { OneToOne } from "@core/util/meta/ref/OneToOne";
 import { C } from "@core/util/meta/Power";
 import { Org } from "../entity/Org";
+import { LazyClass } from "@core/util/meta/Lazy";
+import { CustomUrl } from "@core/util/meta/CustomUrl";
 
-@MetaEntity({ objectCode: EntityEnum.Org, objectName: "组织管理", view: { pageSize: 200 }, lifeCycle: { afterCreateSuccess: (data: OrgManage) => '' } })
+@CustomUrl({ query: '/app/org/list/myorg' })
+@LazyClass()
+@MetaEntity({
+    objectCode: EntityEnum.Org, objectName: "组织管理",
+    data: {
+        presetConditions: () => [
+            { field: "orgId", compare: "=", value: JSON.parse(localStorage.getItem('employee') ? localStorage.getItem('employee') : '{}').orgId, andOr: "or" }]
+    },
+    view: { pageSize: 200 }, lifeCycle: { afterCreateSuccess: (data: OrgManage) => '' }
+})
 export class OrgManage extends AbstractTree<Org> implements Table<Org>{
     getId() { return this.orgId; }
     getText() { return this.orgName; }

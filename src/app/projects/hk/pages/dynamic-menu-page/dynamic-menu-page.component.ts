@@ -70,7 +70,7 @@ export class DynamicMenuPageComponent implements OnInit {
           console.log(this.appConfig.registerMsgNotifyFactorys)
           let metas = this.appConfig.registerMsgNotifyFactorys.filter(notitfyclass => getMetaNotify(notitfyclass).viewName == params.viewName).map(notifyClass => getMetaEntity(notifyClass));
           let metaObject = metas[0];
-          metaObject.data.presetObject = { id: params.dataId };
+          metaObject.data.presetConditions = [{ field: 'id', value: params.dataId, compare: "=", andOr: 'and' }];
           this.metaObject = metaObject;
           this.metaObject.database = 'hk';
           this.metaObject.defaultMode = ModeEnum.Update;
@@ -98,7 +98,7 @@ export class DynamicMenuPageComponent implements OnInit {
       let queryParam = this.route.snapshot.queryParams;
       if (this.route.snapshot.fragment) {
         this.metaObject.defaultMode = this.route.snapshot.fragment as ModeEnum;
-        this.metaObject.data.presetObject = queryParam;
+        // this.metaObject.data.presetConditions = queryParam;
       }
       if (this.metaObject.power) {
         this.power = this.metaObject.power;

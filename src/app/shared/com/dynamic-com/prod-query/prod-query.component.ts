@@ -23,18 +23,18 @@ export class ProdQueryComponent extends CustomQueryToolbarComSpec implements OnI
   // }
 
   // constructor(public commonService: CommonService) { super() }
-  // async query() {
-  //   let result = await this.commonService.singleTableQueryPageParameter(this.metaCom.objectCode, {
-  //     queryConditions: [
-  //       { field: 'Product_boundFlight.startCityCode', compare: ':', value: this.fromCity, andOr: 'and' },
-  //       // { field: '.boundFlight.stopAirportCode', compare: ':', value: this.toCity, andOr: 'and' },
-  //       { field: 'boundDates', compare: ':', value: this.fromDate.format('yyyyMMdd'), andOr: 'and' },
-  //       { field: 'returnDates', compare: ':', value: this.toDate.format('yyyyMMdd'), andOr: 'and' },
+  async query() {
+    // let result = await this.commonService.singleTableQueryPageParameter(this.metaCom.objectCode, {
+    //   queryConditions: [
+    //     { field: 'Product_boundFlight.startCityCode', compare: ':', value: this.fromCity, andOr: 'and' },
+    //     // { field: '.boundFlight.stopAirportCode', compare: ':', value: this.toCity, andOr: 'and' },
+    //     { field: 'boundDates', compare: ':', value: this.fromDate.format('yyyyMMdd'), andOr: 'and' },
+    //     { field: 'returnDates', compare: ':', value: this.toDate.format('yyyyMMdd'), andOr: 'and' },
 
-  //     ], pageParameter: { pageSize: 1000, pageIndex: 0 }
-  //   })
-  //   this.rowsChange.emit(result.paging.rows);
-  // }
+    //   ], pageParameter: { pageSize: 1000, pageIndex: 0 }
+    // })
+    // this.rowsChange.emit(result.paging.rows);
+  }
   ngOnInit() {
     // this.listCitys()
   }

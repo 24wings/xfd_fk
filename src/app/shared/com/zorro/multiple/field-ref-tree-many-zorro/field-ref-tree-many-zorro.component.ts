@@ -103,6 +103,7 @@ export class FieldRefTreeManyZorroComponent extends RefTableComSpec implements O
   check($event: { node: NzTreeNode }) { }
   async  query() {
     let param = new QueryParam();
+    param.pageParam = { pageSize: 1000, pageIndex: 0 }
     param.queryConditions = [];
     if (this.field.config)
       // if (this.field.config.searchKey) {
@@ -126,7 +127,7 @@ export class FieldRefTreeManyZorroComponent extends RefTableComSpec implements O
               }
             }
       }
-    this.onQuery.emit({ metaCom: this.metaCom, queryParam: param, keyword: '', page: 0, pageSize: 1000 })
+    this.onQuery.emit({ metaCom: this.metaCom, queryParam: param, keyword: '' })
   }
 
   checkMany($event) {

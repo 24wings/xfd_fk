@@ -12,7 +12,7 @@ import { DynamicToolbar } from "@core/util/meta/custom/DynamicToolbar";
 import { OrderQueryComponent } from "@shared/com/dynamic-com/order-query/order-query.component";
 import { OrderBy } from "@core/util/meta/OrderBy";
 @DynamicToolbar(OrderQueryComponent)
-@MetaEntity({ objectCode: XfdFxEntityEnum.Order as any, objectName: "订单" })
+@MetaEntity({ objectCode: XfdFxEntityEnum.Order as any, objectName: "订单", view: { pageSize: 10 } })
 export class Order {
     @ID()
     @Prop("ID", { power: 0 })

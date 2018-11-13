@@ -12,7 +12,7 @@ export function MetaEntity(value?: MetaCom) {
     let defaultMetaObject: MetaCom = {
         power: 0,
         data: { customUrl: {}, presetObject: {}, presetConditions: null },
-        view: {}, firstLoad: true,
+        view: { pageSize: 1000, }, firstLoad: true,
     } as MetaCom;
     if (value.firstLoad == false) {
         defaultMetaObject.firstLoad = false;
@@ -24,7 +24,11 @@ export function MetaEntity(value?: MetaCom) {
             }
             if (value.data.presetConditions) defaultMetaObject.data.presetConditions = value.data.presetConditions;
         }
-
+        if (value.view) {
+            if (value.view.pageSize) {
+                defaultMetaObject.view.pageSize = value.view.pageSize;
+            }
+        }
         if (value.dynamicEditor) defaultMetaObject.dynamicEditor = value.dynamicEditor;
         if (value.power != null) {
             defaultMetaObject.power = value.power;

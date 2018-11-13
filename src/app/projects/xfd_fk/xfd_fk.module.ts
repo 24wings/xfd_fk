@@ -9,51 +9,51 @@ import { LayoutDefaultComponent } from 'app/layout/default/default.component';
 import { SyncDataRegisterFactory } from 'app/SyncDataRegisterFactory';
 import { XFD_FKDbName } from '.';
 import Dexie from 'dexie';
-import { MetaCom } from '@core/util/meta/MetaCom';
+// import { MetaCom } from '@core/util/meta/MetaCom';
 import { MenuMetaCom } from './bulit-in/app.menu';
 import { XfdFkController } from './xfd_fk.controller';
 import { Provider } from '@angular/compiler/src/core';
 import { CustomUrlService } from '@core/service/CustomUrl.service';
 import { RoleManagePageComponent } from './pages/role-manage-page/role-manage-page.component';
 import { UserManagePageComponent } from './pages/user-manage-page/user-manage-page.component';
-let data = SyncDataRegisterFactory.exportSyncDatas();
-// 先拿出菜单,建立本地数据库;   
-let menus = SyncDataRegisterFactory.exportSyncMenu();
-let menu = menus.find(menu => menu.database == XFD_FKDbName);
-let db = new Dexie(menu.database, { autoOpen: true });
-let table = {};
-let databaseMenu = menus.find(menu => menu.database == XFD_FKDbName)
-let fields = databaseMenu.metaComs
-    .map(metaCom => {
-        let metaObject: MetaCom = metaCom;
-        let tableName = metaObject.objectCode.split('.').pop();
-        let tablePkField = metaObject.metaFields.find(field => field.isPk);
-        let fields = metaObject.metaFields.filter(field => !field.isPk);
-        let tableFields = "++" + tablePkField.fieldName + "," + fields.map(field => field.fieldName).join(',')
-        return { tableName, tableFields }
-    });
-fields.forEach(field => {
-    table[field.tableName] = field.tableFields;
-});
-// console.error(table);
-db.version(4).stores(table);
-db.open().catch(err => console.log(err))
+// let data = SyncDataRegisterFactory.exportSyncDatas();
+// // 先拿出菜单,建立本地数据库;   
+// let menus = SyncDataRegisterFactory.exportSyncMenu();
+// let menu = menus.find(menu => menu.database == XFD_FKDbName);
+// let db = new Dexie(menu.database, { autoOpen: true });
+// let table = {};
+// let databaseMenu = menus.find(menu => menu.database == XFD_FKDbName)
+// let fields = databaseMenu.metaComs
+//     .map(metaCom => {
+//         let metaObject: MetaCom = metaCom;
+//         let tableName = metaObject.objectCode.split('.').pop();
+//         let tablePkField = metaObject.metaFields.find(field => field.isPk);
+//         let fields = metaObject.metaFields.filter(field => !field.isPk);
+//         let tableFields = "++" + tablePkField.fieldName + "," + fields.map(field => field.fieldName).join(',')
+//         return { tableName, tableFields }
+//     });
+// fields.forEach(field => {
+//     table[field.tableName] = field.tableFields;
+// });
+// // console.error(table);
+// db.version(4).stores(table);
+// db.open().catch(err => console.log(err))
 // console.warn(data);
 
 
-let database = data.find(db => db.database == XFD_FKDbName);
-database.tables.forEach(table => {
-    let tableName = table.objectCode.split('.').pop();
-    // console.warn(`sync data`, table.dataItems);
-    table.dataItems.forEach((dataItem: MenuMetaCom) => {
-        let menu = menus.find(menu => !!menu.metaComs.find(metacom => metacom.objectCode == table.objectCode));
-        let metacom = menu.metaComs.find(metacom => metacom.objectCode == table.objectCode);
-        let pk = metacom.metaFields.find(field => field.isPk);
-        if (dataItem.metaCom) dataItem = JSON.parse(JSON.stringify(dataItem));
-        // console.log(dataItem[pk.fieldName]);
-        db.table(tableName).put(dataItem);
-    });
-});
+// let database = data.find(db => db.database == XFD_FKDbName);
+// database.tables.forEach(table => {
+//     let tableName = table.objectCode.split('.').pop();
+//     // console.warn(`sync data`, table.dataItems);
+//     table.dataItems.forEach((dataItem: MenuMetaCom) => {
+//         let menu = menus.find(menu => !!menu.metaComs.find(metacom => metacom.objectCode == table.objectCode));
+//         let metacom = menu.metaComs.find(metacom => metacom.objectCode == table.objectCode);
+//         let pk = metacom.metaFields.find(field => field.isPk);
+//         if (dataItem.metaCom) dataItem = JSON.parse(JSON.stringify(dataItem));
+//         // console.log(dataItem[pk.fieldName]);
+//         db.table(tableName).put(dataItem);
+//     });
+// });
 
 
 const CommonProverders: Provider[] = [XfdFkController, { provide: CustomUrlService, useClass: XfdFkController }];

@@ -3,8 +3,8 @@
 </ng-container>
 <ng-container *ngIf="mode==ModeEnum.Create||mode==ModeEnum.Update">
     <nz-form-item *ngIf="!value">
-        <nz-form-label style="margin-right: 51px;" [nzRequired]="field.valid.required" [nzXs]="24 " [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
-        <nz-form-control [nzXs]="24 " [nzSm]="16" [nzValidateStatus]="validStatus" nzHasFeedback>
+        <nz-form-label style="margin-right: 58px;" [nzRequired]="field.valid.required" [nzXs]="24 " [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
+        <nz-form-control [nzXs]="24 " [nzSm]="16">
             <nz-input-group nzSearch [nzSuffix]="suffixIconButton">
                 <input type="text" *ngIf="!value" nz-input [placeholder]="field.alias" [(ngModel)]="keyword" (keyup.enter)="selecting = true;query()">
             </nz-input-group>
@@ -14,7 +14,7 @@
         </nz-form-control>
     </nz-form-item>
     <nz-form-item *ngIf="value">
-        <nz-form-label style="margin-right: 51px;" [nzRequired]="field.valid.required" [nzXs]="24 " [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
+        <nz-form-label style="margin-right: 58px;" [nzRequired]="field.valid.required" [nzXs]="24 " [nzSm]="4 ">{{field.alias || field.fieldName}}</nz-form-label>
         <nz-form-control [nzXs]="24 " [nzSm]="16">
             <span *ngIf="value"><nz-tag nzMode="closeable" [nzColor]="'green'" (nzOnClose)="value=null" [nzChecked]="true" >{{  read(value)}}</nz-tag>
         </span>

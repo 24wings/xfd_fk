@@ -92,9 +92,6 @@ export class FieldDynamicComponent implements OnInit, AfterViewInit {
     (<ComponentRef<RefTableComSpec>>(this.componentRef as any)).instance.dataSet = this.dataSet;
     (<ComponentRef<RefTableComSpec>>(this.componentRef as any)).instance.count = this.count;
     (<ComponentRef<RefTableComSpec>>(this.componentRef as any)).instance.value = this.value;
-
-
-
   }
 
   ngAfterViewInit() {
@@ -102,7 +99,10 @@ export class FieldDynamicComponent implements OnInit, AfterViewInit {
 
   }
   async  search($event: { metaCom: MetaCom, field: Field, keyword: string, page: number, pageSize, queryParam: QueryParam }) {
-    if (!$event.queryParam) $event.queryParam = { pageParam: { pageIndex: $event.page, pageSize: $event.pageSize }, queryAttributes: [], queryConditions: [] }
+    if (!$event.queryParam) {
+      debugger;
+      $event.queryParam = { pageParam: { pageIndex: $event.page, pageSize: $event.pageSize }, queryAttributes: [], queryConditions: [] };
+    }
     let result = await this.dataStragety.entityQuery($event.metaCom, $event.queryParam);
     this.dataSet = result.paging.rows;
     this.count = result.paging.count;

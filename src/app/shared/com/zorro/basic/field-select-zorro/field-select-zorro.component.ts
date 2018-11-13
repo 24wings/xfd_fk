@@ -4,7 +4,9 @@ import { SelectComSpec } from '@core/util/spec/field/select.comspec';
 @Component({
   selector: 'app-field-select',
   templateUrl: './field-select-zorro.component.html',
-  styles: []
+  styles: [`nz-select {
+    width: 100%;
+}`]
 })
 export class FieldSelectZorroComponent extends SelectComSpec implements OnInit {
 

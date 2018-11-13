@@ -10,20 +10,20 @@ import { getAlias } from "@core/util/meta/alias";
 import { S, U, C } from "@core/util/meta/Power";
 import { Toolbar } from "@core/util/meta/Toolbar";
 import { CustomUrl } from "@core/util/meta/CustomUrl";
-import { DemoStringComponent } from "@shared/com/dynamic-com/demo-string/demo-string.component";
+// import { DemoStringComponent } from "@shared/com/dynamic-com/demo-string/demo-string.component";
 import { DynamicFieldComponent } from "@core/util/meta/DynamicFieldComponent";
 import { IcCardReaderComponent } from "@shared/com/zorro/basic/ic-card-reader/ic-card-reader.component";
-import { Query } from "@core/util/meta/query/Query";
+// import { Query } from "@core/util/meta/query/Query";
 import { MemberQueryComponent } from "@shared/com/dynamic-com/member-query/member-query.component";
 import { DynamicToolbar } from "@core/util/meta/custom/DynamicToolbar";
 import { Check } from "@core/util/meta/Check";
 import { Rules } from "@core/util/regexp";
-import { Group } from "@core/util/meta/Group";
+// import { Group } from "@core/util/meta/Group";
 import { MemberGroup } from "./MemberGroup";
-import { RefOne } from "@core/util/meta/ref/RefOne";
+// import { RefOne } from "@core/util/meta/ref/RefOne";
 import { Adapter } from "@core/util/meta/Adapter";
-import { FieldJsonComponent } from "@shared/com/dynamic-com/field-json/field-json.component";
-import { DemoEditorComponent } from "@shared/com/dynamic-com/demo-editor/demo-editor.component";
+// import { FieldJsonComponent } from "@shared/com/dynamic-com/field-json/field-json.component";
+// import { DemoEditorComponent } from "@shared/com/dynamic-com/demo-editor/demo-editor.component";
 
 
 
@@ -34,7 +34,8 @@ import { DemoEditorComponent } from "@shared/com/dynamic-com/demo-editor/demo-ed
 @Toolbar([
     // { label: "禁卡", multi: false, eventName: "disabled-card" },
     { label: "充值", eventName: "charge", multi: false },
-    { label: "全部充值", multi: true, eventName: "all-charge", alawysDisplay: true },
+    { label: "重置", eventName: "reset", multi: false },
+    { label: "全部重置", multi: true, eventName: "all-charge", alawysDisplay: true },
     { label: "透支会员", multi: true, eventName: "fee-member", alawysDisplay: true },
     { label: "全部会员", multi: true, eventName: "all-member", alawysDisplay: true },
 ])

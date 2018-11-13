@@ -10,11 +10,14 @@ import { SelectOne } from "@core/util/meta/ref/SelectOne";
 import { C, U, D, Q, AC1, AC2, AC3 } from "@core/util/meta/Power";
 import { Check } from "@core/util/meta/Check";
 import { CustomUrl } from "@core/util/meta/CustomUrl";
-
+console.error('菜单管理已经加载')
 
 @MetaEntity({
-    objectName: "菜单管理", objectCode: EntityEnum.Menu, data: {
-        presetConditions: [
+    objectName: "菜单管理", objectCode: EntityEnum.Menu,
+    // firstLoad: true,
+    data: {
+
+        presetConditions: () => [
             { field: "menuId", compare: "in", andOr: "and", value: "(" + (JSON.parse(localStorage.getItem("menu-list") ? localStorage.getItem("menu-list") : '[]') as Menu[]).map(item => item.menuId).join(',') + ")" }
         ]
     }, view: { pageSize: 200 }

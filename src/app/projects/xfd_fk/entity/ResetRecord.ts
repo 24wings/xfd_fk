@@ -6,7 +6,7 @@ import { S } from "@core/util/meta/Power";
 import { Adapter } from "@core/util/meta/Adapter";
 import { OrderBy } from "@core/util/meta/OrderBy";
 
-@MetaEntity({ objectCode: XfdFxEntityEnum.ResetRecord as any, objectName: "全部充值记录" })
+@MetaEntity({ objectCode: XfdFxEntityEnum.ResetRecord as any, objectName: "全部重置记录", view: { pageSize: 10 } })
 export class ResetRecord {
     @ID()
     @Prop("ID", { power: 0 })

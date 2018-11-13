@@ -8,55 +8,55 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { LayoutDefaultComponent } from 'app/layout/default/default.component';
 import { HkApiController } from './hk.api.controller';
-import { IndexedDbStrategyService } from '@core/service/data-strategy/IndexedDbStrategy.service';
-import { MyHttpService } from '@core/service/http.service';
-import { CoreModule } from '@core/core.module';
-import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
-import { StorageService } from '@core/service/storage.service';
-import { AppConfig } from 'app/app.config';
-import { SyncDataRegisterFactory } from 'app/SyncDataRegisterFactory';
-import Dexie from 'dexie';
-import { MetaCom } from '@core/util/meta/MetaCom';
-import { MenuMetaCom } from '../xfd_fk/bulit-in/app.menu';
-import { HkDbName } from '.';
+// import { IndexedDbStrategyService } from '@core/service/data-strategy/IndexedDbStrategy.service';
+// import { MyHttpService } from '@core/service/http.service';
+// import { CoreModule } from '@core/core.module';
+// import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
+// import { StorageService } from '@core/service/storage.service';
+// import { AppConfig } from 'app/app.config';
+// import { SyncDataRegisterFactory } from 'app/SyncDataRegisterFactory';
+// import Dexie from 'dexie';
+// import { MetaCom } from '@core/util/meta/MetaCom';
+// import { MenuMetaCom } from '../xfd_fk/bulit-in/app.menu';
+// import { HkDbName } from '.';
 // import { OnlineStrategyService } from '@core/service/data-strategy/OnlineStrategy.service';
-let data = SyncDataRegisterFactory.exportSyncDatas();
-// 先拿出菜单,建立本地数据库;   
-let menus = SyncDataRegisterFactory.exportSyncMenu();
-let menu = menus.find(menu => menu.database == HkDbName);
-let db = new Dexie(menu.database, { autoOpen: true });
-let table = {};
-let databaseMenu = menus.find(menu => menu.database == menu.database)
-let fields = databaseMenu.metaComs
-  .map(metaCom => {
-    let metaObject: MetaCom = metaCom;
-    let tableName = metaObject.objectCode.split('.').pop();
-    let tablePkField = metaObject.metaFields.find(field => field.isPk);
-    let fields = metaObject.metaFields.filter(field => !field.isPk);
-    let tableFields = "++" + tablePkField.fieldName + "," + fields.map(field => field.fieldName).join(',')
-    return { tableName, tableFields }
-  });
-fields.forEach(field => {
-  table[field.tableName] = field.tableFields;
-});
-console.error(table);
-db.version(2).stores(table);
-db.open().catch(err => console.log(err))
-console.warn(data);
+// let data = SyncDataRegisterFactory.exportSyncDatas();
+// // 先拿出菜单,建立本地数据库;   
+// let menus = SyncDataRegisterFactory.exportSyncMenu();
+// let menu = menus.find(menu => menu.database == HkDbName);
+// let db = new Dexie(menu.database, { autoOpen: true });
+// let table = {};
+// let databaseMenu = menus.find(menu => menu.database == menu.database)
+// let fields = databaseMenu.metaComs
+//   .map(metaCom => {
+//     let metaObject: MetaCom = metaCom;
+//     let tableName = metaObject.objectCode.split('.').pop();
+//     let tablePkField = metaObject.metaFields.find(field => field.isPk);
+//     let fields = metaObject.metaFields.filter(field => !field.isPk);
+//     let tableFields = "++" + tablePkField.fieldName + "," + fields.map(field => field.fieldName).join(',')
+//     return { tableName, tableFields }
+//   });
+// fields.forEach(field => {
+//   table[field.tableName] = field.tableFields;
+// });
+// console.error(table);
+// db.version(2).stores(table);
+// db.open().catch(err => console.log(err))
+// console.warn(data);
 
-let database = data[0]
-database.tables.forEach(table => {
-  let tableName = table.objectCode.split('.').pop();
-  console.warn(`sync data`, table.dataItems);
-  table.dataItems.forEach((dataItem: MenuMetaCom) => {
-    let menu = menus.find(menu => !!menu.metaComs.find(metacom => metacom.objectCode == table.objectCode));
-    let metacom = menu.metaComs.find(metacom => metacom.objectCode == table.objectCode);
-    let pk = metacom.metaFields.find(field => field.isPk);
-    if (dataItem.metaCom) dataItem = JSON.parse(JSON.stringify(dataItem));
-    console.log(dataItem[pk.fieldName]);
-    db.table(tableName).put(dataItem);
-  });
-});
+// let database = data[0]
+// database.tables.forEach(table => {
+//   let tableName = table.objectCode.split('.').pop();
+//   console.warn(`sync data`, table.dataItems);
+//   table.dataItems.forEach((dataItem: MenuMetaCom) => {
+//     let menu = menus.find(menu => !!menu.metaComs.find(metacom => metacom.objectCode == table.objectCode));
+//     let metacom = menu.metaComs.find(metacom => metacom.objectCode == table.objectCode);
+//     let pk = metacom.metaFields.find(field => field.isPk);
+//     if (dataItem.metaCom) dataItem = JSON.parse(JSON.stringify(dataItem));
+//     console.log(dataItem[pk.fieldName]);
+//     db.table(tableName).put(dataItem);
+//   });
+// });
 
 const CommonProverders: any[] = [
   HkApiController,

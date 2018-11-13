@@ -10,12 +10,8 @@ import { filter } from 'rxjs/operators';
 import { SettingsService, TitleService } from '@delon/theme';
 import { VERSION as VERSION_ALAIN } from '@delon/theme';
 import { VERSION as VERSION_ZORRO, NzModalService } from 'ng-zorro-antd';
-import { CommonService } from '@core/service/common.service';
-import { AppConfig } from './app.config';
-import { DevService } from '@core/service/dev.service';
 import { MyHttpService } from '@core/service/http.service';
 import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
-import { SyncDataRegisterFactory } from './SyncDataRegisterFactory';
 import { OnlineStrategyService } from '@core/service/data-strategy/OnlineStrategy.service';
 import { HttpClient } from '@angular/common/http';
 @Component({
@@ -75,14 +71,14 @@ export class AppComponent implements OnInit {
     }
 
     async ngOnInit() {
-        this.httpClient.post('http://localhost:9090/field', { sql: "select * from user" }).toPromise();
+        // this.httpClient.post('http://localhost:9090/field', { sql: "select * from user" }).toPromise();
         this.httpClient.get('assets/app.config.json').toPromise().then(rtn => {
             if (rtn) {
                 localStorage.setItem("config", JSON.stringify(rtn));
             }
         })
-        let data = SyncDataRegisterFactory.exportSyncDatas();
-        let database = data.find(db => db.database == 'xfd_fk');
+        // let data = SyncDataRegisterFactory.exportSyncDatas();
+        // let database = data.find(db => db.database == 'xfd_fk');
 
         if (this.dataStrategy instanceof OnlineStrategyService) {
             // await this.myHttp.Post('/dev/sync', database);

@@ -41,6 +41,7 @@ import { BasicComspce } from '@core/util/spec/field/basic.comspec';
   styles: [``]
 })
 export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IMetaObjectComSpec, AfterViewInit {
+  pageSize: number = 10;
   queryObject: QueryObject = {};
   private __metaCom__: MetaCom;
   Types = Types;
@@ -110,7 +111,6 @@ export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IM
   dataSet: any[] = [];
   queryOptions: FieldQueryOption[] = [];
   page: number = 1;
-  pageSize: number = 10;
   total: number = 10;
   /**总字段 */
   updateFields: Field[] = [];
@@ -153,12 +153,19 @@ export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IM
     if (groupField) this.groupOptions = groupField.groupOptions;
 
     this.summarys = [];
-    console.log(this.__metaCom__)
+    // console.log(this.__metaCom__)
     this.__metaCom__.metaFields.forEach(field => field.summarys ? this.summarys.push(...field.summarys) : '');
     console.log(this.summarys)
 
     if (this.state == ModeEnum.Info) {
       this.query()
+    }
+    if (meta) {
+      if (meta.view) {
+        if (meta.view.pageSize)
+          this.pageSize = meta.view.pageSize;
+
+      }
     }
 
     this.isAdd = checkPower(C, this.power);
@@ -181,9 +188,9 @@ export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IM
       return { fieldName: field.fieldName, alias: field.alias || field.fieldName, value: '', queryCondition: 'like' }
     });
     //分页
-    if (this.metaObject.view.pageSize) {
-      this.pageSize = this.metaObject.view.pageSize;
-    }
+    // if (this.metaObject.view.pageSize) {
+    //   this.pageSize = this.metaObject.view.pageSize;
+    // }
     if (new this.metaObject.originClass() instanceof AbstractTree) {
       this.pageSize = 1000
     }
@@ -234,7 +241,8 @@ export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IM
   }
 
   async ngOnInit() {
-    this.showCheckbox = !this.__metaCom__.hideCheckbox
+    this.showCheckbox = !this.__metaCom__.hideCheckbox;
+
 
     if (this.__metaCom__.firstLoad) {
       console.warn(this.__metaCom__);
@@ -355,7 +363,6 @@ export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IM
     }
   }
   async  query(q?) {
-    let attrs: QueryAttribute[] = [];
     let conditions: QueryCondition[] = [];
     // 预设条件
     if (typeof q == 'object') conditions.push(...QueryObject.toQueryContions(q));

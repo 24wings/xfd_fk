@@ -148,6 +148,8 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
   }
   async  query() {
     let param = new QueryParam();
+    param.pageParam = { pageSize: 1000, pageIndex: 0 }
+
     if (this.metaCom.data.presetConditions) {
       if (typeof this.metaCom.data.presetConditions == 'function') {
         param.queryConditions = this.metaCom.data.presetConditions();

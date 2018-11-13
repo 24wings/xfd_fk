@@ -10,6 +10,7 @@ import { MetaEntity } from "@core/util/meta/MetaEntity";
 import { ID } from "@core/util/meta/ID";
 import { Role } from "../entity/Role";
 import { C, U, D, S } from "@core/util/meta/Power";
+
 import { CustomUrl } from "@core/util/meta/CustomUrl";
 
 @MetaEntity({
@@ -39,6 +40,6 @@ export class RoleManage implements Table<Role>{
     @Prop("角色菜单")
     menuIds: MenuManage[];
     @OneToOne()
-    @Prop("角色所在组织")
+    @Prop("所在组织")
     orgId: OrgManage;
 }

@@ -132,16 +132,30 @@ export class DynamicMenuPageComponent implements OnInit {
         this.metaObjectComponent.query({ amount: { $lt: 0 } });
       } else if ($event.eventName == 'all-member') {
         this.metaObjectComponent.query({});
+      } else if ($event.eventName == 'reset') {
+        // alert('重置');
+        this.reset($event);
       }
     }
   }
-
+  reset($event) {
+    console.log($event);
+    let member: Member = $event.data[0];
+    this.modalService.confirm({
+      nzTitle: '确认重置用户<span style="color:red">' + member.name + '</span>的金额吗?',
+      nzContent: '<b>请检查数据</b>',
+      nzOnOk: async () => {
+        await this.xfdService.Post('/xfd_fk/reset', $event.data[0], { params: { actorName: this.store.trueUser.userName } });
+        await this.metaObjectComponent.query({});
+      }
+    });
+  }
 
   disabledCard($event: { action: { checkPower: number, eventName }, data: any[], metaObject: MetaCom }) {
     this.modalService.confirm({
       nzTitle: '<i>确认禁用卡吗?</i>',
       nzContent: '<b>请检查数据</b>',
-      nzOnOk: () => this.xfdService.Post(XfdFkController.api.disabledCard, $event.data[0])
+      nzOnOk: () => this.xfdService.Post(XfdFkController.api.disabledCard, $event.data[0], { params: { actorName: this.store.trueUser.userName } })
     });
   }
   selectedOrder: Order;
@@ -186,14 +200,17 @@ export class DynamicMenuPageComponent implements OnInit {
       });
     }
     await this.xfdService.Post(XfdFkController.api.recharge, this.chargeMember, { params: { amount: this.chargeAmount, actorName: this.store.trueUser.userName } });
-    this.metaObjectComponent.query();
+    await this.metaObjectComponent.query({});
   }
   async chargeAll() {
     this.modalService.confirm({
       nzTitle: '确认全员充值?',
       nzContent: '全员充值将会将所有人的金额重置到会员分组的金额',
-      nzOnOk: async () => await this.xfdService.Post(XfdFkController.api.rechargeAll, {}, { params: { amount: this.chargeAllAmount, actorName: this.store.trueUser.userName } })
+      nzOnOk: async () => {
+        await this.xfdService.Post(XfdFkController.api.rechargeAll, {}, { params: { amount: this.chargeAllAmount, actorName: this.store.trueUser.userName } });
+        await this.metaObjectComponent.query();
+      }
     });
-    this.metaObjectComponent.query();
+
   }
 }

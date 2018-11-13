@@ -13,7 +13,8 @@ import { StorageService } from "@core/service/storage.service";
 import { MyHttpService } from "@core/service/http.service";
 import { DevService } from "@core/service/dev.service";
 import { UserService } from "@core/service/user.service";
-import { User } from "app/blueprint/rbac/entity/User";
+// import { User } from "app/blueprint/rbac/entity/User";
+type User = any;
 @Component({
   selector: "app-login-page",
   templateUrl: "./login-page.component.html",

@@ -1,7 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Member } from "app/projects/hk/entity/Member";
-import { Menu } from "app/blueprint/rbac/entity/Menu";
-import { User } from "app/blueprint/rbac/entity/User";
+// import { Member } from "app/projects/hk/entity/Member";
+// import { Menu } from "app/blueprint/rbac/entity/Menu";
+// import { User } from "app/blueprint/rbac/entity/User";
+type Menu = any;
+type User = any;
+type Member = any;
 @Injectable()
 export class StorageService {
   set member(member: Member) {

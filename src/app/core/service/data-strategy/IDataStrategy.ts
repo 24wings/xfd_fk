@@ -1,4 +1,3 @@
-import { analyzeAndValidateNgModules } from "@angular/compiler";
 import { Injectable } from "@angular/core";
 import { MetaCom } from "@core/util/meta/MetaCom";
 import { QueryParam } from "@core/util/stq/QueryParameter";

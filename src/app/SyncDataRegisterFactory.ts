@@ -1,21 +1,21 @@
-import { EntityEnum } from "./entity.enum";
+// import { EntityEnum } from "./entity.enum";
 import { MetaCom } from "@core/util/meta/MetaCom";
 import { getMetaEntity } from "@core/util/meta/MetaEntity";
-import { loadBuiltInMenus } from "./projects/hk/built-in/app.menu";
-import { BuiltInRoles } from "./projects/hk/built-in/app.role";
-import { BuiltInOrgs } from "./projects/hk/built-in/app.org";
-import { BuiltInUsers } from "./projects/hk/built-in/app.user";
-import { rbac } from "./blueprint/rbac";
-import { hk } from "./projects/hk/meta";
-import { Member } from "./projects/xfd_fk/entity/Member";
-import { loadBuiltInMenus as xfdBuiltInMenu } from './projects/xfd_fk/bulit-in/app.menu';
-import { XfdfkBuiltInRoles } from "./projects/xfd_fk/bulit-in/app.role";
-import { XfdfkBuiltInOrgs } from "./projects/xfd_fk/bulit-in/app.org";
-import { XfdFxEntityEnum } from "./projects/xfd_fk/xfd_fk.EntityEnum";
-import { XfdfkBuiltInUsers } from "./projects/xfd_fk/bulit-in/app.user";
-import { Card } from "./projects/xfd_fk/entity/Card";
-import { Order } from "./projects/xfd_fk/entity/Order";
-import { ResetRecord } from "./projects/xfd_fk/entity/ResetRecord";
+// import { loadBuiltInMenus } from "./projects/hk/built-in/app.menu";
+// import { BuiltInRoles } from "./projects/hk/built-in/app.role";
+// import { BuiltInOrgs } from "./projects/hk/built-in/app.org";
+// import { BuiltInUsers } from "./projects/hk/built-in/app.user";
+// import { rbac } from "./blueprint/rbac";
+// import { hk } from "./projects/hk/meta";
+// import { Member } from "./projects/xfd_fk/entity/Member";
+// import { loadBuiltInMenus as xfdBuiltInMenu } from './projects/xfd_fk/bulit-in/app.menu';
+// import { XfdfkBuiltInRoles } from "./projects/xfd_fk/bulit-in/app.role";
+// import { XfdfkBuiltInOrgs } from "./projects/xfd_fk/bulit-in/app.org";
+// import { XfdFxEntityEnum } from "./projects/xfd_fk/xfd_fk.EntityEnum";
+// import { XfdfkBuiltInUsers } from "./projects/xfd_fk/bulit-in/app.user";
+// import { Card } from "./projects/xfd_fk/entity/Card";
+// import { Order } from "./projects/xfd_fk/entity/Order";
+// import { ResetRecord } from "./projects/xfd_fk/entity/ResetRecord";
 
 export interface ISyncTableData {
     database: string;
@@ -70,17 +70,17 @@ export class SyncDataRegisterFactory {
     }
 }
 
-SyncDataRegisterFactory.register("hk", EntityEnum.Menu, loadBuiltInMenus());
-SyncDataRegisterFactory.register("hk", EntityEnum.Role, BuiltInRoles);
-SyncDataRegisterFactory.register("hk", EntityEnum.Org, BuiltInOrgs);
-SyncDataRegisterFactory.register("hk", EntityEnum.User, BuiltInUsers);
-SyncDataRegisterFactory.registerTable("hk", rbac.concat(...hk as any));
+// SyncDataRegisterFactory.register("hk", EntityEnum.Menu, loadBuiltInMenus());
+// SyncDataRegisterFactory.register("hk", EntityEnum.Role, BuiltInRoles);
+// SyncDataRegisterFactory.register("hk", EntityEnum.Org, BuiltInOrgs);
+// SyncDataRegisterFactory.register("hk", EntityEnum.User, BuiltInUsers);
+// SyncDataRegisterFactory.registerTable("hk", rbac.concat(...hk as any));
 
 
-// 新发地数据
-SyncDataRegisterFactory.registerTable("xfd_fk", rbac.concat(Member as any).concat(...[Card, Order, ResetRecord] as any));
-SyncDataRegisterFactory.register("xfd_fk", EntityEnum.Menu, xfdBuiltInMenu());
-SyncDataRegisterFactory.register("xfd_fk", EntityEnum.Role, XfdfkBuiltInRoles);
-SyncDataRegisterFactory.register("xfd_fk", EntityEnum.Org, XfdfkBuiltInOrgs);
-SyncDataRegisterFactory.register("xfd_fk", EntityEnum.User, XfdfkBuiltInUsers);
+// // 新发地数据
+// SyncDataRegisterFactory.registerTable("xfd_fk", rbac.concat(Member as any).concat(...[Card, Order, ResetRecord] as any));
+// SyncDataRegisterFactory.register("xfd_fk", EntityEnum.Menu, xfdBuiltInMenu());
+// SyncDataRegisterFactory.register("xfd_fk", EntityEnum.Role, XfdfkBuiltInRoles);
+// SyncDataRegisterFactory.register("xfd_fk", EntityEnum.Org, XfdfkBuiltInOrgs);
+// SyncDataRegisterFactory.register("xfd_fk", EntityEnum.User, XfdfkBuiltInUsers);
 

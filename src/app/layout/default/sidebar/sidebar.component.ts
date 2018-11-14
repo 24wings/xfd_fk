@@ -63,5 +63,9 @@ export class SidebarComponent {
 
   async getAdminInfo() { }
   async getSendProductOrdersNum() { }
+  logout() {
+    localStorage.clear();
+    this.router.navigateByUrl('/');
+  }
 
 }

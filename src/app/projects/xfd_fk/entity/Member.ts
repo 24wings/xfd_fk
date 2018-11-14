@@ -57,11 +57,9 @@ export class Member {
     amount: number = 0;
     createTime: Date = new Date();
     @Check(false)
-    @Prop("备注")
-    remark: string;
     /**饭卡 */
     @DynamicFieldComponent(IcCardReaderComponent)
-    @Prop("会员卡号", { power: C })
+    @Prop("会员卡号")
     mealCardNo: string;
     @SelectOne(getAlias(MemberStatusEnum))
     @Prop("会员状态", { power: S | U })
@@ -75,4 +73,7 @@ export class Member {
     @OneToOne()
     @Prop("会员分组")
     groupId: MemberGroup;
+    @Check(false)
+    @Prop("备注")
+    remark: string;
 }

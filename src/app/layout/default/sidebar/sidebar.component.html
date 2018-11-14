@@ -8,9 +8,9 @@
             </div>
         </div>
         <ul nz-menu>
-            <li nz-menu-item routerLink="/admin/user/dynamic-menu/member-info">个人资料</li>
-            <li nz-menu-item (click)="msgSrv.success('settings')">设置</li>
-            <li nz-menu-item (click)="msgSrv.success('logout')">登出</li>
+            <li nz-menu-item routerLink="/xfd_fk/admin/user/user-info">个人资料</li>
+            <!-- <li nz-menu-item (click)="msgSrv.success('settings')">设置</li> -->
+            <li nz-menu-item (click)="logout()">登出</li>
         </ul>
     </nz-dropdown>
     <sidebar-nav class="d-block py-lg"></sidebar-nav>

@@ -16,6 +16,7 @@ import { Provider } from '@angular/compiler/src/core';
 import { CustomUrlService } from '@core/service/CustomUrl.service';
 import { RoleManagePageComponent } from './pages/role-manage-page/role-manage-page.component';
 import { UserManagePageComponent } from './pages/user-manage-page/user-manage-page.component';
+import { UserInfoPageComponent } from './pages/user-info-page/user-info-page.component';
 // let data = SyncDataRegisterFactory.exportSyncDatas();
 // // 先拿出菜单,建立本地数据库;   
 // let menus = SyncDataRegisterFactory.exportSyncMenu();
@@ -57,7 +58,11 @@ import { UserManagePageComponent } from './pages/user-manage-page/user-manage-pa
 
 
 const CommonProverders: Provider[] = [XfdFkController, { provide: CustomUrlService, useClass: XfdFkController }];
-const CommonComponents: any[] = [UserManagePageComponent, DynamicMenuPageComponent, RoleManagePageComponent]
+const CommonComponents: any[] = [
+    UserInfoPageComponent,
+    UserManagePageComponent,
+    DynamicMenuPageComponent,
+    RoleManagePageComponent]
 /**
  * 航空公司项目
  */
@@ -75,6 +80,7 @@ const CommonComponents: any[] = [UserManagePageComponent, DynamicMenuPageCompone
                 component: LayoutDefaultComponent,
                 children: [
                     { path: '', component: DynamicMenuPageComponent },
+                    { path: 'user-info', component: UserInfoPageComponent },
                     { path: 'dynamic-menu/', component: DynamicMenuPageComponent },
                     { path: 'dynamic-menu/menu', component: DynamicMenuPageComponent },
                     { path: 'dynamic-menu/org', component: DynamicMenuPageComponent },

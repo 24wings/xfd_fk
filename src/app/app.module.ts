@@ -123,6 +123,7 @@ import { CustomUrlService } from '@core/service/CustomUrl.service';
 import { OnlineStrategyService } from '@core/service/data-strategy/OnlineStrategy.service';
 import { DataStrategy } from './app.data-strategy';
 import { CallbackComponent } from './routes/callback/callback.component';
+import { MetaUiModule } from './libs/meta-ui/meta-ui.module';
 
 export function StartupServiceFactory(
   startupService: StartupService,
@@ -145,6 +146,7 @@ const APPINIT_PROVIDES = [
 @NgModule({
   declarations: [AppComponent, CallbackComponent],
   imports: [
+    MetaUiModule.forRoot(),
     HttpModule,
     HttpClientModule,
 

@@ -1,0 +1,3 @@
+interface IMetaObjectComSpec extends IAfterCreateSuceess {
+
+}

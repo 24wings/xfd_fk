@@ -4,7 +4,7 @@ import { RoleManage } from 'app/blueprint/rbac/meta/RoleManage';
 import { U, C, D } from '@core/util/meta/Power';
 import { MetaCom } from '@core/util/meta/MetaCom';
 import { OrgManage } from 'app/blueprint/rbac/meta/OrgManage';
-import { MetaObjectComponent } from '@shared/com/meta-object/meta-object.component';
+import { MetaObjectComponent } from 'app/libs/meta-ui/com/meta-object/meta-object.component';
 
 @Component({
   selector: 'role-manage-page',

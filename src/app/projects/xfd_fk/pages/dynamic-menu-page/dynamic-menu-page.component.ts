@@ -22,7 +22,7 @@ import { Member } from '../../entity/Member';
 import { XfdFkController } from '../../xfd_fk.controller';
 import { MemberStatusEnum } from '../../enums/MemberStatus.enum';
 import { C, U, D, Q } from '@core/util/meta/Power';
-import { MetaObjectComponent } from '@shared/com/meta-object/meta-object.component';
+import { MetaObjectComponent } from 'app/libs/meta-ui/com/meta-object/meta-object.component';
 
 
 @Component({

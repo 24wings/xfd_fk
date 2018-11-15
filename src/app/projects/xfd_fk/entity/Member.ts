@@ -12,7 +12,6 @@ import { Toolbar } from "@core/util/meta/Toolbar";
 import { CustomUrl } from "@core/util/meta/CustomUrl";
 // import { DemoStringComponent } from "@shared/com/dynamic-com/demo-string/demo-string.component";
 import { DynamicFieldComponent } from "@core/util/meta/DynamicFieldComponent";
-import { IcCardReaderComponent } from "@shared/com/zorro/basic/ic-card-reader/ic-card-reader.component";
 // import { Query } from "@core/util/meta/query/Query";
 import { MemberQueryComponent } from "@shared/com/dynamic-com/member-query/member-query.component";
 import { DynamicToolbar } from "@core/util/meta/custom/DynamicToolbar";
@@ -22,6 +21,7 @@ import { Rules } from "@core/util/regexp";
 import { MemberGroup } from "./MemberGroup";
 // import { RefOne } from "@core/util/meta/ref/RefOne";
 import { Adapter } from "@core/util/meta/Adapter";
+import { IcCardReaderComponent } from "app/libs/meta-ui/com/zorro/basic/ic-card-reader/ic-card-reader.component";
 // import { FieldJsonComponent } from "@shared/com/dynamic-com/field-json/field-json.component";
 // import { DemoEditorComponent } from "@shared/com/dynamic-com/demo-editor/demo-editor.component";
 

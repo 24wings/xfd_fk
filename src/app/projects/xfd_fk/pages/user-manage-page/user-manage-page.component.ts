@@ -3,8 +3,8 @@ import { D, U, C } from '@core/util/meta/Power';
 import { OrgManage } from 'app/blueprint/rbac/meta/OrgManage';
 import { MetaCom } from '@core/util/meta/MetaCom';
 import { getMetaEntity } from '@core/util/meta/MetaEntity';
-import { MetaObjectComponent } from '@shared/com/meta-object/meta-object.component';
 import { UserManage } from 'app/blueprint/rbac/meta/UserManage';
+import { MetaObjectComponent } from 'app/libs/meta-ui/com/meta-object/meta-object.component';
 
 @Component({
   selector: 'user-manage-page',

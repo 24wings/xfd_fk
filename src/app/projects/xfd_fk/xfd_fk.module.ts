@@ -17,6 +17,7 @@ import { CustomUrlService } from '@core/service/CustomUrl.service';
 import { RoleManagePageComponent } from './pages/role-manage-page/role-manage-page.component';
 import { UserManagePageComponent } from './pages/user-manage-page/user-manage-page.component';
 import { UserInfoPageComponent } from './pages/user-info-page/user-info-page.component';
+import { MetaUiModule } from 'app/libs/meta-ui/meta-ui.module';
 // let data = SyncDataRegisterFactory.exportSyncDatas();
 // // 先拿出菜单,建立本地数据库;   
 // let menus = SyncDataRegisterFactory.exportSyncMenu();
@@ -68,6 +69,7 @@ const CommonComponents: any[] = [
  */
 @NgModule({
     imports: [
+        MetaUiModule.forRoot(),
         LayoutModule,
         CommonModule,
         NgZorroAntdModule,

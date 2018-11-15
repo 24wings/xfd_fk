@@ -1,0 +1,1 @@
+export const BasicType = ['number', 'string', 'date']

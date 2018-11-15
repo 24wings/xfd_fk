@@ -1,11 +1,11 @@
 import { Component, ChangeDetectorRef, Input } from "@angular/core";
-import { MetaEditorComponent } from "@shared/com/meta-object/meta-editor/meta-editor.component";
 import { ValidService } from "@core/service/validate.service";
 import { NzMessageService } from "ng-zorro-antd";
 import { MyHttpService } from "@core/service/http.service";
 import { CustomUrlService } from "@core/service/CustomUrl.service";
 import { IDataStrategy } from "@core/service/data-strategy/IDataStrategy";
 import { ModeEnum } from "@core/util/meta/Mode.enum";
+import { MetaEditorComponent } from "app/libs/meta-ui/com/meta-object/meta-editor/meta-editor.component";
 
 @Component({
     selector: 'demo-editor',

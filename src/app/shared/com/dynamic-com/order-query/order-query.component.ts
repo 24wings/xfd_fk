@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomQueryToolbarComSpec } from '@core/util/spec/custom/custom-query-toolbar';
-import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
-import { QueryCondition } from '@core/util/stq/QueryCondition';
-import { Condition } from 'selenium-webdriver';
-import { QueryParam } from '@core/util/stq/QueryParameter';
+import { IDataStrategy } from 'app/libs/meta-ui/service/data-strategy/IDataStrategy';
+import { CustomQueryToolbarComSpec } from 'app/libs/meta-ui/util/spec/custom/custom-query-toolbar';
+import { QueryParam } from 'app/libs/meta-ui/util/stq/QueryParameter';
 
 enum OrderType {
   TRANS, // 交易

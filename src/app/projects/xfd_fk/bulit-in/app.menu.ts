@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { C, U, D, Q, AC1 } from '@core/util/meta/Power';
+import { C, U, D, Q, AC1 } from 'app/libs/meta-ui/util/meta/Power';
 import { UserManage } from 'app/blueprint/rbac/meta/UserManage';
 import { RoleManage } from 'app/blueprint/rbac/meta/RoleManage';
 import { MenuManage } from 'app/blueprint/rbac/meta/MenuManage';

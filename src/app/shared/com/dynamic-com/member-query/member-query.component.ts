@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
-import { CustomQueryToolbarComSpec } from '@core/util/spec/custom/custom-query-toolbar';
-import { QueryParam } from '@core/util/stq/QueryParameter';
+import { IDataStrategy } from 'app/libs/meta-ui/service/data-strategy/IDataStrategy';
 import { Member } from 'app/projects/xfd_fk/entity/Member';
 import { XfdFxEntityEnum } from 'app/projects/xfd_fk/xfd_fk.EntityEnum';
-import { MetaCom } from '@core/util/meta/MetaCom';
 import { MemberGroup } from 'app/projects/xfd_fk/entity/MemberGroup';
+import { CustomQueryToolbarComSpec } from 'app/libs/meta-ui/util/spec/custom/custom-query-toolbar';
+import { QueryParam } from 'app/libs/meta-ui/util/stq/QueryParameter';
+import { MetaCom } from 'app/libs/meta-ui/util/meta/MetaCom';
 
 @Component({
   selector: 'member-query',

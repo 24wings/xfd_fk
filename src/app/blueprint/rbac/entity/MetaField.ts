@@ -1,5 +1,5 @@
-import { FieldConfig } from "@core/util/meta/FieldConfig";
-import { MetaCom } from "@core/util/meta/MetaCom";
+import { FieldConfig } from "app/libs/meta-ui/util/meta/FieldConfig";
+import { MetaCom } from "app/libs/meta-ui/util/meta/MetaCom";
 
 /**
  * queryTemplate
@@ -11,7 +11,7 @@ export class MetaField {
     isQuery?: boolean;
     isShow?: boolean;
     isUpdate?: boolean;
-    placeholder?: string; 
+    placeholder?: string;
     config?: any | FieldConfig;
     fieldType?: string;
     fieldName?: string;

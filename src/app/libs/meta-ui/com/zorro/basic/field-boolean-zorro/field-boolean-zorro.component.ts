@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ValidService } from '@core/service/validate.service';
-import { BooleanComSpec } from '@core/util/spec/field/boolean.comspec';
+import { ValidService } from 'app/libs/meta-ui/service/validate.service';
+import { BooleanComSpec } from '../../../../util/spec/field/boolean.comspec';
 
 @Component({
   selector: 'app-field-boolean',

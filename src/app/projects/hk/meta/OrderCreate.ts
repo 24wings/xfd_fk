@@ -1,15 +1,15 @@
 import { EntityEnum } from "../../../entity.enum";
 import Decimal from "decimal.js";
-import { MetaEntity } from "@core/util/meta/MetaEntity";
-import { Table } from "@core/util/struct/Table";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
+import { Table } from "app/libs/meta-ui/util/struct/Table";
 import { Order } from "../entity/Order";
-import { ID } from "@core/util/meta/ID";
-import { Prop } from "@core/util/meta/Prop";
-import { S } from "@core/util/meta/Power";
-import { getAlias } from "@core/util/meta/alias";
-import { SelectOne } from "@core/util/meta/ref/SelectOne";
+import { ID } from "app/libs/meta-ui/util/meta/ID";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { S } from "app/libs/meta-ui/util/meta/Power";
+import { getAlias } from "app/libs/meta-ui/util/meta/alias";
+import { SelectOne } from "app/libs/meta-ui/util/meta/ref/SelectOne";
 import { ProductTargetEnum } from "../enum/ProductTarget";
-import { Select } from "@core/util/meta/types/Select";
+import { Select } from "app/libs/meta-ui/util/meta/types/Select";
 import { OrderStatusEnum } from "../enum/OrderStatus.enum";
 
 @MetaEntity({ objectCode: EntityEnum.Order, objectName: "订单创建" })

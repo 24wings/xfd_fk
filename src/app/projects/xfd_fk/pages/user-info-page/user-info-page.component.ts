@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
+import { IDataStrategy } from 'app/libs/meta-ui/service/data-strategy/IDataStrategy';
 import { XfdFxEntityEnum } from '../../xfd_fk.EntityEnum';
 import { EntityEnum } from 'app/entity.enum';
-import { QueryObject } from '@core/util/stq/QueryObject';
-import { QueryParam } from '@core/util/stq/QueryParameter';
-import { StorageService } from '@core/service/storage.service';
-import { MyHttpService } from '@core/service/http.service';
+import { StorageService } from 'app/libs/meta-ui/service/storage.service';
+import { MyHttpService } from 'app/libs/meta-ui/service/http.service';
 import { NzMessageService } from 'ng-zorro-antd';
+import { QueryParam } from 'app/libs/meta-ui/util/stq/QueryParameter';
 
 @Component({
   selector: 'user-info-page',

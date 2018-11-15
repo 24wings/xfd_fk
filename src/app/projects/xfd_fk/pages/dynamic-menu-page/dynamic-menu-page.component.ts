@@ -1,28 +1,28 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
-import { StorageService } from '@core/service/storage.service';
-import { CommonService } from '@core/service/common.service';
-import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
-import { MyHttpService } from '@core/service/http.service';
-import { MetaCom } from '@core/util/meta/MetaCom';
+import { StorageService } from 'app/libs/meta-ui/service/storage.service';
+import { CommonService } from 'app/libs/meta-ui/service/common.service';
+import { IDataStrategy } from 'app/libs/meta-ui/service/data-strategy/IDataStrategy';
+import { MyHttpService } from 'app/libs/meta-ui/service/http.service';
+import { MetaCom } from '../../../../libs/meta-ui/util/meta/MetaCom';
 import { AppConfig } from 'app/app.config';
-import { getMetaNotify } from '@core/util/meta/IMetaNotify';
-import { getMetaEntity } from '@core/util/meta/MetaEntity';
-import { ModeEnum } from '@core/util/meta/Mode.enum';
-import { CustomActionEvent } from '@core/util/event/custom-action.event';
+// import { getMetaNotify } from '../../../../libs/meta-ui/util/notify/createNotify';
+import { getMetaEntity } from '../../../../libs/meta-ui/util/meta/MetaEntity';
+import { ModeEnum } from '../../../../libs/meta-ui/util/meta/Mode.enum';
+import { CustomActionEvent } from '../../../../libs/meta-ui/util/event/custom-action.event';
 import { Order } from 'app/projects/hk/entity/Order';
 import { EntityEnum } from 'app/entity.enum';
 import { MsgNotify } from 'app/projects/hk/meta/MsgNotify';
 import { MsgTypeEnum } from 'app/projects/hk/enum/MsgType.enum';
 import { loadBuiltInMenus } from '../../bulit-in/app.menu';
 import { XFD_FKDbName } from '../..';
-import { Rules } from '@core/util/regexp';
+import { Rules } from '../../../../libs/meta-ui/util/regexp';
 import { Member } from '../../entity/Member';
 import { XfdFkController } from '../../xfd_fk.controller';
 import { MemberStatusEnum } from '../../enums/MemberStatus.enum';
-import { C, U, D, Q } from '@core/util/meta/Power';
 import { MetaObjectComponent } from 'app/libs/meta-ui/com/meta-object/meta-object.component';
+import { getMetaNotify } from 'app/libs/meta-ui/util/meta/IMetaNotify';
 
 
 @Component({
@@ -120,7 +120,7 @@ export class DynamicMenuPageComponent implements OnInit {
     // this.power = C | U | Q | D;
   }
 
-  doAction($event: { action: { checkPower: number, eventName }, data: any[], metaObject: MetaCom }) {
+  doAction($event: { eventName: string, action: { checkPower: number, eventName }, data: any[], metaObject: MetaCom }) {
     if ($event instanceof CustomActionEvent) {
       if ($event.eventName == 'charge') {
         this.createCustomButtonModal($event);

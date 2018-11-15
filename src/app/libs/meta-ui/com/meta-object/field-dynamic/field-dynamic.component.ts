@@ -2,19 +2,19 @@ import { Component, OnInit, ComponentFactoryResolver, ViewChild, AfterViewInit, 
 import { DynamicDirective } from '../../../dynamic.directive';
 import { AppConfig, ComponentType } from '../../../../../app.config';
 import { registerCompoenentFactorys } from '../../../component-register.factory';
-import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
-import { Field } from '@core/util/meta/Field';
-import { MetaCom } from '@core/util/meta/MetaCom';
-import { ModeEnum } from '@core/util/meta/Mode.enum';
-import { BasicComspce } from '@core/util/spec/field/basic.comspec';
-import { RefTableComSpec } from '@core/util/spec/field/ref-table.comspec';
-import { getMetaEntity } from '@core/util/meta/MetaEntity';
-import { RefTablees } from '@core/util/meta/types/RefTablees';
-import { RefTable } from '@core/util/meta/types/RefTable';
-import { RefTree } from '@core/util/meta/types/RefTree';
-import { RefTreees } from '@core/util/meta/types/RefTreees';
-import { QueryCondition } from '@core/util/stq/QueryCondition';
-import { QueryParam } from '@core/util/stq/QueryParameter';
+import { IDataStrategy } from 'app/libs/meta-ui/service/data-strategy/IDataStrategy';
+import { Field } from 'app/libs/meta-ui/util/meta/Field';
+import { MetaCom } from 'app/libs/meta-ui/util/meta/MetaCom';
+import { ModeEnum } from 'app/libs/meta-ui/util/meta/Mode.enum';
+import { BasicComspce } from 'app/libs/meta-ui/util/spec/field/basic.comspec';
+import { RefTableComSpec } from 'app/libs/meta-ui/util/spec/field/ref-table.comspec';
+import { getMetaEntity } from 'app/libs/meta-ui/util/meta/MetaEntity';
+import { RefTablees } from 'app/libs/meta-ui/util/meta/types/RefTablees';
+import { RefTable } from 'app/libs/meta-ui/util/meta/types/RefTable';
+import { RefTree } from 'app/libs/meta-ui/util/meta/types/RefTree';
+import { RefTreees } from 'app/libs/meta-ui/util/meta/types/RefTreees';
+import { QueryCondition } from 'app/libs/meta-ui/util/stq/QueryCondition';
+import { QueryParam } from 'app/libs/meta-ui/util/stq/QueryParameter';
 @Component({
   selector: 'app-field-dynamic',
   templateUrl: './field-dynamic.component.html',

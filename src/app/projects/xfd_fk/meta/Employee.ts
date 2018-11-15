@@ -1,8 +1,8 @@
-import { MetaEntity } from "@core/util/meta/MetaEntity";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
 import { EntityEnum } from "app/entity.enum";
-import { ID } from "@core/util/meta/ID";
-import { Prop } from "@core/util/meta/Prop";
-import { QueryObject } from "@core/util/stq/QueryObject";
+import { ID } from "app/libs/meta-ui/util/meta/ID";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { QueryObject } from "app/libs/meta-ui/util/stq/QueryObject";
 
 
 @MetaEntity({ objectCode: EntityEnum.User, objectName: "工作人员的增删改查", data: { presetConditions: QueryObject.toQueryContions({ roleIds: '101' }) } })

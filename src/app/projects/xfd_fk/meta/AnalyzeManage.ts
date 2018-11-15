@@ -1,13 +1,13 @@
 import { Member } from "../entity/Member";
-import { Table } from "@core/util/struct/Table";
-import { Prop } from "@core/util/meta/Prop";
-import { S } from "@core/util/meta/Power";
-import { MetaEntity } from "@core/util/meta/MetaEntity";
+import { Table } from "app/libs/meta-ui/util/struct/Table";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { S } from "app/libs/meta-ui/util/meta/Power";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
 import { EntityEnum } from "app/entity.enum";
 import { XfdFxEntityEnum } from "../xfd_fk.EntityEnum";
-import { DynamicToolbar } from "@core/util/meta/custom/DynamicToolbar";
+import { DynamicToolbar } from "app/libs/meta-ui/util/meta/custom/DynamicToolbar";
 import { AnalyzeQueryToolbarComponent } from "@shared/com/dynamic-com/analyze-query-toolbar/analyze-query-toolbar.component";
-import { Summary } from "@core/util/meta/Summary";
+import { Summary } from "app/libs/meta-ui/util/meta/Summary";
 
 @DynamicToolbar(AnalyzeQueryToolbarComponent)
 @MetaEntity({ objectCode: XfdFxEntityEnum.Member as any, objectName: "统计分析", firstLoad: false })

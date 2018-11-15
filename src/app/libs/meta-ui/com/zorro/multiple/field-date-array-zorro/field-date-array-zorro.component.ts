@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { ValidService } from '@core/service/validate.service';
-import { DateArrComSpec } from '@core/util/spec/field/multiple/date-arr.comspec';
+import { ValidService } from '../../../../service/validate.service';
+import { DateArrComSpec } from '../../../../util/spec/field/multiple/date-arr.comspec';
 
 @Component({
   selector: 'app-field-date-array-zorro',

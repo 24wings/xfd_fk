@@ -1,8 +1,8 @@
-import { ID } from "@core/util/meta/ID";
-import { Prop } from "@core/util/meta/Prop";
-import { MetaEntity } from "@core/util/meta/MetaEntity";
+import { ID } from "app/libs/meta-ui/util/meta/ID";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
 import { XfdFxEntityEnum } from "../xfd_fk.EntityEnum";
-import { C, U, D } from "@core/util/meta/Power";
+import { C, U, D } from "app/libs/meta-ui/util/meta/Power";
 
 @MetaEntity({ objectCode: XfdFxEntityEnum.MemberGroup as any, objectName: "会员分组", power: C | U | D, })
 export class MemberGroup {

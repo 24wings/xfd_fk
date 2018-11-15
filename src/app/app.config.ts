@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { IMsgNotify } from '@core/util/notify/IMsgNotify';
-import { BasicComspce } from '@core/util/spec/field/basic.comspec';
-import { BooleanComSpec } from '@core/util/spec/field/boolean.comspec';
-import { DateComSpec } from '@core/util/spec/field/date.comspec';
-import { NumberComSpec } from '@core/util/spec/field/number.comspec';
-import { SelectComSpec } from '@core/util/spec/field/select.comspec';
+import { IMsgNotify } from 'app/libs/meta-ui/util/notify/IMsgNotify';
+import { BasicComspce } from 'app/libs/meta-ui/util/spec/field/basic.comspec';
+import { BooleanComSpec } from 'app/libs/meta-ui/util/spec/field/boolean.comspec';
+import { DateComSpec } from 'app/libs/meta-ui/util/spec/field/date.comspec';
+import { NumberComSpec } from 'app/libs/meta-ui/util/spec/field/number.comspec';
+import { SelectComSpec } from 'app/libs/meta-ui/util/spec/field/select.comspec';
 import { loadBuiltInMenus } from './projects/hk/built-in/app.menu';
 import { MemberRegisterNotify, MemberRegisterTask } from './projects/hk/notify/MemberRegisterNotify';
 import { OrderNotifyTask } from './projects/hk/notify/OrderNotify.task';

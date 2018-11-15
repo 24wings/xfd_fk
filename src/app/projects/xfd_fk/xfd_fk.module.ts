@@ -13,7 +13,7 @@ import Dexie from 'dexie';
 import { MenuMetaCom } from './bulit-in/app.menu';
 import { XfdFkController } from './xfd_fk.controller';
 import { Provider } from '@angular/compiler/src/core';
-import { CustomUrlService } from '@core/service/CustomUrl.service';
+import { CustomUrlService } from 'app/libs/meta-ui/service/CustomUrl.service';
 import { RoleManagePageComponent } from './pages/role-manage-page/role-manage-page.component';
 import { UserManagePageComponent } from './pages/user-manage-page/user-manage-page.component';
 import { UserInfoPageComponent } from './pages/user-info-page/user-info-page.component';

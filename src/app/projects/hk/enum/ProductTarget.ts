@@ -1,4 +1,4 @@
-import { setAlias } from "@core/util/meta/alias";
+import { setAlias } from "app/libs/meta-ui/util/meta/alias";
 
 /**产品目标群体*/
 export enum ProductTargetEnum {

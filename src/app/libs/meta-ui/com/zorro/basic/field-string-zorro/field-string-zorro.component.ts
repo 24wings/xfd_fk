@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ValidService } from '@core/service/validate.service';
-import { StringComSpec } from '@core/util/spec/field/string.comspec';
+import { ValidService } from '../../../../service/validate.service';
+import { StringComSpec } from '../../../../util/spec/field/string.comspec';
 
 @Component({
   selector: 'app-field-string-zorro',

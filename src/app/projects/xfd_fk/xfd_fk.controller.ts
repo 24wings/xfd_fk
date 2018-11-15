@@ -3,14 +3,14 @@ import { LoginBean } from "../hk/bean/LoginBean";
 import Dexie from "dexie";
 import { XFD_FKDbName } from ".";
 import { XfdFxEntityEnum } from "./xfd_fk.EntityEnum";
-import { Res } from "@core/util/res/res";
+import { Res } from "../../libs/meta-ui/util/res/res";
 import { NzMessageService } from "ng-zorro-antd";
-import { success } from "@core/util/res/success";
-import { err } from "@core/util/res/err";
+import { success } from "../../libs/meta-ui/util/res/success";
+import { err } from "../../libs/meta-ui/util/res/err";
 import { Member } from "./entity/Member";
 import { MemberStatusEnum } from "./enums/MemberStatus.enum";
 import { Order } from "./entity/Order";
-import { StorageService } from "@core/service/storage.service";
+import { StorageService } from "app/libs/meta-ui/service/storage.service";
 import { OrderStatusEnum } from "./enums/OrderStatus.enum";
 import *  as _ from "lodash";
 import { ResetRecord } from "./entity/ResetRecord";
@@ -18,10 +18,10 @@ import { CardStatusEnum } from "./enums/CardStatus.enum";
 import { Card } from "./entity/Card";
 import { Get, Post, HkApiController, getKey, postKey } from "../hk/hk.api.controller";
 import { RequestOptionsArgs } from "@angular/http";
-import { OnlineStrategyService } from "@core/service/data-strategy/OnlineStrategy.service";
-import { IndexedDbStrategyService } from "@core/service/data-strategy/IndexedDbStrategy.service";
-import { IDataStrategy } from "@core/service/data-strategy/IDataStrategy";
-import { MyHttpService } from "@core/service/http.service";
+import { OnlineStrategyService } from "app/libs/meta-ui/service/data-strategy/OnlineStrategy.service";
+import { IndexedDbStrategyService } from "app/libs/meta-ui/service/data-strategy/IndexedDbStrategy.service";
+import { IDataStrategy } from "app/libs/meta-ui/service/data-strategy/IDataStrategy";
+import { MyHttpService } from "app/libs/meta-ui/service/http.service";
 
 
 @Injectable()

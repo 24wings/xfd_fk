@@ -1,14 +1,14 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd';
-import { ValidService } from '@core/service/validate.service';
-import { RefTableComSpec } from '@core/util/spec/field/ref-table.comspec';
-import { ValidStatusEnum } from '@core/util/meta/ValidStatus.enum';
-import { ModeEnum } from '@core/util/meta/Mode.enum';
-import { listToNzTreeNode } from '@core/util/struct/listToTree';
-import { CheckOneDataAction } from '@core/util/event/check/check-one-data-action.event';
-import { AbstractTree } from '@core/util/struct/AbstractTree';
-import { QueryObject } from '@core/util/stq/QueryObject';
-import { QueryParam } from '@core/util/stq/QueryParameter';
+import { ValidService } from 'app/libs/meta-ui/service/validate.service';
+import { RefTableComSpec } from '../../../../util/spec/field/ref-table.comspec';
+import { ValidStatusEnum } from '../../../../util/meta/ValidStatus.enum';
+import { ModeEnum } from '../../../../util/meta/Mode.enum';
+import { listToNzTreeNode } from '../../../../util/struct/listToTree';
+import { CheckOneDataAction } from '../../../../util/event/check/check-one-data-action.event';
+import { AbstractTree } from '../../../../util/struct/AbstractTree';
+import { QueryObject } from '../../../../util/stq/QueryObject';
+import { QueryParam } from '../../../../util/stq/QueryParameter';
 
 @Component({
   selector: 'field-ref-tree-zorro',

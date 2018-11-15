@@ -4,12 +4,12 @@ import { LoginBean } from "./bean/LoginBean";
 import Dexie from "dexie";
 import { HkDbName } from ".";
 import { EntityEnum } from "app/entity.enum";
-import { success } from "@core/util/res/success";
+import { success } from "app/libs/meta-ui/util/res/success";
 import { RequestOptionsArgs } from "@angular/http";
-import { IDataStrategy } from "@core/service/data-strategy/IDataStrategy";
-import { OnlineStrategyService } from "@core/service/data-strategy/OnlineStrategy.service";
-import { MyHttpService } from "@core/service/http.service";
-import { IndexedDbStrategyService } from "@core/service/data-strategy/IndexedDbStrategy.service";
+import { IDataStrategy } from "app/libs/meta-ui/service/data-strategy/IDataStrategy";
+import { OnlineStrategyService } from "app/libs/meta-ui/service/data-strategy/OnlineStrategy.service";
+import { MyHttpService } from "app/libs/meta-ui/service/http.service";
+import { IndexedDbStrategyService } from "app/libs/meta-ui/service/data-strategy/IndexedDbStrategy.service";
 import { Injectable } from "@angular/core";
 import { hkApi } from "./hk.api";
 

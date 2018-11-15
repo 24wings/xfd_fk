@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ValidService } from '@core/service/validate.service';
-import { SelectComSpec } from '@core/util/spec/field/select.comspec';
+import { ValidService } from '../../../../service/validate.service';
+import { SelectComSpec } from '../../../../util/spec/field/select.comspec';
 @Component({
   selector: 'app-field-select',
   templateUrl: './field-select-zorro.component.html',

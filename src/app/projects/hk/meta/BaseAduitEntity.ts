@@ -1,5 +1,5 @@
-import { MetaEntity } from "@core/util/meta/MetaEntity";
-import { Prop } from "@core/util/meta/Prop";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
 
 @MetaEntity({})
 export abstract class BaseAduitEntity {

@@ -9,10 +9,10 @@ interface LoginOption {
 }
 import { ReuseTabService } from "@delon/abc";
 import { SettingsService, Menu } from "@delon/theme";
-import { StorageService } from "@core/service/storage.service";
-import { MyHttpService } from "@core/service/http.service";
-import { DevService } from "@core/service/dev.service";
-import { UserService } from "@core/service/user.service";
+import { StorageService } from "app/libs/meta-ui/service/storage.service";
+import { MyHttpService } from "app/libs/meta-ui/service/http.service";
+import { DevService } from "app/libs/meta-ui/service/dev.service";
+import { UserService } from "app/libs/meta-ui/service/user.service";
 // import { User } from "app/blueprint/rbac/entity/User";
 type User = any;
 @Component({

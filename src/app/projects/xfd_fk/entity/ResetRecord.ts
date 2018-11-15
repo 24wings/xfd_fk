@@ -1,10 +1,10 @@
-import { MetaEntity } from "@core/util/meta/MetaEntity";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
 import { XfdFxEntityEnum } from "../xfd_fk.EntityEnum";
-import { Prop } from "@core/util/meta/Prop";
-import { ID } from "@core/util/meta/ID";
-import { S } from "@core/util/meta/Power";
-import { Adapter } from "@core/util/meta/Adapter";
-import { OrderBy } from "@core/util/meta/OrderBy";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { ID } from "app/libs/meta-ui/util/meta/ID";
+import { S } from "app/libs/meta-ui/util/meta/Power";
+import { Adapter } from "app/libs/meta-ui/util/meta/Adapter";
+import { OrderBy } from "app/libs/meta-ui/util/meta/OrderBy";
 
 @MetaEntity({ objectCode: XfdFxEntityEnum.ResetRecord as any, objectName: "全部重置记录", view: { pageSize: 10 } })
 export class ResetRecord {

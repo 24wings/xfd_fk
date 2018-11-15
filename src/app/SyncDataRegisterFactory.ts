@@ -1,6 +1,6 @@
 // import { EntityEnum } from "./entity.enum";
-import { MetaCom } from "@core/util/meta/MetaCom";
-import { getMetaEntity } from "@core/util/meta/MetaEntity";
+import { MetaCom } from "app/libs/meta-ui/util/meta/MetaCom";
+import { getMetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
 // import { loadBuiltInMenus } from "./projects/hk/built-in/app.menu";
 // import { BuiltInRoles } from "./projects/hk/built-in/app.role";
 // import { BuiltInOrgs } from "./projects/hk/built-in/app.org";

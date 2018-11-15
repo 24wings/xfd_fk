@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { StringComSpec } from '@core/util/spec/field/string.comspec';
-import { ValidService } from '@core/service/validate.service';
+import { StringComSpec } from '../../../../util/spec/field/string.comspec';
+import { ValidService } from 'app/libs/meta-ui/service/validate.service';
 import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({

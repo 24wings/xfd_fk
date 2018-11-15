@@ -1,17 +1,17 @@
 import { EntityEnum } from "../../../entity.enum";
 import { MenuManage } from "./MenuManage";
 import { OrgManage } from "./OrgManage";
-import { OneToOne } from "@core/util/meta/ref/OneToOne";
-import { Prop } from "@core/util/meta/Prop";
-import { OneToMany } from "@core/util/meta/ref/OneToMany";
-import { Adapter } from "@core/util/meta/Adapter";
-import { Table } from "@core/util/struct/Table";
-import { MetaEntity } from "@core/util/meta/MetaEntity";
-import { ID } from "@core/util/meta/ID";
+import { OneToOne } from "app/libs/meta-ui/util/meta/ref/OneToOne";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { OneToMany } from "app/libs/meta-ui/util/meta/ref/OneToMany";
+import { Adapter } from "app/libs/meta-ui/util/meta/Adapter";
+import { Table } from "app/libs/meta-ui/util/struct/Table";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
+import { ID } from "app/libs/meta-ui/util/meta/ID";
 import { Role } from "../entity/Role";
-import { C, U, D, S } from "@core/util/meta/Power";
+import { C, U, D, S } from "app/libs/meta-ui/util/meta/Power";
 
-import { CustomUrl } from "@core/util/meta/CustomUrl";
+import { CustomUrl } from "app/libs/meta-ui/util/meta/CustomUrl";
 
 @MetaEntity({
     objectName: "角色管理", data: {

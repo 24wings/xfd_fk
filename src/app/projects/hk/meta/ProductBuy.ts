@@ -3,19 +3,19 @@ import { EntityEnum } from "../../../entity.enum";
 import { FlightManageSearch } from "./FlightManage";
 
 import { ProdQueryComponent } from "@shared/com/dynamic-com/prod-query/prod-query.component";
-import { DynamicToolbar } from "@core/util/meta/custom/DynamicToolbar";
-import { MetaEntity } from "@core/util/meta/MetaEntity";
-import { Toolbar } from "@core/util/meta/Toolbar";
+import { DynamicToolbar } from "app/libs/meta-ui/util/meta/custom/DynamicToolbar";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
+import { Toolbar } from "app/libs/meta-ui/util/meta/Toolbar";
 import { BaseAduitEntity } from "../entity/BaseAduitEntity";
 import { Product } from "../entity/Product";
-import { Table } from "@core/util/struct/Table";
-import { AC1 } from "@core/util/meta/Power";
-import { Prop } from "@core/util/meta/Prop";
-import { Select } from "@core/util/meta/types/Select";
+import { Table } from "app/libs/meta-ui/util/struct/Table";
+import { AC1 } from "app/libs/meta-ui/util/meta/Power";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { Select } from "app/libs/meta-ui/util/meta/types/Select";
 import { ProductTypeEnum } from "../enum/ProcutType.enum";
-import { getAlias } from "@core/util/meta/alias";
+import { getAlias } from "app/libs/meta-ui/util/meta/alias";
 import { SellTypeEnum } from "../enum/SellType.enum";
-import { SelectOne } from "@core/util/meta/ref/SelectOne";
+import { SelectOne } from "app/libs/meta-ui/util/meta/ref/SelectOne";
 import { ProductTargetEnum } from "../enum/ProductTarget";
 @DynamicToolbar(ProdQueryComponent)
 @Toolbar([{ label: "购买", multi: false, checkPower: AC1, eventName: 'product-buy' }])

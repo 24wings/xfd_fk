@@ -1,10 +1,10 @@
 import { EntityEnum } from "../../../entity.enum";
-import { MetaEntity } from "@core/util/meta/MetaEntity";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
 import { AirCompany } from "../entity/AirCompany";
-import { Table } from "@core/util/struct/Table";
-import { ID } from "@core/util/meta/ID";
-import { Prop } from "@core/util/meta/Prop";
-import { Check } from "@core/util/meta/Check";
+import { Table } from "app/libs/meta-ui/util/struct/Table";
+import { ID } from "app/libs/meta-ui/util/meta/ID";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { Check } from "app/libs/meta-ui/util/meta/Check";
 
 @MetaEntity({ objectName: "航司管理", objectCode: EntityEnum.AirCompany, })
 export class AirCompanyManage implements Table<AirCompany>{

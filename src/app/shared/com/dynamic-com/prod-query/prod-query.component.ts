@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { CustomQueryToolbarComSpec } from '@core/util/spec/custom/custom-query-toolbar';
 import { City } from 'app/projects/hk/entity/City';
+import { CustomQueryToolbarComSpec } from 'app/libs/meta-ui/util/spec/custom/custom-query-toolbar';
 // import { CommonService } from '@core/service/common.service';
 // import { EntityEnum } from '../../../../entity.enum';
 

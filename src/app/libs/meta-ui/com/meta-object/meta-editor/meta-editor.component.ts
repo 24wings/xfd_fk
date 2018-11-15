@@ -1,24 +1,24 @@
 import { Component, OnInit, Input, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
-import { ValidService } from '@core/service/validate.service';
+import { ValidService } from 'app/libs/meta-ui/service/validate.service';
 import { NzMessageService } from 'ng-zorro-antd';
-import { MyHttpService } from '@core/service/http.service';
-import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
-import { ModeEnum } from '@core/util/meta/Mode.enum';
-import { MetaCom } from '@core/util/meta/MetaCom';
-import { checkPower, C, U } from '@core/util/meta/Power';
-import { UpdateSuccessActionEvent, CreateSuccessActionEvent, UpdateCancelActionEvent } from '@core/util/event/edit/update-cancel-action.event';
-import { FieldConfig } from '@core/util/meta/FieldConfig';
-import { getMetaEntity } from '@core/util/meta/MetaEntity';
-import { Flow } from '@core/util/meta/Flow';
-import { IState } from '@core/util/meta/State';
-import { Field } from '@core/util/meta/Field';
-import { IAction } from '@core/util/meta/Action';
-import { Timestamp } from '@core/util/meta/types/Timestamp';
-import { QueryAttribute } from '@core/util/stq/QueryAttribute';
-import { QueryCondition } from '@core/util/stq/QueryCondition';
-import { QueryObject } from '@core/util/stq/QueryObject';
-import { CustomUrlService } from '@core/service/CustomUrl.service';
-import { BasicComspce } from '@core/util/spec/field/basic.comspec';
+import { MyHttpService } from 'app/libs/meta-ui/service/http.service';
+import { IDataStrategy } from 'app/libs/meta-ui/service/data-strategy/IDataStrategy';
+import { ModeEnum } from 'app/libs/meta-ui/util/meta/Mode.enum';
+import { MetaCom } from 'app/libs/meta-ui/util/meta/MetaCom';
+import { checkPower, C, U } from 'app/libs/meta-ui/util/meta/Power';
+import { UpdateSuccessActionEvent, CreateSuccessActionEvent, UpdateCancelActionEvent } from 'app/libs/meta-ui/util/event/edit/update-cancel-action.event';
+import { FieldConfig } from 'app/libs/meta-ui/util/meta/FieldConfig';
+import { getMetaEntity } from 'app/libs/meta-ui/util/meta/MetaEntity';
+import { Flow } from 'app/libs/meta-ui/util/meta/Flow';
+import { IState } from 'app/libs/meta-ui/util/meta/State';
+import { Field } from 'app/libs/meta-ui/util/meta/Field';
+import { IAction } from 'app/libs/meta-ui/util/meta/Action';
+import { Timestamp } from 'app/libs/meta-ui/util/meta/types/Timestamp';
+import { QueryAttribute } from 'app/libs/meta-ui/util/stq/QueryAttribute';
+import { QueryCondition } from 'app/libs/meta-ui/util/stq/QueryCondition';
+import { QueryObject } from 'app/libs/meta-ui/util/stq/QueryObject';
+import { CustomUrlService } from 'app/libs/meta-ui/service/CustomUrl.service';
+import { BasicComspce } from 'app/libs/meta-ui/util/spec/field/basic.comspec';
 @Component({
     selector: 'meta-editor',
     templateUrl: './meta-editor.component.html',

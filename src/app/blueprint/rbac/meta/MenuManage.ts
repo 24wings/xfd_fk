@@ -1,16 +1,14 @@
-import { AbstractTree } from "@core/util/struct/AbstractTree";
-import { Table } from "@core/util/struct/Table";
-import { ID } from "@core/util/meta/ID";
-import { MetaEntity } from "@core/util/meta/MetaEntity";
-import { Prop } from "@core/util/meta/Prop";
-import { OneToOne } from "@core/util/meta/ref/OneToOne";
+import { AbstractTree } from "app/libs/meta-ui/util/struct/AbstractTree";
+import { Table } from "app/libs/meta-ui/util/struct/Table";
+import { ID } from "app/libs/meta-ui/util/meta/ID";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { OneToOne } from "app/libs/meta-ui/util/meta/ref/OneToOne";
 import { EntityEnum } from "app/entity.enum";
 import { Menu } from "../entity/Menu";
-import { SelectOne } from "@core/util/meta/ref/SelectOne";
-import { C, U, D, Q, AC1, AC2, AC3 } from "@core/util/meta/Power";
-import { Check } from "@core/util/meta/Check";
-import { CustomUrl } from "@core/util/meta/CustomUrl";
-console.error('菜单管理已经加载')
+import { SelectOne } from "app/libs/meta-ui/util/meta/ref/SelectOne";
+import { C, U, D, Q, AC1, AC2, AC3 } from "app/libs/meta-ui/util/meta/Power";
+import { Check } from "app/libs/meta-ui/util/meta/Check";
 
 @MetaEntity({
     objectName: "菜单管理", objectCode: EntityEnum.Menu,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MyHttpService } from './http.service';
 import { CommonService } from 'app/libs/meta-ui/service/common.service';
-import { StorageService } from './StorageService';
+import { StorageService } from './storage.service';
 
 
 @Injectable()

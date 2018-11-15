@@ -1,4 +1,4 @@
-import { setAlias } from "@core/util/meta/alias";
+import { setAlias } from "app/libs/meta-ui/util/meta/alias";
 
 export enum OrderStatusEnum {
     UNSUBMITTED = 1, SUBMITTED, CONFIRMED, DEPOSIT_PAID, ALL_PAID, TICKET_OUT, CANCELED

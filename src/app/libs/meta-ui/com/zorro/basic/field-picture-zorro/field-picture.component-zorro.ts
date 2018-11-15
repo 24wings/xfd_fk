@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService, UploadFile, UploadXHRArgs, UploadFileStatus } from 'ng-zorro-antd';
-import { ValidService } from '@core/service/validate.service';
+import { ValidService } from 'app/libs/meta-ui/service/validate.service';
 import { HttpRequest, HttpEvent, HttpEventType, HttpClient, HttpResponse } from '@angular/common/http';
 import { AppConfig } from 'app/app.config';
-import { StringComSpec } from '@core/util/spec/field/string.comspec';
-import { Picture } from '@core/util/meta/types/Picture';
+import { StringComSpec } from '../../../../util/spec/field/string.comspec';
+import { Picture } from '../../../../util/meta/types/Picture';
 
 @Component({
   selector: 'app-field-picture-zorro',

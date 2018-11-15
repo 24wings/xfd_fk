@@ -1,17 +1,17 @@
 import { EntityEnum } from "../../../entity.enum";
-import { Toolbar } from "@core/util/meta/Toolbar";
-import { MetaEntity } from "@core/util/meta/MetaEntity";
+import { Toolbar } from "app/libs/meta-ui/util/meta/Toolbar";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
 import { Order } from "../entity/Order";
-import { Table } from "@core/util/struct/Table";
-import { Prop } from "@core/util/meta/Prop";
-import { getAlias } from "@core/util/meta/alias";
-import { SelectOne } from "@core/util/meta/ref/SelectOne";
+import { Table } from "app/libs/meta-ui/util/struct/Table";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { getAlias } from "app/libs/meta-ui/util/meta/alias";
+import { SelectOne } from "app/libs/meta-ui/util/meta/ref/SelectOne";
 import { ProductTargetEnum } from "../enum/ProductTarget";
 import { OrderStatusEnum } from "../enum/OrderStatus.enum";
-import { Select } from "@core/util/meta/types/Select";
-import { Query } from "@core/util/meta/query/Query";
-import { Adapter } from "@core/util/meta/Adapter";
-import { S } from "@core/util/meta/Power";
+import { Select } from "app/libs/meta-ui/util/meta/types/Select";
+import { Query } from "app/libs/meta-ui/util/meta/query/Query";
+import { Adapter } from "app/libs/meta-ui/util/meta/Adapter";
+import { S } from "app/libs/meta-ui/util/meta/Power";
 
 @Toolbar([{ label: "通知", eventName: "notify-admin", multi: false }])
 @MetaEntity({ objectCode: EntityEnum.Order, objectName: "我的订单" })

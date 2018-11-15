@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MyHttpService } from '@core/service/http.service';
-import { Field } from '@core/util/meta/Field';
-import { MetaCom } from '@core/util/meta/MetaCom';
-import { C, U, D, Q, S, checkPower } from '@core/util/meta/Power';
+import { MyHttpService } from 'app/libs/meta-ui/service/http.service';
+import { Field } from 'app/libs/meta-ui/util/meta/Field';
+import { MetaCom } from 'app/libs/meta-ui/util/meta/MetaCom';
+import { C, U, D, Q, S, checkPower } from 'app/libs/meta-ui/util/meta/Power';
 import { EntityEnum } from 'app/entity.enum';
 type SQLFieldType = "VARCHAR" | "DATETIME" | "INT";
 @Component({

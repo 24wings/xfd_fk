@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { D, U, C } from '@core/util/meta/Power';
+import { D, U, C } from 'app/libs/meta-ui/util/meta/Power';
 import { OrgManage } from 'app/blueprint/rbac/meta/OrgManage';
-import { MetaCom } from '@core/util/meta/MetaCom';
-import { getMetaEntity } from '@core/util/meta/MetaEntity';
+import { MetaCom } from 'app/libs/meta-ui/util/meta/MetaCom';
+import { getMetaEntity } from 'app/libs/meta-ui/util/meta/MetaEntity';
 import { UserManage } from 'app/blueprint/rbac/meta/UserManage';
 import { MetaObjectComponent } from 'app/libs/meta-ui/com/meta-object/meta-object.component';
 

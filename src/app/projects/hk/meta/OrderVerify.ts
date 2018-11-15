@@ -1,13 +1,13 @@
 import { EntityEnum } from "../../../entity.enum";
-import { MetaEntity } from "@core/util/meta/MetaEntity";
-import { Table } from "@core/util/struct/Table";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
+import { Table } from "app/libs/meta-ui/util/struct/Table";
 import { Order } from "../entity/Order";
-import { SelectOne } from "@core/util/meta/ref/SelectOne";
+import { SelectOne } from "app/libs/meta-ui/util/meta/ref/SelectOne";
 import { OrderStatusEnum } from "../enum/OrderStatus.enum";
-import { getAlias } from "@core/util/meta/alias";
-import { Prop } from "@core/util/meta/Prop";
-import { Adapter } from "@core/util/meta/Adapter";
-import { U } from "@core/util/meta/Power";
+import { getAlias } from "app/libs/meta-ui/util/meta/alias";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { Adapter } from "app/libs/meta-ui/util/meta/Adapter";
+import { U } from "app/libs/meta-ui/util/meta/Power";
 
 
 @MetaEntity({ objectCode: EntityEnum.Order, objectName: "订单审批", data: {} })

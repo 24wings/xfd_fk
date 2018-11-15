@@ -1,14 +1,13 @@
 import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectorRef } from '@angular/core';
-import { ValidService } from '@core/service/validate.service';
-import { StringComSpec } from '@core/util/spec/field/string.comspec';
+import { ValidService } from 'app/libs/meta-ui/service/validate.service';
 import { Flight } from 'app/projects/hk/entity/Flight';
 import { NzMessageService } from 'ng-zorro-antd';
-import { MyHttpService } from '@core/service/http.service';
-import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
-import { CustomUrlService } from '@core/service/CustomUrl.service';
+import { MyHttpService } from 'app/libs/meta-ui/service/http.service';
+import { IDataStrategy } from 'app/libs/meta-ui/service/data-strategy/IDataStrategy';
+import { CustomUrlService } from 'app/libs/meta-ui/service/CustomUrl.service';
 import { Member } from 'app/projects/xfd_fk/entity/Member';
 import { MetaEditorComponent } from 'app/libs/meta-ui/com/meta-object/meta-editor/meta-editor.component';
-// import { CommonService } from '@core/service/common.service';
+// import { CommonService } from 'app/libs/meta-ui/service/common.service';
 // import { EntityEnum } from '../../../../entity.enum';
 
 @Component({

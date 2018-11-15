@@ -1,21 +1,21 @@
-import { MetaNotify } from "@core/util/meta/IMetaNotify";
+import { MetaNotify } from "app/libs/meta-ui/util/meta/IMetaNotify";
 import { MsgNotify } from "app/projects/hk/entity/MsgNotify";
 import { EntityEnum } from "app/entity.enum";
 import { MsgTypeEnum } from "app/projects/hk/enum/MsgType.enum";
-import { ModeEnum } from "@core/util/meta/Mode.enum";
+import { ModeEnum } from "app/libs/meta-ui/util/meta/Mode.enum";
 import { Member } from "app/projects/hk/entity/Member";
-import { IMsgNotify } from "@core/util/notify/IMsgNotify";
-import { MetaEntity } from "@core/util/meta/MetaEntity";
-import { ID } from "@core/util/meta/ID";
-import { Prop } from "@core/util/meta/Prop";
-import { SelectOne } from "@core/util/meta/ref/SelectOne";
-import { getAlias } from "@core/util/meta/alias";
+import { IMsgNotify } from "app/libs/meta-ui/util/notify/IMsgNotify";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
+import { ID } from "app/libs/meta-ui/util/meta/ID";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { SelectOne } from "app/libs/meta-ui/util/meta/ref/SelectOne";
+import { getAlias } from "app/libs/meta-ui/util/meta/alias";
 import { MemberTypeEnum } from "../enum/MemberType.enum";
 import { User } from "app/blueprint/rbac/entity/User";
-import { Table } from "@core/util/struct/Table";
-import { Toolbar } from "@core/util/meta/Toolbar";
+import { Table } from "app/libs/meta-ui/util/struct/Table";
+import { Toolbar } from "app/libs/meta-ui/util/meta/Toolbar";
 import { AuditStatusEnum } from "../enum/AuditStatus.enum";
-import { I } from "@core/util/meta/Power";
+import { I } from "app/libs/meta-ui/util/meta/Power";
 
 @MetaNotify({ viewName: "member_register_notify", isWebpush: true, msgType: MsgTypeEnum.Notify })
 @MetaEntity({ objectName: "会员注册通知", objectCode: EntityEnum.Member, defaultMode: ModeEnum.Info })

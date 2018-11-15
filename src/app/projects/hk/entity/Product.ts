@@ -3,8 +3,8 @@ import { ProductTypeEnum } from "../enum/ProcutType.enum";
 import { SellTypeEnum } from "../enum/SellType.enum";
 import { ProductTargetEnum } from "../enum/ProductTarget";
 import { AuditStatusEnum } from "../enum/AuditStatus.enum";
-import { Picture } from "@core/util/meta/types/Picture";
-import { Select } from "@core/util/meta/types/Select";
+import { Picture } from "app/libs/meta-ui/util/meta/types/Picture";
+import { Select } from "app/libs/meta-ui/util/meta/types/Select";
 
 /**产品信息*/
 export class Product extends BaseAduitEntity {

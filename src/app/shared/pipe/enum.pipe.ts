@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { getAlias } from '@core/util/meta/alias';
+import { getAlias } from 'app/libs/meta-ui/util/meta/alias';
 
 @Pipe({
   name: 'enum'

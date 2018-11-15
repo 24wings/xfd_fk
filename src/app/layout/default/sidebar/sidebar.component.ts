@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { SettingsService } from '@delon/theme';
 import { Router, RouteConfigLoadStart, NavigationStart, NavigationError } from '@angular/router';
-import { StorageService } from '@core/service/storage.service';
-import { CommonService } from '@core/service/common.service';
-import { DevService } from '@core/service/dev.service';
-import { UserService } from '@core/service/user.service';
+import { StorageService } from 'app/libs/meta-ui/service/storage.service';
+import { CommonService } from 'app/libs/meta-ui/service/common.service';
+import { DevService } from 'app/libs/meta-ui/service/dev.service';
+import { UserService } from 'app/libs/meta-ui/service/user.service';
 
 @Component({
   selector: 'layout-sidebar',

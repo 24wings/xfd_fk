@@ -1,15 +1,15 @@
 import { Component, OnInit, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NzTreeNode, NzTreeNodeOptions, NzTreeComponent } from 'ng-zorro-antd';
-import { ValidService } from '@core/service/validate.service';
-import { RefTableComSpec } from '@core/util/spec/field/ref-table.comspec';
-import { MetaCom } from '@core/util/meta/MetaCom';
-import { ModeEnum } from '@core/util/meta/Mode.enum';
-import { Field } from '@core/util/meta/Field';
-import { ValidStatusEnum } from '@core/util/meta/ValidStatus.enum';
-import { listToNzTreeNode, listToNzTreeNodeMany } from '@core/util/struct/listToTree';
-import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
-import { QueryParam } from '@core/util/stq/QueryParameter';
-import { AbstractTree } from '@core/util/struct/AbstractTree';
+import { ValidService } from '../../../../service/validate.service';
+import { RefTableComSpec } from '../../../../util/spec/field/ref-table.comspec';
+import { MetaCom } from '../../../../util/meta/MetaCom';
+import { ModeEnum } from '../../../../util/meta/Mode.enum';
+import { Field } from '../../../../util/meta/Field';
+import { ValidStatusEnum } from '../../../../util/meta/ValidStatus.enum';
+import { listToNzTreeNode, listToNzTreeNodeMany } from '../../../../util/struct/listToTree';
+import { IDataStrategy } from '../../../../service/data-strategy/IDataStrategy';
+import { QueryParam } from '../../../../util/stq/QueryParameter';
+import { AbstractTree } from '../../../../util/struct/AbstractTree';
 
 @Component({
   selector: 'field-ref-tree-many-zorro',

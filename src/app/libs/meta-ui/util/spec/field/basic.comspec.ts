@@ -4,11 +4,11 @@ import { Field } from "../../meta/Field";
 import { ValidStatusEnum } from "../../meta/ValidStatus.enum";
 import { ModeEnum } from "../../meta/Mode.enum";
 import { IValidateAblity } from "../basic/ablity/IValidate.ablity";
-import { ValidService } from "@core/service/validate.service";
+import { ValidService } from "app/libs/meta-ui/service/validate.service";
 import { Types } from "../../meta/types/indext";
 import { EventEmitter } from "@angular/core";
 import { MetaCom, QueryConditionExpress } from "../../meta/MetaCom";
-import { QueryCondition } from "@core/util/stq/QueryCondition";
+import { QueryCondition } from "app/libs/meta-ui/util/stq/QueryCondition";
 export abstract class BasicComspce<T> implements IFieldIO, IValueIO<T>, IValidateAblity, ITransformAblity<T> {
     field: Field;
     __value__;

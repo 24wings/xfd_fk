@@ -10,9 +10,9 @@ import { filter } from 'rxjs/operators';
 import { SettingsService, TitleService } from '@delon/theme';
 import { VERSION as VERSION_ALAIN } from '@delon/theme';
 import { VERSION as VERSION_ZORRO, NzModalService } from 'ng-zorro-antd';
-import { MyHttpService } from '@core/service/http.service';
-import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
-import { OnlineStrategyService } from '@core/service/data-strategy/OnlineStrategy.service';
+import { MyHttpService } from 'app/libs/meta-ui/service/http.service';
+import { IDataStrategy } from 'app/libs/meta-ui/service/data-strategy/IDataStrategy';
+import { OnlineStrategyService } from 'app/libs/meta-ui/service/data-strategy/OnlineStrategy.service';
 import { HttpClient } from '@angular/common/http';
 @Component({
     selector: 'app-root',

@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ValidService } from '@core/service/validate.service';
-import { CustomQueryToolbarComSpec } from '@core/util/spec/custom/custom-query-toolbar';
-import { QueryParam } from '@core/util/stq/QueryParameter';
-import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
+import { ValidService } from 'app/libs/meta-ui/service/validate.service';
+import { IDataStrategy } from 'app/libs/meta-ui/service/data-strategy/IDataStrategy';
 import { Member } from 'app/projects/hk/entity/Member';
 import { XfdFxEntityEnum } from 'app/projects/xfd_fk/xfd_fk.EntityEnum';
-import { MyHttpService } from '@core/service/http.service';
-import { ISummary } from '@core/util/meta/Summary';
+import { MyHttpService } from 'app/libs/meta-ui/service/http.service';
 import { XFD_FKDbName } from 'app/projects/xfd_fk';
 import { Order } from 'app/projects/xfd_fk/entity/Order';
-import { ModeEnum } from '@core/util/meta/Mode.enum';
+import { CustomQueryToolbarComSpec } from 'app/libs/meta-ui/util/spec/custom/custom-query-toolbar';
+import { ModeEnum } from 'app/libs/meta-ui/util/meta/Mode.enum';
+import { QueryParam } from 'app/libs/meta-ui/util/stq/QueryParameter';
+import { ISummary } from 'app/libs/meta-ui/util/meta/Summary';
 @Component({
   selector: 'analyze-query-toolbar',
   templateUrl: './analyze-query-toolbar.component.html',

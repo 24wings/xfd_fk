@@ -1,16 +1,16 @@
-import { MetaNotify } from "@core/util/meta/IMetaNotify";
+import { MetaNotify } from "app/libs/meta-ui/util/meta/IMetaNotify";
 import { EntityEnum } from "app/entity.enum";
 import { MsgTypeEnum } from "../enum/MsgType.enum";
 import { MsgNotify } from "../meta/MsgNotify";
-import { IMsgNotify } from "@core/util/notify/IMsgNotify";
-import { MetaEntity } from "@core/util/meta/MetaEntity";
-import { Prop } from "@core/util/meta/Prop";
-import { Adapter } from "@core/util/meta/Adapter";
-import { SelectOne } from "@core/util/meta/ref/SelectOne";
-import { getAlias } from "@core/util/meta/alias";
+import { IMsgNotify } from "app/libs/meta-ui/util/notify/IMsgNotify";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { Adapter } from "app/libs/meta-ui/util/meta/Adapter";
+import { SelectOne } from "app/libs/meta-ui/util/meta/ref/SelectOne";
+import { getAlias } from "app/libs/meta-ui/util/meta/alias";
 import { OrderStatusEnum } from "../enum/OrderStatus.enum";
-import { Select } from "@core/util/meta/types/Select";
-import { U } from "@core/util/meta/Power";
+import { Select } from "app/libs/meta-ui/util/meta/types/Select";
+import { U } from "app/libs/meta-ui/util/meta/Power";
 
 
 @MetaNotify({ viewName: "order-notify-task", msgType: MsgTypeEnum.Task, isWebpush: true })

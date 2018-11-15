@@ -1,13 +1,13 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { ModeEnum } from '@core/util/meta/Mode.enum';
-import { RefTableComSpec } from '@core/util/spec/field/ref-table.comspec';
-import { AbstractTree } from '@core/util/struct/AbstractTree';
-import { ValidStatusEnum } from '@core/util/meta/ValidStatus.enum';
-import { listToNzTreeNode } from '@core/util/struct/listToTree';
+import { ModeEnum } from '../../../../util/meta/Mode.enum';
+import { RefTableComSpec } from '../../../../util/spec/field/ref-table.comspec';
+import { AbstractTree } from '../../../../util/struct/AbstractTree';
+import { ValidStatusEnum } from '../../../../util/meta/ValidStatus.enum';
+import { listToNzTreeNode } from '../../../../util/struct/listToTree';
 import { NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd';
-import { CheckOneDataAction } from '@core/util/event/check/check-one-data-action.event';
-import { QueryParam } from '@core/util/stq/QueryParameter';
-import { ValidService } from '@core/service/validate.service';
+import { CheckOneDataAction } from '../../../../util/event/check/check-one-data-action.event';
+import { QueryParam } from '../../../../util/stq/QueryParameter';
+import { ValidService } from 'app/libs/meta-ui/service/validate.service';
 
 @Component({
   selector: 'field-lazy-ref-tree-zorro',

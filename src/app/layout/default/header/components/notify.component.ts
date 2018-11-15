@@ -2,14 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 import * as distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
 import { NoticeItem, NoticeIconList } from '@delon/abc';
-import { CommonService } from '@core/service/common.service';
-import { StorageService } from '@core/service/storage.service';
+import { CommonService } from 'app/libs/meta-ui/service/common.service';
+import { StorageService } from 'app/libs/meta-ui/service/storage.service';
 import { Router } from '@angular/router';
 import { EntityEnum } from '../../../../entity.enum';
-import { QueryParam } from '@core/util/stq/QueryParameter';
-import { QueryObject } from '@core/util/stq/QueryObject';
 import { MsgNotify } from 'app/projects/hk/entity/MsgNotify';
 import { MsgTypeEnum } from 'app/projects/hk/enum/MsgType.enum';
+import { QueryParam } from 'app/libs/meta-ui/util/stq/QueryParameter';
+import { QueryObject } from 'app/libs/meta-ui/util/stq/QueryObject';
 
 /**
  * 菜单通知

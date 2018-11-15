@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ValidService } from '@core/service/validate.service';
+import { ValidService } from '../../../../service/validate.service';
 import { NzMessageService } from 'ng-zorro-antd';
-import { RefTableComSpec } from '@core/util/spec/field/ref-table.comspec';
-import { Field } from '@core/util/meta/Field';
-import { ModeEnum } from '@core/util/meta/Mode.enum';
-import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
-import { getMetaEntity } from '@core/util/meta/MetaEntity';
-import { QueryParam } from '@core/util/stq/QueryParameter';
-import { RefTree } from '@core/util/meta/types/RefTree';
-import { RefTreees } from '@core/util/meta/types/RefTreees';
-import { RefTable } from '@core/util/meta/types/RefTable';
+import { RefTableComSpec } from '../../../../util/spec/field/ref-table.comspec';
+import { Field } from '../../../../util/meta/Field';
+import { ModeEnum } from '../../../../util/meta/Mode.enum';
+import { IDataStrategy } from '../../../../service/data-strategy/IDataStrategy';
+import { getMetaEntity } from '../../../../util/meta/MetaEntity';
+import { QueryParam } from '../../../../util/stq/QueryParameter';
+import { RefTree } from '../../../../util/meta/types/RefTree';
+import { RefTreees } from '../../../../util/meta/types/RefTreees';
+import { RefTable } from '../../../../util/meta/types/RefTable';
 @Component({
   selector: 'field-ref-table-many-zorro',
   templateUrl: './field-ref-table-many-zorro.component.html',

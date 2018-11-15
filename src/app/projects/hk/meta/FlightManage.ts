@@ -1,16 +1,16 @@
 import { EntityEnum } from "../../../entity.enum";
 import { AirportManage } from "./AirportManage";
 import { BaseAduitEntity } from "./BaseAduitEntity";
-import { MetaEntity } from "@core/util/meta/MetaEntity";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
 import { Flight } from "../entity/Flight";
-import { Table } from "@core/util/struct/Table";
-import { ID } from "@core/util/meta/ID";
-import { Prop } from "@core/util/meta/Prop";
-import { Adapter } from "@core/util/meta/Adapter";
-import { Check } from "@core/util/meta/Check";
-import { Rules } from "@core/util/regexp";
-import { OneToOne } from "@core/util/meta/ref/OneToOne";
-import { C, U, S } from "@core/util/meta/Power";
+import { Table } from "app/libs/meta-ui/util/struct/Table";
+import { ID } from "app/libs/meta-ui/util/meta/ID";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { Adapter } from "app/libs/meta-ui/util/meta/Adapter";
+import { Check } from "app/libs/meta-ui/util/meta/Check";
+import { Rules } from "app/libs/meta-ui/util/regexp";
+import { OneToOne } from "app/libs/meta-ui/util/meta/ref/OneToOne";
+import { C, U, S } from "app/libs/meta-ui/util/meta/Power";
 
 
 @MetaEntity({ objectName: "航班管理", objectCode: EntityEnum.Flight })

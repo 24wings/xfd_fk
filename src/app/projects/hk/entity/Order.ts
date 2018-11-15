@@ -1,7 +1,7 @@
 import { ProductTargetEnum } from "../enum/ProductTarget";
 import Decimal from "decimal.js";
 import { OrderStatusEnum } from "../enum/OrderStatus.enum";
-import { Select } from "@core/util/meta/types/Select";
+import { Select } from "app/libs/meta-ui/util/meta/types/Select";
 
 export class Order {
     id: Number;

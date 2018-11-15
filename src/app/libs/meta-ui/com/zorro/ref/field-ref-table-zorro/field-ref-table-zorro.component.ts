@@ -1,12 +1,12 @@
 import { Component, OnInit, EventEmitter, Output, HostListener } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { ValidService } from '@core/service/validate.service';
+import { ValidService } from '../../../../service/validate.service';
 import { AppConfig } from '../../../../../../app.config';
-import { RefTableComSpec } from '@core/util/spec/field/ref-table.comspec';
-import { Field } from '@core/util/meta/Field';
-import { ModeEnum } from '@core/util/meta/Mode.enum';
-import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
-import { QueryParam } from '@core/util/stq/QueryParameter';
+import { RefTableComSpec } from '../../../../util/spec/field/ref-table.comspec';
+import { Field } from '../../../../util/meta/Field';
+import { ModeEnum } from '../../../../util/meta/Mode.enum';
+import { IDataStrategy } from '../../../../service/data-strategy/IDataStrategy';
+import { QueryParam } from '../../../../util/stq/QueryParameter';
 @Component({
   selector: 'app-field-ref-table-zorro',
   templateUrl: './field-ref-table-zorro.component.html',

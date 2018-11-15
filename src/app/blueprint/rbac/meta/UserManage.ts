@@ -2,15 +2,15 @@ import { EntityEnum } from "../../../entity.enum";
 import { RoleManage } from "./RoleManage";
 
 import { OrgManage } from "./OrgManage";
-import { MetaEntity } from "@core/util/meta/MetaEntity";
-import { Table } from "@core/util/struct/Table";
-import { ID } from "@core/util/meta/ID";
-import { Prop } from "@core/util/meta/Prop";
-import { OneToOne } from "@core/util/meta/ref/OneToOne";
-import { OneToMany } from "@core/util/meta/ref/OneToMany";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
+import { Table } from "app/libs/meta-ui/util/struct/Table";
+import { ID } from "app/libs/meta-ui/util/meta/ID";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { OneToOne } from "app/libs/meta-ui/util/meta/ref/OneToOne";
+import { OneToMany } from "app/libs/meta-ui/util/meta/ref/OneToMany";
 import { User } from "../entity/User";
-import { Adapter } from "@core/util/meta/Adapter";
-import { Password } from "@core/util/meta/types/Password";
+import { Adapter } from "app/libs/meta-ui/util/meta/Adapter";
+import { Password } from "app/libs/meta-ui/util/meta/types/Password";
 
 @MetaEntity({
     objectName: "用户管理", objectCode: EntityEnum.User, firstLoad: false,

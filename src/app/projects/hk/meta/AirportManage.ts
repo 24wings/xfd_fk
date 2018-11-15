@@ -1,15 +1,15 @@
 import { EntityEnum } from "../../../entity.enum";
 import { CityManage } from "./CityManager";
-import { MetaEntity } from "@core/util/meta/MetaEntity";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
 import { Airport } from "../entity/Airport";
-import { Table } from "@core/util/struct/Table";
-import { ID } from "@core/util/meta/ID";
-import { Prop } from "@core/util/meta/Prop";
-import { Check } from "@core/util/meta/Check";
-import { Adapter } from "@core/util/meta/Adapter";
+import { Table } from "app/libs/meta-ui/util/struct/Table";
+import { ID } from "app/libs/meta-ui/util/meta/ID";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
+import { Check } from "app/libs/meta-ui/util/meta/Check";
+import { Adapter } from "app/libs/meta-ui/util/meta/Adapter";
 import { City } from "../entity/City";
-import { OneToOne } from "@core/util/meta/ref/OneToOne";
-import { C, U, S } from "@core/util/meta/Power";
+import { OneToOne } from "app/libs/meta-ui/util/meta/ref/OneToOne";
+import { C, U, S } from "app/libs/meta-ui/util/meta/Power";
 
 
 @MetaEntity({ objectName: "机场管理", objectCode: EntityEnum.Airport, })

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { OrderStatusEnum } from 'app/projects/hk/enum/OrderStatus.enum';
-import { getAlias } from '@core/util/meta/alias';
+import { getAlias } from 'app/libs/meta-ui/util/meta/alias';
 
 @Component({
   selector: 'my-order-query-toolbar',

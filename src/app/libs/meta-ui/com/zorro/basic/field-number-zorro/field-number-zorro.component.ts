@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ValidService } from '@core/service/validate.service';
-import { NumberComSpec } from '@core/util/spec/field/number.comspec';
+import { ValidService } from 'app/libs/meta-ui/service/validate.service';
+import { NumberComSpec } from '../../../../util/spec/field/number.comspec';
 
 @Component({
   selector: 'app-field-number-zorro',

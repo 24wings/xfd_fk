@@ -9,11 +9,11 @@ interface LoginOption {
 }
 import { ReuseTabService } from "@delon/abc";
 import { SettingsService, Menu } from "@delon/theme";
-import { StorageService } from "@core/service/storage.service";
-import { MyHttpService } from "@core/service/http.service";
-import { DevService } from "@core/service/dev.service";
-import { UserService } from "@core/service/user.service";
-import { IDataStrategy } from "@core/service/data-strategy/IDataStrategy";
+import { StorageService } from "app/libs/meta-ui/service/storage.service";
+import { MyHttpService } from "app/libs/meta-ui/service/http.service";
+import { DevService } from "app/libs/meta-ui/service/dev.service";
+import { UserService } from "app/libs/meta-ui/service/user.service";
+import { IDataStrategy } from "app/libs/meta-ui/service/data-strategy/IDataStrategy";
 import { User } from "app/blueprint/rbac/entity/User";
 import { Member } from "../../entity/Member";
 import { HkApiController } from "../../hk.api.controller";
@@ -61,7 +61,7 @@ export class LoginPageComponent implements OnInit {
         this.storage.menuList = result.menus as any;
         this.storage.token = result.token;
         if (result.member)
-          this.storage.member = result.member;
+          this.storage.member = result.member as any;
 
         this.setting.setUser({ name: result.employee.name, email: result.roleNames })
         this.reuseTab.clear()

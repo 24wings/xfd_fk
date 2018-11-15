@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 // import { JsonEditorOptions, JsonEditorComponent } from 'ang-jsoneditor';
-import { ValidService } from '@core/service/validate.service';
-import { StringComSpec } from '@core/util/spec/field/string.comspec';
+import { ValidService } from 'app/libs/meta-ui/service/validate.service';
+import { StringComSpec } from 'app/libs/meta-ui/util/spec/field/string.comspec';
 
 @Component({
   selector: 'app-field-json',

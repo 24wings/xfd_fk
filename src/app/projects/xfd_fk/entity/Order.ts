@@ -1,16 +1,16 @@
-import { MetaEntity } from "@core/util/meta/MetaEntity";
+import { MetaEntity } from "app/libs/meta-ui/util/meta/MetaEntity";
 import { XfdFxEntityEnum } from "../xfd_fk.EntityEnum";
-import { ID } from "@core/util/meta/ID";
-import { Prop } from "@core/util/meta/Prop";
+import { ID } from "app/libs/meta-ui/util/meta/ID";
+import { Prop } from "app/libs/meta-ui/util/meta/Prop";
 import { OrderStatusEnum } from "../enums/OrderStatus.enum";
-import { Adapter } from "@core/util/meta/Adapter";
-import { S } from "@core/util/meta/Power";
-import { SelectOne } from "@core/util/meta/ref/SelectOne";
-import { getAlias } from "@core/util/meta/alias";
-import { Toolbar } from "@core/util/meta/Toolbar";
-import { DynamicToolbar } from "@core/util/meta/custom/DynamicToolbar";
+import { Adapter } from "app/libs/meta-ui/util/meta/Adapter";
+import { S } from "app/libs/meta-ui/util/meta/Power";
+import { SelectOne } from "app/libs/meta-ui/util/meta/ref/SelectOne";
+import { getAlias } from "app/libs/meta-ui/util/meta/alias";
+import { Toolbar } from "app/libs/meta-ui/util/meta/Toolbar";
+import { DynamicToolbar } from "app/libs/meta-ui/util/meta/custom/DynamicToolbar";
 import { OrderQueryComponent } from "@shared/com/dynamic-com/order-query/order-query.component";
-import { OrderBy } from "@core/util/meta/OrderBy";
+import { OrderBy } from "app/libs/meta-ui/util/meta/OrderBy";
 @DynamicToolbar(OrderQueryComponent)
 @MetaEntity({ objectCode: XfdFxEntityEnum.Order as any, objectName: "订单", view: { pageSize: 10 } })
 export class Order {

@@ -8,14 +8,14 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { RoutesModule } from './routes/routes.module';
 import { LayoutModule } from './layout/layout.module';
-import { MyHttpService } from '@core/service/http.service';
-import { CommonService } from '@core/service/common.service';
-import { UserService } from '@core/service/user.service';
-import { DevService } from '@core/service/dev.service';
-import { ConfigService } from '@core/service/config.service';
-import { StorageService } from '@core/service/storage.service';
-import { ExcelService } from '@core/service/excel.service';
-import { ValidService } from '@core/service/validate.service';
+import { MyHttpService } from 'app/libs/meta-ui/service/http.service';
+import { CommonService } from 'app/libs/meta-ui/service/common.service';
+import { UserService } from 'app/libs/meta-ui/service/user.service';
+import { DevService } from 'app/libs/meta-ui/service/dev.service';
+import { ConfigService } from 'app/libs/meta-ui/service/config.service';
+import { StorageService } from 'app/libs/meta-ui/service/storage.service';
+import { ExcelService } from 'app/libs/meta-ui/service/excel.service';
+import { ValidService } from 'app/libs/meta-ui/service/validate.service';
 import { HttpModule } from '@angular/http';
 // #region default language
 // 参考：https://ng-alain.com/docs/i18n
@@ -57,7 +57,6 @@ const I18NSERVICE_MODULES = [
   }),
 ];
 const CommonProviders: Provider[] = [
-  ActionService,
   MyHttpService,
   AppConfig,
   CommonService,
@@ -105,7 +104,6 @@ const FORM_MODULES = [JsonSchemaModule];
 
 // #region Http Interceptors
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { DefaultInterceptor } from '@core/net/default.interceptor';
 const INTERCEPTOR_PROVIDES = [
   // { provide: HTTP_INTERCEPTORS, useClass: SimpleInterceptor, multi: true },
   // { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
@@ -115,12 +113,11 @@ const INTERCEPTOR_PROVIDES = [
 // #region Startup Service
 import { StartupService } from '@core/startup/startup.service';
 import { AppConfig } from './app.config';
-import { ActionService } from '@core/service/action.service';
-import { IDataStrategy } from '@core/service/data-strategy/IDataStrategy';
-import { IndexedDbStrategyService } from '@core/service/data-strategy/IndexedDbStrategy.service';
+import { IDataStrategy } from 'app/libs/meta-ui/service/data-strategy/IDataStrategy';
+import { IndexedDbStrategyService } from 'app/libs/meta-ui/service/data-strategy/IndexedDbStrategy.service';
 import { HkApiController } from './projects/hk/hk.api.controller';
-import { CustomUrlService } from '@core/service/CustomUrl.service';
-import { OnlineStrategyService } from '@core/service/data-strategy/OnlineStrategy.service';
+import { CustomUrlService } from 'app/libs/meta-ui/service/CustomUrl.service';
+import { OnlineStrategyService } from 'app/libs/meta-ui/service/data-strategy/OnlineStrategy.service';
 import { DataStrategy } from './app.data-strategy';
 import { CallbackComponent } from './routes/callback/callback.component';
 import { MetaUiModule } from './libs/meta-ui/meta-ui.module';

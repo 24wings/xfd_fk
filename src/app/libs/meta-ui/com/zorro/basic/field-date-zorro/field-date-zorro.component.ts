@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ValidService } from '@core/service/validate.service';
-import { DateComSpec } from '@core/util/spec/field/date.comspec';
+import { ValidService } from 'app/libs/meta-ui/service/validate.service';
+import { DateComSpec } from '../../../../util/spec/field/date.comspec';
 
 @Component({
   selector: 'app-field-date',

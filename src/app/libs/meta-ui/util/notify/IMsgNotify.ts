@@ -1,10 +1,9 @@
-import { MsgTypeEnum } from "app/projects/hk/enum/MsgType.enum";
 
 export interface IMsgNotify {
     userId?: number;
     title?: string;
     content?: string;
-    msgType?: MsgTypeEnum;
+    // msgType?: MsgTypeEnum;
     getUserId?: () => number;
     getOrgId: () => number;
     getTitle(): string;

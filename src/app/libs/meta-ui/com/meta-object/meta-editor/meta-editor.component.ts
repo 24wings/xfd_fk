@@ -17,7 +17,6 @@ import { Timestamp } from 'app/libs/meta-ui/util/meta/types/Timestamp';
 import { QueryAttribute } from 'app/libs/meta-ui/util/stq/QueryAttribute';
 import { QueryCondition } from 'app/libs/meta-ui/util/stq/QueryCondition';
 import { QueryObject } from 'app/libs/meta-ui/util/stq/QueryObject';
-import { CustomUrlService } from 'app/libs/meta-ui/service/CustomUrl.service';
 import { BasicComspce } from 'app/libs/meta-ui/util/spec/field/basic.comspec';
 @Component({
     selector: 'meta-editor',
@@ -72,7 +71,6 @@ export class MetaEditorComponent extends BasicComspce<any> implements OnInit {
         public http: MyHttpService,
         public ref: ChangeDetectorRef,
         public dataStrategy: IDataStrategy,
-        public customUrl: CustomUrlService
     ) { super(validService) }
 
     changeSelectProp(value, prop) {
@@ -198,7 +196,7 @@ export class MetaEditorComponent extends BasicComspce<any> implements OnInit {
         this.isLoading = true;
         let createdData;
         if (this.metaCom.data.customUrl.create) {
-            createdData = await this.customUrl.Post(this.metaCom.data.customUrl.create, data);
+            createdData = await this.http.Post(this.metaCom.data.customUrl.create, data);
         } else {
             if (this.metaCom.isEntity) {
                 createdData = await this.dataStrategy.entityInsert(this.metaCom, data);
@@ -211,7 +209,7 @@ export class MetaEditorComponent extends BasicComspce<any> implements OnInit {
         this.newDataItem = new this.metaCom.originClass();
         this.isLoading = false;
         // await this.query();
-        this.mode = ModeEnum.Show;
+        // this.mode = ModeEnum.Show;
         this.onAction.emit(new CreateSuccessActionEvent())
     }
     afterCreateSuccess(data: any) {

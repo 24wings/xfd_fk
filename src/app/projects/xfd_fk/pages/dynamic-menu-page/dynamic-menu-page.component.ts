@@ -11,15 +11,11 @@ import { AppConfig } from 'app/app.config';
 import { getMetaEntity } from '../../../../libs/meta-ui/util/meta/MetaEntity';
 import { ModeEnum } from '../../../../libs/meta-ui/util/meta/Mode.enum';
 import { CustomActionEvent } from '../../../../libs/meta-ui/util/event/custom-action.event';
-import { Order } from 'app/projects/hk/entity/Order';
 import { EntityEnum } from 'app/entity.enum';
-import { MsgNotify } from 'app/projects/hk/meta/MsgNotify';
-import { MsgTypeEnum } from 'app/projects/hk/enum/MsgType.enum';
 import { loadBuiltInMenus } from '../../bulit-in/app.menu';
 import { XFD_FKDbName } from '../..';
 import { Rules } from '../../../../libs/meta-ui/util/regexp';
 import { Member } from '../../entity/Member';
-import { XfdFkController } from '../../xfd_fk.controller';
 import { MemberStatusEnum } from '../../enums/MemberStatus.enum';
 import { MetaObjectComponent } from 'app/libs/meta-ui/com/meta-object/meta-object.component';
 import { getMetaNotify } from 'app/libs/meta-ui/util/meta/IMetaNotify';
@@ -67,7 +63,6 @@ export class DynamicMenuPageComponent implements OnInit {
     public appConfig: AppConfig,
     private dataStrategy: IDataStrategy,
     private myHttp: MyHttpService,
-    private xfdService: XfdFkController,
     private msgService: NzMessageService
   ) {
 
@@ -145,7 +140,7 @@ export class DynamicMenuPageComponent implements OnInit {
       nzTitle: '确认重置用户<span style="color:red">' + member.name + '</span>的金额吗?',
       nzContent: '<b>请检查数据</b>',
       nzOnOk: async () => {
-        await this.xfdService.Post('/xfd_fk/reset', $event.data[0], { params: { actorName: this.store.trueUser.userName } });
+        await this.myHttp.Post('/xfd_fk/reset', $event.data[0], { params: { actorName: this.store.trueUser.userName } });
         await this.metaObjectComponent.query({});
       }
     });
@@ -155,28 +150,11 @@ export class DynamicMenuPageComponent implements OnInit {
     this.modalService.confirm({
       nzTitle: '<i>确认禁用卡吗?</i>',
       nzContent: '<b>请检查数据</b>',
-      nzOnOk: () => this.xfdService.Post(XfdFkController.api.disabledCard, $event.data[0], { params: { actorName: this.store.trueUser.userName } })
+      nzOnOk: () => this.myHttp.Post("/xfd_fk/disabledCard", $event.data[0], { params: { actorName: this.store.trueUser.userName } })
     });
   }
-  selectedOrder: Order;
-  createNotify() {
-    this.commonService.entityInsert(EntityEnum.MsgNotify, Object.assign(new MsgNotify(), {
-      orgId: 2,
-      userId: null,// 发给app用户,为空时不限制Customer
-      msgType: MsgTypeEnum.Task,// 消息类型
-      title: "订单通知",// 消息摘要
-      content: this.radioValue,// 消息内容
-      addition: JSON.stringify({ id: this.selectedOrder.id, }),// 附加内容
-      createTime: new Date(),// 创建时间
-      creatorId: this.store.trueUser.id,// 创建人Id
-      creator: this.store.trueUser.name,// 创建人姓名
-      isRead: false,
-      isJPush: false,
-      isWebpush: true,
-      viewName: "order-notify-task"
-    } as MsgNotify));
 
-  }
+
   /***充值会员 */
   createCustomButtonModal($event: { action: { checkPower: number }, data: any[], metaObject: MetaCom }) {
     this.chargeMember = $event.data[0];
@@ -199,7 +177,8 @@ export class DynamicMenuPageComponent implements OnInit {
         nzOnOk: () => null
       });
     }
-    await this.xfdService.Post(XfdFkController.api.recharge, this.chargeMember, { params: { amount: this.chargeAmount, actorName: this.store.trueUser.userName } });
+
+    await this.myHttp.Post('/xfd_fk/recharge', this.chargeMember, { params: { amount: this.chargeAmount, actorName: this.store.trueUser.userName } });
     await this.metaObjectComponent.query({});
   }
   async chargeAll() {
@@ -207,7 +186,7 @@ export class DynamicMenuPageComponent implements OnInit {
       nzTitle: '确认全员充值?',
       nzContent: '全员充值将会将所有人的金额重置到会员分组的金额',
       nzOnOk: async () => {
-        await this.xfdService.Post(XfdFkController.api.rechargeAll, {}, { params: { amount: this.chargeAllAmount, actorName: this.store.trueUser.userName } });
+        await this.myHttp.Post('/xfd_fk/recharge-all', {}, { params: { amount: this.chargeAllAmount, actorName: this.store.trueUser.userName } });
         await this.metaObjectComponent.query();
       }
     });

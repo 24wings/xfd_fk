@@ -16,6 +16,7 @@ import { QueryParam } from '../../../../util/stq/QueryParameter';
   styleUrls: ['./field-ref-tree-zorro.component.css']
 })
 export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnInit {
+  placeholder: string = '';
   __dataSet__: any[] = [];
   alias: string;
   @Output() onAction = new EventEmitter();
@@ -26,7 +27,7 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
         // 去掉集合中重复的id
         let notExist = dataSet.filter(item => !this.dataSet.some(exist => this.getTreeId(exist) == this.getTreeId(item)));
         this.__dataSet__ = this.__dataSet__.concat(...notExist);
-        // console.error('erro', notExist, this.dataSet);
+        this.getDefaultUpdateValue(this.value);
       } else {
         this.__dataSet__ = dataSet;
       }
@@ -44,13 +45,15 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
           this.alias = (Object.assign(new this.field.config.databaseType(), selectedValue) as AbstractTree<any>).getText();
         }
       }
-      // else {
-      // if (this.mode == ModeEnum.Create) {
-      // dataSet[0].checked = true;
-      // }
-      // this.parseTree();
-      // }
 
+    }
+    if (this.value && this.mode == ModeEnum.Update) {
+      this.getDefaultUpdateValue(this.value);
+      if (typeof this.value == 'string') {
+        this.value = parseInt(this.value);
+      } else {
+
+      }
     }
 
   }
@@ -64,6 +67,8 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
   checkedIds: string[] = [];
   checkedId: string;
   @Input() set value(val: any) {
+    if (typeof val == 'string') val = parseInt(val);
+    // if (!val) { alert('no value aaa') }
     let result = this.validService.valid(val, this.field.valid);
     if (result.ok) {
       this.validStatus = ValidStatusEnum.success;
@@ -72,9 +77,22 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
       this.validStatus = ValidStatusEnum.error;
       this.errMsg = result.msg;
     }
-    this.__value__ = val + '';
+    this.__value__ = val;
 
 
+  }
+  /** 获取默认的更新值 */
+  getDefaultUpdateValue(val) {
+    let pk = this.metaCom.metaFields.find(field => field.isPk);
+    let dataItem = this.dataSet.find(item => item[pk.fieldName] == this.value);
+    if (!this.value) {
+      alert('no value')
+    }
+    if (dataItem) {
+      this.placeholder = Object.assign(new this.field.metaObject.originClass(), dataItem).getText();
+      // alert('dataItem')
+      // dataItem.checked = true;
+    }
   }
   get value() {
     return this.__value__ + '';
@@ -101,8 +119,11 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
     let nodes = listToNzTreeNode(items);
     this.nodes = nodes;
   }
-
+  getTypeof(val) {
+    return typeof val;
+  }
   async ngOnInit() {
+    // setInterval(() => console.warn(this.value), 20000);
     if (this.mode != ModeEnum.Show) {
       await this.query();
       console.log(this.dataSet);
@@ -127,6 +148,23 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
         this.queryOne(this.value);
       }
     }
+    if (this.mode == ModeEnum.Update) {
+      // if (!this.value) alert('error no value')
+      let pk = this.field.metaObject.metaFields.find(field => field.isPk);
+      let param = new QueryParam();
+
+      param.queryConditions = [{ field: pk.fieldName, value: this.value, andOr: "and", compare: "=" }];
+      let dataItem = this.dataSet.find(item => item[pk.fieldName] == this.value);
+
+      if (dataItem) {
+        // alert('dataItem')
+        // dataItem.checked = true;
+      }
+      return this.onQuery.emit({ metaCom: this.metaCom, queryParam: param, field: this.field, page: 0, pageSize: 1000 })
+
+    }
+
+
 
   }
   async select($event: { node: NzTreeNode }) {
@@ -196,5 +234,12 @@ export class FieldRefTreeZorroComponent extends RefTableComSpec implements OnIni
     return (Object.assign(new this.metaCom.originClass(), item) as AbstractTree<any>).getId();
   }
 
-
+  add() {
+    if (typeof this.value == 'string') this.value = parseInt(this.value) + 1;
+    // this.value = this.value + '';
+  }
+  min() {
+    if (typeof this.value == 'string') this.value = parseInt(this.value) - 1;
+    // this.value = this.value + '';
+  }
 }

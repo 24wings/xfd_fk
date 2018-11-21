@@ -20,7 +20,7 @@ export class IcCardReaderComponent extends StringComSpec implements OnInit {
     let baseUrl = "http://localhost:8000/GetICNO";
     return new Promise(resolve => this.httpClient.get(baseUrl).toPromise().then(rtn => {
       if (rtn['ICNO']) {
-        resolve(rtn['ICNO'])
+        resolve(rtn['ICNO']);
       } else {
         this.msg.error("找不到卡号")
       }

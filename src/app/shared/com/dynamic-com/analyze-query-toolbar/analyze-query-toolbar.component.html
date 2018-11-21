@@ -1,5 +1,8 @@
 <div style="margin-top:80px;">
     <nz-range-picker [nzFormat]="dateFormat" style="margin-right:40px" [(ngModel)]="dateRange" nzShowTime></nz-range-picker>
+    <nz-select style="width: 200px;margin-right:20px" [(ngModel)]="selectedGroup" nzShowSearch>
+        <nz-option *ngFor="let option of groupsOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+    </nz-select>
 
     <button nz-button nzType="primary" (click)="query()">查询</button>
 </div>

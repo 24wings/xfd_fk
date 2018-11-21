@@ -18,10 +18,10 @@ import { LoginPageComponent } from './login-page/login-page.component';
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent, data: { title: "系统登陆" } },
-  {
-    path: 'hk',
-    loadChildren: 'app/projects/hk/hk.module#HkModule'
-  },
+  // {
+  // path: 'hk',
+  // loadChildren: 'app/projects/hk/hk.module#HkModule'
+  // },
   {
     path: 'dev',
     loadChildren: 'app/projects/dev/dev.module#DevModule'
@@ -30,7 +30,7 @@ const routes: Routes = [
     path: 'xfd_fk',
     loadChildren: 'app/projects/xfd_fk/xfd_fk.module#XFDFKModule'
   },
-
+ 
   // passport
   // 单页不包裹Layout 
   {

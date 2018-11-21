@@ -18,9 +18,8 @@
     </div>
     <div style="margin-bottom:20px">
         <button nz-button (click)="query()" nzType="primary" *ngIf="queryFields.length<1&&!metaObject.view.dynamicQueryToolbar">刷新</button>
-        <button nz-button (click)="state=ModeEnum.Create" *ngIf="isAdd">添加</button>
+        <button nz-button (click)="state=ModeEnum.Create;showCreateModal()" *ngIf="isAdd">添加</button>
         <button nz-button [nzType]="isCheckOne?'primary':'default'" [disabled]="!isCheckOne" (click)="edit()" *ngIf="isUpdate">编辑</button>
-        <!-- <button nz-button [disabled]="isNoneCheck" nzType="danger" nz-popconfirm [nzTitle]="warningDiv" *ngIf="isDel" (nzOnConfirm)="del()">删除</button> -->
         <button nz-button [disabled]="isNoneCheck" nzType="danger" *ngIf="isDel" (click)="showDeleteConfirm()">删除</button>
         <ng-container *ngFor="let action of metaObject.view.toolbar">
             <button nz-button *ngIf="checkActionPower(action.checkPower)" (click)="doCustomAction(action)" [disabled]="checkActionDisabled(action)">{{action.label}}</button>

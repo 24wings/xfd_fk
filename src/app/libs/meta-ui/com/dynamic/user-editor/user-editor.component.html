@@ -1,0 +1,28 @@
+<ng-container *ngIf="mode==ModeEnum.Create">
+    <app-field-dynamic [dataSet]="dataSet" [field]="getField('name')" [value]="newDataItem.name" [metaCom]="metaCom" (valueChange)="changeProp($event,'name')" [mode]="mode"></app-field-dynamic>
+    <app-field-dynamic [dataSet]="dataSet" [field]="getField('userName')" [value]="newDataItem.userName" [metaCom]="metaCom" (valueChange)="changeProp($event,'userName')" [mode]="mode"></app-field-dynamic>
+    <app-field-dynamic [dataSet]="dataSet" [field]="getField('password')" [value]="newDataItem.password" [metaCom]="metaCom" (valueChange)="changeProp($event,'password')" [mode]="mode"></app-field-dynamic>
+    <app-field-dynamic [dataSet]="dataSet" [field]="getField('orgId')" [value]="newDataItem.orgId" (valueChange)="changeProp($event,'orgId')" [metaCom]="metaCom" [mode]="mode"></app-field-dynamic>
+    <app-field-dynamic [dataSet]="dataSet" [field]="getField('roleIds')" [value]="newDataItem.roleIds" (valueChange)="changeProp($event,'roleIds')" [metaCom]="metaCom" [mode]="mode"></app-field-dynamic>
+    <div style="display: flex;text-align: center;margin-top:40px;">
+        <div style="flex:1" *ngFor="let action of currentCreateState.actions">
+            <button nz-button [nzType]="action.nzType" (click)="createFlowTo(action)">{{action.label}}</button>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="mode==ModeEnum.Update">
+    <app-field-dynamic [dataSet]="dataSet" [field]="getField('name')" [value]="selectedData.name" [metaCom]="metaCom" (valueChange)="changeSelectProp($event,'name')" [mode]="ModeEnum.Update"></app-field-dynamic>
+    <app-field-dynamic [dataSet]="dataSet" [field]="getField('userName')" [value]="selectedData.userName" [metaCom]="metaCom" (valueChange)="changeSelectProp($event,'userName')" [mode]="ModeEnum.Update"></app-field-dynamic>
+    <app-field-dynamic [dataSet]="dataSet" [field]="getField('password')" [value]="selectedData.password" [metaCom]="metaCom" (valueChange)="changeSelectProp($event,'password')" [mode]="ModeEnum.Update"></app-field-dynamic>
+    <app-field-dynamic [dataSet]="dataSet" [field]="getField('orgId')" [value]="selectedData.orgId" (valueChange)="changeSelectProp($event,'orgId')" [metaCom]="metaCom" [mode]="ModeEnum.Update"></app-field-dynamic>
+    <app-field-dynamic [dataSet]="dataSet" [field]="getField('roleIds')" [value]="selectedData.roleIds" (valueChange)="changeSelectProp($event,'roleIds')" [metaCom]="metaCom" [mode]="ModeEnum.Update"></app-field-dynamic>
+    <div style="display: flex;text-align: center;margin-top:40px;">
+        <div style="flex:1">
+            <button nz-button [nzType]="'default'" (click)="updateCancel()">取消</button>
+        </div>
+        <div style="flex:1">
+            <button nz-button [nzType]="'primary'" (click)="update()">提交</button>
+        </div>
+    </div>
+</ng-container>

@@ -39,12 +39,12 @@ import { StorageService } from './service/storage.service';
 import { MyHttpService } from './service/http.service';
 import { UserService } from './service/user.service';
 import { ValidService } from './service/validate.service';
-import { CustomUrlService } from './service/CustomUrl.service';
 import { DynamicLinkPageComponent } from './page/dynamic-link-page/dynamic-link-page.component';
 import { IcCardReaderComponent } from './com/zorro/basic/ic-card-reader/ic-card-reader.component';
 import { IDataStrategy } from './service/data-strategy/IDataStrategy';
 import { OnlineStrategyService } from './service/data-strategy/OnlineStrategy.service';
 import { IndexedDbStrategyService } from './service/data-strategy/IndexedDbStrategy.service';
+import { UserEditorComponent } from './com/dynamic/user-editor/user-editor.component';
 
 const Directives: any[] = [EditorDirective, DynamicDirective, EnumPipe]
 export const CommonProviders: any[] = [
@@ -56,7 +56,6 @@ export const CommonProviders: any[] = [
     MyHttpService,
     UserService,
     ValidService,
-    CustomUrlService,
     { provide: IDataStrategy, useClass: OnlineStrategyService },
     OnlineStrategyService,
     IndexedDbStrategyService
@@ -83,6 +82,7 @@ const Components: any[] = [
     FieldRefSelectZorroComponent,
     IcCardReaderComponent,
     MetaEditorComponent,
+    UserEditorComponent
 ];
 
 @NgModule({

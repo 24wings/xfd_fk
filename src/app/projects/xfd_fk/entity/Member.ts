@@ -39,7 +39,7 @@ import { IcCardReaderComponent } from "app/libs/meta-ui/com/zorro/basic/ic-card-
     { label: "透支会员", multi: true, eventName: "fee-member", alawysDisplay: true },
     { label: "全部会员", multi: true, eventName: "all-member", alawysDisplay: true },
 ])
-@MetaEntity({ objectCode: EntityEnum.XfdFkMember, objectName: "新发地会员" })
+@MetaEntity({ objectCode: EntityEnum.XfdFkMember, objectName: "新发地会员", view: { pageSize: 10 } })
 export class Member {
     @ID()
     @Prop("id", { power: 0, readonly: true })
@@ -59,8 +59,21 @@ export class Member {
     @Check(false)
     /**饭卡 */
     @DynamicFieldComponent(IcCardReaderComponent)
+    // @Prop("会员卡号", { power: C | U })
+    // set __mealCardNo__(mealCardNo: { ICNO: string, ICSN: string }) {
+    //     if (typeof mealCardNo == 'object') {
+    //         this.mealCardNo = mealCardNo.ICNO;
+    //         this.ICSN = mealCardNo.ICSN;
+    //         console.log(mealCardNo);
+    //     }
+    // }
+    // get __mealCardNo__() {
+    //     return this.mealCardNo as any;
+    // }
     @Prop("会员卡号")
     mealCardNo: string;
+    // @Prop("物理卡号", { power: 0 })
+    // ICSN: string;
     @SelectOne(getAlias(MemberStatusEnum))
     @Prop("会员状态", { power: S | U })
     memberStatus: MemberStatusEnum = MemberStatusEnum.Enable
@@ -76,4 +89,7 @@ export class Member {
     @Check(false)
     @Prop("备注")
     remark: string;
+    recharge?: number;
+    money?: number;
+
 }

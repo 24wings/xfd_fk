@@ -6,8 +6,8 @@ import { CommonService } from 'app/libs/meta-ui/service/common.service';
 import { StorageService } from 'app/libs/meta-ui/service/storage.service';
 import { Router } from '@angular/router';
 import { EntityEnum } from '../../../../entity.enum';
-import { MsgNotify } from 'app/projects/hk/entity/MsgNotify';
-import { MsgTypeEnum } from 'app/projects/hk/enum/MsgType.enum';
+// import { MsgNotify } from 'app/projects/hk/entity/MsgNotify';
+// import { MsgTypeEnum } from 'app/projects/hk/enum/MsgType.enum';
 import { QueryParam } from 'app/libs/meta-ui/util/stq/QueryParameter';
 import { QueryObject } from 'app/libs/meta-ui/util/stq/QueryObject';
 
@@ -108,25 +108,25 @@ export class HeaderNotifyComponent {
     param.queryConditions = condtions;
     let msgs = await this.commonService.singleTableQueryPageParameter(EntityEnum.MsgNotify, param);
 
-    let data = msgs.paging.rows.map((msg: MsgNotify) => {
-      let notifyData: NoticeIconList = { title: msg.title, id: msg.id, datetime: msg.createTime as any };
-      if (msg.msgType == MsgTypeEnum[MsgTypeEnum.Notify] as any) {
-        notifyData.type = "通知";
-        notifyData.avatar = 'https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png';
-      } else if (msg.msgType == MsgTypeEnum[MsgTypeEnum.Task] as any) {
-        notifyData.type = "待办";
-        notifyData.description = msg.content;
-        notifyData.extra = "待审核";
-      }
-      notifyData.viewName = msg.viewName;
-      notifyData.dataId = JSON.parse(msg.addition).id;
-      return notifyData;
-    })
-    console.log(msgs);
-    setTimeout(() => {
-      this.data = this.updateNoticeData(data);
-      this.loading = false;
-    }, 1000);
+    // let data = msgs.paging.rows.map((msg: MsgNotify) => {
+    //   let notifyData: NoticeIconList = { title: msg.title, id: msg.id, datetime: msg.createTime as any };
+    //   if (msg.msgType == MsgTypeEnum[MsgTypeEnum.Notify] as any) {
+    //     notifyData.type = "通知";
+    //     notifyData.avatar = 'https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png';
+    //   } else if (msg.msgType == MsgTypeEnum[MsgTypeEnum.Task] as any) {
+    //     notifyData.type = "待办";
+    //     notifyData.description = msg.content;
+    //     notifyData.extra = "待审核";
+    //   }
+    //   notifyData.viewName = msg.viewName;
+    //   notifyData.dataId = JSON.parse(msg.addition).id;
+    //   return notifyData;
+    // })
+    // console.log(msgs);
+    // setTimeout(() => {
+    //   this.data = this.updateNoticeData(data);
+    //   this.loading = false;
+    // }, 1000);
   }
 
   clear(type: string) {

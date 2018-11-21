@@ -88,6 +88,7 @@ export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IM
     viewContainerRef.clear();
     this.componentRef = viewContainerRef.createComponent(componentFactory) as any;
     this.componentRef.instance.queryResult.subscribe(rtn => {
+      // alert(rtn.count)
       this.rows = rtn.rows; this.total = rtn.count; this.totalSummary = rtn.summary
     });
 
@@ -95,11 +96,16 @@ export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IM
     this.componentRef.instance.metaCom = this.metaObject;
   }
   loadDynamicEditorComponent() {
+    if (this.dynamicEditorRef) {
+      this.dynamicEditorRef.destroy();
+    }
     let componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.metaObject.dynamicEditor as any);
     let viewContainerRef = this.dynamicEditor.viewContainerRef;
     viewContainerRef.clear();
     this.dynamicEditorRef = viewContainerRef.createComponent(componentFactory) as any;
-    this.dynamicEditorRef.instance.mode = ModeEnum.Create;
+    this.dynamicEditorRef.instance.onAction.subscribe(rt => this.doAction(rt))
+    this.dynamicEditorRef.instance.mode = this.state;
+    this.dynamicEditorRef.instance.ModeEnum = ModeEnum;
     this.dynamicEditorRef.instance.metaCom = this.metaObject;
     // this.dynamicEditorRef.instance.requiredFields = this.metaObject;
   }
@@ -128,7 +134,6 @@ export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IM
       this.loadDynamicToolbarComponent()
     }
     if (this.metaObject.dynamicEditor) {
-      // alert('dynamic editor')
       this.loadDynamicEditorComponent()
     }
   }
@@ -215,9 +220,7 @@ export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IM
       this.dataSet.forEach(item => item.checked = false);
       data.checked = true;
     }
-    debugger;
   }
-  expand
   constructor(
     public appConfig: AppConfig,
     public dev: DevService,
@@ -274,18 +277,33 @@ export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IM
     this.refreshStatus();
   }
 
-  edit() {
+  async  edit() {
     let checkedDatas = this.rows.filter(item => item.checked);
     if (checkedDatas.length > 1 || checkedDatas.length == 0) {
       return this.msg.error('只能同时更新一条数据')
     }
     this.selectedData = checkedDatas[0];
     this.state = ModeEnum.Update;
+
+    if (this.dynamicEditorRef) {
+      await this.loadDynamicEditorComponent();
+
+      this.dynamicEditorRef.instance.selectedData = this.selectedData;
+    }
     debugger;
   }
-
+  showCreateModal() {
+    this.state = ModeEnum.Create;
+    this.loadDynamicEditorComponent();
+  }
   async  del() {
     let checkedDatas = this.rows.filter(item => item.checked);
+
+    if (this.metaObject.lifeCycle) {
+      if (this.metaObject.lifeCycle.beforeDelete) {
+        this.metaObject.lifeCycle.beforeDelete(checkedDatas)
+      }
+    }
     for (let item of checkedDatas) {
       if (this.metaObject.isEntity) {
         delete item.children;
@@ -307,16 +325,11 @@ export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IM
   }
   doAction($event) {
     this.onAction.emit($event);
-    debugger;
     if ($event instanceof CheckOneDataAction) {
       let tree: AbstractTree<any> = Object.assign(new this.metaObject.originClass(), $event.data);
       tree.checked = true;
       this.rows.forEach(row => row.checked = false);
-
       this.rows.push(tree);
-      // let checkedData = this.rows[0](row => (Object.assign(new this.metaObject.originClass(), row) as AbstractTree<any>).getId() == tree.getId());
-      // this.rows.forEach(row => row.checked = false);
-      // if (checkedData) checkedData.checked = $event.checked;
       if (this.groupOptions) {
         let groups = this.groupBy(this.rows, (item) => item[this.groupOptions.fields[0].fieldName]);
         console.log(groups);
@@ -330,7 +343,7 @@ export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IM
     }
     if ($event instanceof UpdateCancelActionEvent) {
       this.state = ModeEnum.Show;
-      this.query()
+      // this.query()
     }
     if ($event instanceof UpdateSuccessActionEvent) {
       this.state = ModeEnum.Show;
@@ -366,7 +379,6 @@ export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IM
     let conditions: QueryCondition[] = [];
     // 预设条件
     if (typeof q == 'object') conditions.push(...QueryObject.toQueryContions(q));
-    // let preset = QueryObject.toQueryContions(queryObject);
     if (this.metaObject.data && !q)
       if (this.metaObject.data.presetConditions) {
 

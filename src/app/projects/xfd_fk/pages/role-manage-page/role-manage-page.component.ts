@@ -13,8 +13,8 @@ import { MetaObjectComponent } from 'app/libs/meta-ui/com/meta-object/meta-objec
 })
 export class RoleManagePageComponent implements OnInit {
   power: number = C | U | D;
-  orgMetaCom: MetaCom = getMetaEntity(OrgManage);
-  roleMetaCom = getMetaEntity(RoleManage);
+  orgMetaCom: MetaCom = Object.create(getMetaEntity(OrgManage));
+  roleMetaCom = Object.create(getMetaEntity(RoleManage));
   @ViewChild('roleMetaObjectComponent') roleMetaObjectComponent: MetaObjectComponent;
   constructor() { }
 

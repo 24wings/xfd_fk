@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { City } from 'app/projects/hk/entity/City';
+// import { City } from 'app/projects/hk/entity/City';
 import { CustomQueryToolbarComSpec } from 'app/libs/meta-ui/util/spec/custom/custom-query-toolbar';
 // import { CommonService } from '@core/service/common.service';
 // import { EntityEnum } from '../../../../entity.enum';
@@ -10,7 +10,7 @@ import { CustomQueryToolbarComSpec } from 'app/libs/meta-ui/util/spec/custom/cus
   styleUrls: ['./prod-query.component.css']
 })
 export class ProdQueryComponent extends CustomQueryToolbarComSpec implements OnInit {
-  citys: City[] = [];
+  citys: any[] = [];
   fromCity: string;
   toCity: string;
   fromDate: Date;

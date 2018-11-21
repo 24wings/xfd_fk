@@ -3,21 +3,15 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { RouterModule } from '@angular/router';
-import { DynamicMenuPageComponent } from './pages/dynamic-menu-page/dynamic-menu-page.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { LayoutDefaultComponent } from 'app/layout/default/default.component';
-import { SyncDataRegisterFactory } from 'app/SyncDataRegisterFactory';
-import { XFD_FKDbName } from '.';
-import Dexie from 'dexie';
 // import { MetaCom } from '@core/util/meta/MetaCom';
-import { MenuMetaCom } from './bulit-in/app.menu';
-import { XfdFkController } from './xfd_fk.controller';
 import { Provider } from '@angular/compiler/src/core';
-import { CustomUrlService } from 'app/libs/meta-ui/service/CustomUrl.service';
 import { RoleManagePageComponent } from './pages/role-manage-page/role-manage-page.component';
 import { UserManagePageComponent } from './pages/user-manage-page/user-manage-page.component';
 import { UserInfoPageComponent } from './pages/user-info-page/user-info-page.component';
 import { MetaUiModule } from 'app/libs/meta-ui/meta-ui.module';
+import { DynamicMenuPageComponent } from './pages/dynamic-menu-page/dynamic-menu-page.component';
 // let data = SyncDataRegisterFactory.exportSyncDatas();
 // // 先拿出菜单,建立本地数据库;   
 // let menus = SyncDataRegisterFactory.exportSyncMenu();
@@ -58,7 +52,7 @@ import { MetaUiModule } from 'app/libs/meta-ui/meta-ui.module';
 // });
 
 
-const CommonProverders: Provider[] = [XfdFkController, { provide: CustomUrlService, useClass: XfdFkController }];
+const CommonProverders: Provider[] = [];
 const CommonComponents: any[] = [
     UserInfoPageComponent,
     UserManagePageComponent,

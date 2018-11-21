@@ -1,13 +1,12 @@
 import { MetaCom } from "./MetaCom";
 import { metaKey } from "./MetaEntity";
 import { ModeEnum } from "./Mode.enum";
-import { MsgTypeEnum } from "app/projects/hk/enum/MsgType.enum";
 
 export interface IMetaNotify {
     viewName: string;
     isJPush?: boolean;
     isWebpush?: boolean;
-    msgType: MsgTypeEnum;
+    // msgType: MsgTypeEnum;
 }
 
 export function MetaNotify(notify: IMetaNotify) {

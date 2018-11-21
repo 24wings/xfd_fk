@@ -49,7 +49,8 @@ export class FieldRefTreeManyZorroComponent extends RefTableComSpec implements O
       this.validStatus = ValidStatusEnum.error;
       this.errMsg = result.msg;
     }
-    this.parseCheckedTree();
+    // if (this.mode == ModeEnum.Update)
+    // this.parseCheckedTree();
     if (this.mode == ModeEnum.Update) {
       console.log(rows, '========================')
       if (Array.isArray(rows)) {
@@ -84,7 +85,7 @@ export class FieldRefTreeManyZorroComponent extends RefTableComSpec implements O
     } else {
       this.nodes = listToNzTreeNodeMany(this.__dataSet__.map(item => {
         let data = Object.assign(new this.metaCom.view.treeClass(), item);
-        data.checked = !!this.value.find(id => id == data.getId());
+        data.checked = Array.isArray(this.value) ? !!this.value.find(id => id == data.getId()) : false;
         data.disabled = this.mode == ModeEnum.Show;
         return data;
       }));

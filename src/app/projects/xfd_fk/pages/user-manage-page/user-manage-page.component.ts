@@ -14,8 +14,8 @@ import { MetaObjectComponent } from 'app/libs/meta-ui/com/meta-object/meta-objec
 export class UserManagePageComponent implements OnInit {
 
   power: number = C | U | D;
-  orgMetaCom: MetaCom = getMetaEntity(OrgManage);
-  userMetaCom = getMetaEntity(UserManage);
+  orgMetaCom: MetaCom = Object.create(getMetaEntity(OrgManage));
+  userMetaCom = Object.create(getMetaEntity(UserManage));
   @ViewChild('userMetaObjectComponent') userMetaObjectComponent: MetaObjectComponent;
   constructor() { }
 
@@ -23,6 +23,7 @@ export class UserManagePageComponent implements OnInit {
   }
   doAction($event) {
     console.log($event);
-    this.userMetaObjectComponent.query({ orgId: $event.data.orgId })
+    this.userMetaCom.data.presetConditions = [{ field: "orgId", value: $event.data.orgId, andOr: "and", compare: "=" }]
+    this.userMetaObjectComponent.query()
   }
 }

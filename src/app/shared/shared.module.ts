@@ -18,7 +18,6 @@ import { EnumPipe } from './pipe/enum.pipe';
 import { DemoStringComponent } from '@shared/com/dynamic-com/demo-string/demo-string.component';
 import { FieldJsonComponent } from '@shared/com/dynamic-com/field-json/field-json.component';
 import { ProdQueryComponent } from './com/dynamic-com/prod-query/prod-query.component';
-import { MyOrderQueryToolbarComponent } from '@shared/com/dynamic-com/my-order-query-toolbar/my-order-query-toolbar.component';
 import { OrderQueryComponent } from './com/dynamic-com/order-query/order-query.component';
 import { MemberQueryComponent } from './com/dynamic-com/member-query/member-query.component';
 import { AnalyzeQueryToolbarComponent } from './com/dynamic-com/analyze-query-toolbar/analyze-query-toolbar.component';
@@ -40,7 +39,6 @@ const COMPONENTS = [
 
   ProdQueryComponent,
 
-  MyOrderQueryToolbarComponent,
   OrderQueryComponent,
   MemberQueryComponent,
   AnalyzeQueryToolbarComponent,

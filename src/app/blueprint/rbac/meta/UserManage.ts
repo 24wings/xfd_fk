@@ -11,8 +11,15 @@ import { OneToMany } from "app/libs/meta-ui/util/meta/ref/OneToMany";
 import { User } from "../entity/User";
 import { Adapter } from "app/libs/meta-ui/util/meta/Adapter";
 import { Password } from "app/libs/meta-ui/util/meta/types/Password";
+import { UserEditorComponent } from "app/libs/meta-ui/com/dynamic/user-editor/user-editor.component";
+import { Lifecycle } from "app/libs/meta-ui/util/meta/Lifecycle";
 
+// @Lifecycle({beforeDelete:(item)=>{
+// if(item.)
+// return {ok:false,errMsg:"错误"};
+// }})
 @MetaEntity({
+    dynamicEditor: UserEditorComponent,
     objectName: "用户管理", objectCode: EntityEnum.User, firstLoad: false,
     data: { presetConditions: () => [{ value: JSON.parse(localStorage.getItem('employee')).orgId, compare: "=", andOr: "and", field: "orgId" }] }
 })

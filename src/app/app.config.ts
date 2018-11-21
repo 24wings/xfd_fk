@@ -5,9 +5,9 @@ import { BooleanComSpec } from 'app/libs/meta-ui/util/spec/field/boolean.comspec
 import { DateComSpec } from 'app/libs/meta-ui/util/spec/field/date.comspec';
 import { NumberComSpec } from 'app/libs/meta-ui/util/spec/field/number.comspec';
 import { SelectComSpec } from 'app/libs/meta-ui/util/spec/field/select.comspec';
-import { loadBuiltInMenus } from './projects/hk/built-in/app.menu';
-import { MemberRegisterNotify, MemberRegisterTask } from './projects/hk/notify/MemberRegisterNotify';
-import { OrderNotifyTask } from './projects/hk/notify/OrderNotify.task';
+// import { loadBuiltInMenus } from './projects/hk/built-in/app.menu';
+// import { MemberRegisterNotify, MemberRegisterTask } from './projects/hk/notify/MemberRegisterNotify';
+// import { OrderNotifyTask } from './projects/hk/notify/OrderNotify.task';
 
 type MsgNotifyClass = new () => IMsgNotify;
 export type ComponentType = typeof BasicComspce |
@@ -22,7 +22,7 @@ export type ComponentType = typeof BasicComspce |
 @Injectable()
 export class AppConfig {
     static loginUrl: string = "/hk"
-    public static TotalMenus = loadBuiltInMenus();
+    // public static TotalMenus = loadBuiltInMenus();
     /** 数据策略 */
     // static dataStrategy: new () => IDataStrategy = 
 
@@ -44,7 +44,9 @@ export class AppConfig {
     syncRole: boolean = true;
     syncOrg: boolean = true;
     syncUser: boolean = true;
-    registerMsgNotifyFactorys: MsgNotifyClass[] = [MemberRegisterNotify, MemberRegisterTask, OrderNotifyTask as any];
+    registerMsgNotifyFactorys: MsgNotifyClass[] = [
+        // MemberRegisterNotify, MemberRegisterTask, OrderNotifyTask as any
+    ];
     syncMetaQuery: boolean = true;
     syncNotifyMessgae: boolean = true;
     createMode: 'Drawer' | 'Modal' = 'Drawer';

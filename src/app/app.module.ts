@@ -66,9 +66,7 @@ const CommonProviders: Provider[] = [
   StorageService,
   ExcelService,
   ValidService,
-  HkApiController,
   { provide: IDataStrategy, useClass: DataStrategy },
-  { provide: CustomUrlService, useClass: CustomUrlService }
 ];
 
 const I18NSERVICE_PROVIDES = [
@@ -114,10 +112,6 @@ const INTERCEPTOR_PROVIDES = [
 import { StartupService } from '@core/startup/startup.service';
 import { AppConfig } from './app.config';
 import { IDataStrategy } from 'app/libs/meta-ui/service/data-strategy/IDataStrategy';
-import { IndexedDbStrategyService } from 'app/libs/meta-ui/service/data-strategy/IndexedDbStrategy.service';
-import { HkApiController } from './projects/hk/hk.api.controller';
-import { CustomUrlService } from 'app/libs/meta-ui/service/CustomUrl.service';
-import { OnlineStrategyService } from 'app/libs/meta-ui/service/data-strategy/OnlineStrategy.service';
 import { DataStrategy } from './app.data-strategy';
 import { CallbackComponent } from './routes/callback/callback.component';
 import { MetaUiModule } from './libs/meta-ui/meta-ui.module';

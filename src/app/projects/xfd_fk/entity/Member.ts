@@ -22,6 +22,7 @@ import { MemberGroup } from "./MemberGroup";
 // import { RefOne } from "app/libs/meta-ui/util/meta/ref/RefOne";
 import { Adapter } from "app/libs/meta-ui/util/meta/Adapter";
 import { IcCardReaderComponent } from "app/libs/meta-ui/com/zorro/basic/ic-card-reader/ic-card-reader.component";
+import { OrderBy } from "app/libs/meta-ui/util/meta/OrderBy";
 // import { FieldJsonComponent } from "@shared/com/dynamic-com/field-json/field-json.component";
 // import { DemoEditorComponent } from "@shared/com/dynamic-com/demo-editor/demo-editor.component";
 
@@ -45,6 +46,7 @@ export class Member {
     @Prop("id", { power: 0, readonly: true })
     id: number;
     // @Query()
+
     @Prop("会员编号", { power: S, readonly: true })
     code: string;
     @Check(Rules.regex.mobile)
@@ -55,6 +57,8 @@ export class Member {
     // @Group({ fields: [{ alias: "会员金额", fieldName: "monthMoney" }] })
     @Prop("剩余金额", { power: S })
     amount: number = 0;
+
+    @Prop("创建时间", { power: 0 })
     createTime: Date = new Date();
     @Check(false)
     /**饭卡 */
@@ -70,6 +74,7 @@ export class Member {
     // get __mealCardNo__() {
     //     return this.mealCardNo as any;
     // }
+    @OrderBy("DESC")
     @Prop("会员卡号")
     mealCardNo: string;
     // @Prop("物理卡号", { power: 0 })

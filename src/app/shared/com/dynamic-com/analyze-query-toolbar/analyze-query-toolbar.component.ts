@@ -34,7 +34,7 @@ export class AnalyzeQueryToolbarComponent extends CustomQueryToolbarComSpec impl
 
   async query(pageIndex = 0) {
     let param = new QueryParam();
-    param.pageParam = { pageIndex, pageSize: 10 };
+    param.pageParam = { pageIndex, pageSize: 100 };
     if (this.selectedGroup) {
       param.queryConditions.push({ field: "groupId", compare: "=", value: this.selectedGroup, andOr: "and" });
     }

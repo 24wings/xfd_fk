@@ -19,8 +19,8 @@ export class MemberQueryComponent extends CustomQueryToolbarComSpec implements O
   singleValue = '';
   groupsOptions: { label: string, value: number }[] = []
   async query(num?: number) {
-
     let queryparam = new QueryParam();
+    queryparam.orderList = [{ fieldName: 'mealCardNo', sort: 'DESC' }]
     if (num) {
       queryparam.pageParam = { pageIndex: num, pageSize: 10 };
     }

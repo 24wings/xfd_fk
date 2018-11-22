@@ -343,7 +343,7 @@ export class MetaObjectComponent extends BasicComspce<any> implements OnInit, IM
     }
     if ($event instanceof UpdateCancelActionEvent) {
       this.state = ModeEnum.Show;
-      // this.query()
+      this.query()
     }
     if ($event instanceof UpdateSuccessActionEvent) {
       this.state = ModeEnum.Show;

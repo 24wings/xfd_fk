@@ -10,7 +10,7 @@ import { AnalyzeQueryToolbarComponent } from "@shared/com/dynamic-com/analyze-qu
 import { Summary } from "app/libs/meta-ui/util/meta/Summary";
 
 @DynamicToolbar(AnalyzeQueryToolbarComponent)
-@MetaEntity({ objectCode: XfdFxEntityEnum.Member as any, objectName: "统计分析", firstLoad: false, view: { pageSize: 10 } })
+@MetaEntity({ objectCode: XfdFxEntityEnum.Member as any, objectName: "统计分析", firstLoad: false, view: { pageSize: 100 } })
 export class AnalyzeManage implements Table<Member>{
     @Prop("会员名称")
     name: string;
